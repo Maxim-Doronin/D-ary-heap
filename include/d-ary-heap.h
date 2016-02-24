@@ -1,7 +1,19 @@
+#include <iostream> 
 #include <algorithm>
 
 #define maxSize 1000
 typedef int dataType;
+
+class Data {
+public:
+	int priorities;
+}
+
+class DataValues : public Data {
+
+}
+
+
 
 class DAryHeap{
 protected:
@@ -12,12 +24,15 @@ public:
 	DAryHeap(int d);
 	~DAryHeap();
 
-	int add(dataType key);
-	int erase();
+	void add(dataType key);
+	dataType erase();
+	dataType erase(int i);
 
-	int transposition(int i, int j);
-	int surfacing(int i);
-	int immersion(int i);
+	void transposition(int i, int j);
+	void surfacing(int i);
+	void immersion(int i);
+
+	int spudding();
 
 private:
 	int minChild(int i);

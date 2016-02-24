@@ -12,53 +12,65 @@ DAryHeap::~DAryHeap()
 	delete [] keys;
 }
 
-int DAryHeap::add(dataType key)
+void DAryHeap::add(dataType key)
 {
 	if (size >= maxSize)
-		return 0;
+		throw "No memory";
 	keys[size] = key;
+	surfacing(size);
 	size++;
-	return 1;
 }
 
-int DAryHeap::erase()
+dataType DAryHeap::erase()
 {
 	if (!size)
-		return 0;
+		throw "Invalid index";
+	dataType key = keys[size - 1];
 	size--;
-	return 1;
+	return key;
 }
 
-int DAryHeap::transposition(int i, int j)
+dataType DAryHeap::erase(int i)
+{
+	if (!size)
+		throw "No data";
+	if ((i < 0)||(i >= size))
+		throw "Invalid index";
+
+	dataType key = keys[i];
+	transposition(i, size - 1);
+	size--;
+	immersion(i);
+	return key;
+}
+
+void DAryHeap::transposition(int i, int j)
 {
 	if ((i < 0)||(j < 0)||(i >= size)||(j >= size))
-		return 0;
+		throw "Invalid indexes";
 	dataType tmp = keys[i];
 	keys[i] = keys[j];
 	keys[j] = tmp;
-	return 1;
 }
-
-int DAryHeap::surfacing(int i)
+void DAryHeap::surfacing(int i)
 {
 	if ((i < 0)||(i >= size))
-		return 0;
+		throw "Invalid index";
 	
 	int p = (i - 1)/d;
 	while (i > 0) {
 		if (keys[p] < keys[i])
 			break;
-		this->transposition(p,i);
+		transposition(p,i);
 		i = p;
 		p = (i - 1)/d;
 	}
-	return 1;
 }
 
-int DAryHeap::immersion(int i)
+void DAryHeap::immersion(int i)
 {
 	if ((i < 0)||(i >= size))
-		return 0;
+		throw "Invalid index";
 
 	int c = minChild(i);
 	while ((c != -1)&&(keys[c] < keys[i])){
@@ -66,7 +78,12 @@ int DAryHeap::immersion(int i)
 		i = c;
 		c = minChild(i);
 	}
-	return 1;	
+}
+
+int DAryHeap::spudding()
+{
+	for (int i = size - 1; i >= 0; i--)
+		immersion(i);
 }
 
 int DAryHeap::minChild(int i)

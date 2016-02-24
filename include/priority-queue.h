@@ -1,11 +1,14 @@
 #pragma once
 #include "d-ary-heap.h"
 
-class PriorityQueue : protected DAryHeap {
+class PriorityQueue {
+private:
+	DAryHeap *heap;
 public:
-	PriorityQueue(int d):DAryHeap(d){};
-	virtual ~PriorityQueue(){};
+	PriorityQueue(int d);
+	~PriorityQueue();
 
 	void push(dataType key);
-	void pop(int i);
+	dataType pop(int i);
+	dataType popMin();
 };

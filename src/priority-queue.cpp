@@ -1,17 +1,26 @@
 #include "priority-queue.h"
 
-void PriorityQueue::push(dataType key)
+PriorityQueue::PriorityQueue(int d)
 {
-	if (!add(key))
-		return;
-	surfacing(size - 1);
+	heap = new DAryHeap(d);
 }
 
-void PriorityQueue::pop(int i)
+PriorityQueue::~PriorityQueue()
 {
-	if (!transposition(i, size - 1))
-		return;
-	if (!erase())
-		return;
-	immersion(i);
+	delete heap;
+}
+
+void PriorityQueue::push(dataType key)
+{
+	heap->add(key);
+}
+
+dataType PriorityQueue::pop(int i)
+{
+	return heap->erase(i);
+}
+
+dataType PriorityQueue::popMin()
+{
+	return heap->erase(0);
 }
