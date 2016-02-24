@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream> 
 #include <algorithm>
 
@@ -7,11 +8,11 @@ typedef int dataType;
 class Data {
 public:
 	int priorities;
-}
+};
 
 class DataValues : public Data {
 
-}
+};
 
 
 

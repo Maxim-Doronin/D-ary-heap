@@ -17,8 +17,8 @@ void DAryHeap::add(dataType key)
 	if (size >= maxSize)
 		throw "No memory";
 	keys[size] = key;
-	surfacing(size);
 	size++;
+	surfacing(size);
 }
 
 dataType DAryHeap::erase()
@@ -52,6 +52,7 @@ void DAryHeap::transposition(int i, int j)
 	keys[i] = keys[j];
 	keys[j] = tmp;
 }
+
 void DAryHeap::surfacing(int i)
 {
 	if ((i < 0)||(i >= size))
