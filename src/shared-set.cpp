@@ -39,6 +39,10 @@ void SharedSet::association(int i, int j)
 		throw "SharedSet: Invalid Indexes!";
 	if ((parent[i] == -1)||(parent[j] == -1))
 		throw "SharedSet: Empty set!";
+	if (parent[i] != i)
+		i = defineSet(i);
+	if (parent[j] != i)
+		j = defineSet(j);
 	if (height[i] > height[j])
 		parent[j] = i;
 	else if (height[i] < height[j])
