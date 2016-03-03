@@ -7,7 +7,7 @@ typedef int dataType;
 
 class Data {
 public:
-	int priorities;
+	float priorities;
 };
 
 class DataValues : public Data {
@@ -33,7 +33,7 @@ public:
 	void surfacing(int i);
 	void immersion(int i);
 
-	int spudding();
+	void spudding();
 
 private:
 	int minChild(int i);

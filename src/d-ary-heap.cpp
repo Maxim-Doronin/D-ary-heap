@@ -81,7 +81,7 @@ void DAryHeap::immersion(int i)
 	}
 }
 
-int DAryHeap::spudding()
+void DAryHeap::spudding()
 {
 	for (int i = size - 1; i >= 0; i--)
 		immersion(i);
