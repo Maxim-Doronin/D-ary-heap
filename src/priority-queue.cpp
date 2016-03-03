@@ -24,3 +24,14 @@ dataType PriorityQueue::popMin()
 {
 	return heap->erase(0);
 }
+
+int PriorityQueue::isFull()
+{
+	return heap->isFull();
+}
+
+int PriorityQueue::isEmpty()
+{
+	return heap->isEmpty();
+}
+

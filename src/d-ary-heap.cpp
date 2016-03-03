@@ -87,6 +87,16 @@ void DAryHeap::spudding()
 		immersion(i);
 }
 
+int DAryHeap::isFull()
+{
+	return size >= maxSize;
+}
+
+int DAryHeap::isEmpty()
+{
+	return size == 0;
+}
+
 int DAryHeap::minChild(int i)
 {
 	int f = i*d + 1;

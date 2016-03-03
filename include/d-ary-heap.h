@@ -35,6 +35,9 @@ public:
 
 	void spudding();
 
+	int isFull();
+	int isEmpty();
+
 private:
 	int minChild(int i);
 };
