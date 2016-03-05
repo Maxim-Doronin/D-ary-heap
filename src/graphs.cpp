@@ -7,6 +7,15 @@ Edge::Edge(int N, int K, float weight)
 	this->weight = weight;
 }
 
+Graph::Graph(int n)
+{
+	this->n = n;
+	this->m = n*(n-1)/2;
+	m_cur = 0;
+	vertices = new int[n];
+	edges = new Edge*[m];
+}
+
 Graph::Graph(int n, int m)
 {
 	this->n = n;
@@ -16,6 +25,13 @@ Graph::Graph(int n, int m)
 	vertices = new int[n];
 
 	edges = new Edge*[m];
+}
+
+Graph::~Graph()
+{
+	cleaner();
+	delete [] edges;
+	delete []vertices;
 }
 
 void Graph::generateVertices(int &N, int &K)
@@ -66,15 +82,6 @@ void Graph::generateGraph(float minRange, float maxRange)
 	}
 }
 
-void Graph::addVertexSet(int *vertices)
-{
-
-}
-
-void Graph::addVertex(int vertex)
-{
-}
-
 void Graph::addEdge(int N, int K, float weight)
 {
 	if (m_cur == m)
@@ -83,6 +90,16 @@ void Graph::addEdge(int N, int K, float weight)
 		throw "Loops are disabled";
 	edges[m_cur] = new Edge(N, K, weight);
 	m_cur++;
+}
+
+int Graph::getRealSize()
+{
+	return m_cur;
+}
+
+Edge** Graph::getEdgeSet()
+{
+	return edges;
 }
 
 void Graph::printList()
