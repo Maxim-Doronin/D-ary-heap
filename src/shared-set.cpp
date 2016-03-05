@@ -63,3 +63,13 @@ int SharedSet::defineSet(int i)
 		i = parent[i];
 	return i;
 }
+
+int SharedSet::getSetSize(int i)
+{
+	int count = 0;
+	int local_parent = defineSet(i);
+	for (int i = 0; i < n; i++)
+		if (parent[i] = local_parent)
+			count++;
+	return count;
+}
