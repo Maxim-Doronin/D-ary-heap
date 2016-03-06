@@ -9,7 +9,10 @@ Edge::Edge(int N, int K, float weight)
 
 Graph::Graph(int n)
 {
-	this->n = n;
+	if ((n < 0)||(n > 45))
+		throw "Graph: Invalid namber of vertices";
+	else
+		this->n = n;
 	this->m = n*(n-1)/2;
 	m_cur = 0;
 	vertices = new int[n];
@@ -18,12 +21,19 @@ Graph::Graph(int n)
 
 Graph::Graph(int n, int m)
 {
-	this->n = n;
-	this->m = m;
+	if ((n < 0)||(n > 45))
+		throw "Graph: Invalid namber of vertices";
+	else
+		this->n = n;
+
+	if ((m < 0)||(m > n*(n-1)/2))
+		throw "Graph: Invalid namber of edges";
+	else
+		this->m = m;
+	
 	m_cur = 0;
 
 	vertices = new int[n];
-
 	edges = new Edge*[m];
 }
 
@@ -70,8 +80,13 @@ void Graph::generateGraph(float minRange, float maxRange)
 	int K;
 	float weight;
 
-	if (!m_cur)
-		cleaner(); 
+	if (minRange > maxRange)
+		throw "Graph: Invalid ranges";
+
+	if (!m_cur){
+		cleaner();
+		m_cur = 0;
+	}
 
 	srand(time(NULL));
 	for (int i = 0; i < m; i++){
@@ -85,9 +100,9 @@ void Graph::generateGraph(float minRange, float maxRange)
 void Graph::addEdge(int N, int K, float weight)
 {
 	if (m_cur == m)
-		throw "Graph is full";
+		throw "Graph: Graph is full";
 	if (N == K)
-		throw "Loops are disabled";
+		throw "Graph: Loops are disabled";
 	edges[m_cur] = new Edge(N, K, weight);
 	m_cur++;
 }

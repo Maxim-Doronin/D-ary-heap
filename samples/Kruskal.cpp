@@ -19,6 +19,9 @@ int main(int argc, char **argv)
 
 	Graph *tree = Kruskal(graph, n, m);
 	tree->printList();
+
+	delete graph;
+	delete tree;
 }
 
 Graph* Kruskal(Graph *&graph, int n, int m)
@@ -39,7 +42,7 @@ Graph* Kruskal(Graph *&graph, int n, int m)
 	int treeEdgeSize = 0;
 	while ((treeEdgeSize < n-1)&&(!queue->isEmpty()))
 	{
-		Data* tmp = queue->popMin();
+		Data* tmp = queue->pop();
 		int N = ((DataValues*)tmp)->edge->N;
 		int K = ((DataValues*)tmp)->edge->K;
 		int weight = ((DataValues*)tmp)->edge->weight;
@@ -52,6 +55,12 @@ Graph* Kruskal(Graph *&graph, int n, int m)
 			treeEdgeSize++;
 		}
 	}
+
+	for (int i = 0; i < realM; i++)
+		delete data[i];
+	delete []data;
+	delete set;
+	delete queue;
 
 	return tree;	
 }

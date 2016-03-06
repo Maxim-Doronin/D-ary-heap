@@ -11,7 +11,7 @@ public:
 
 	void push(Data *&key);
 	Data* pop(int i);
-	Data* popMin();
+	Data* pop();
 
 	int isFull();
 	int isEmpty();

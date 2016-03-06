@@ -41,7 +41,7 @@ void DAryHeap::addSet(Data **key, int num)
 Data* DAryHeap::erase()
 {
 	if (isEmpty())
-		throw "DAryHeap: Invalid index";
+		throw "DAryHeap: No data!";
 	Data* key = keys[size - 1];
 	size--;
 	return key;
@@ -50,9 +50,9 @@ Data* DAryHeap::erase()
 Data* DAryHeap::erase(int i)
 {
 	if (isEmpty())
-		throw "DAryHeap: No data";
+		throw "DAryHeap: No data!";
 	if ((i < 0)||(i >= size))
-		throw "Invalid index";
+		throw "DAryHeap: Invalid index";
 
 	Data* key = keys[i];
 	transposition(i, size - 1);
