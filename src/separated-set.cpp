@@ -1,4 +1,4 @@
-#include "shared-set.h"
+#include "separated-set.h"
 
 SharedSet::SharedSet(int n)
 {

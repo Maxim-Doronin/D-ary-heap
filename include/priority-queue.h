@@ -5,10 +5,14 @@ class PriorityQueue {
 private:
 	DAryHeap *heap;
 public:
-	PriorityQueue(int d);
+	PriorityQueue(int d = 4);
+	PriorityQueue(Data **keys, int num, int d = 4);
 	~PriorityQueue();
 
-	void push(dataType key);
-	dataType pop(int i);
-	dataType popMin();
+	void push(Data *&key);
+	Data* pop(int i);
+	Data* pop();
+
+	int isFull();
+	int isEmpty();
 };

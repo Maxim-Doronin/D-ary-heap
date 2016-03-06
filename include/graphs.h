@@ -9,7 +9,6 @@ public:
 	int K;
 	float weight;
 
-	Edge(){};
 	Edge(int N, int K, float weight);
 };
 
@@ -21,13 +20,18 @@ private:
 	Edge** edges;
 	int* vertices;
 public:
+	Graph(int n);
 	Graph(int n, int m);
+	~Graph();
 
 	void generateGraph(float minRange, float maxRange);
-
-	void addVertexSet(int *vertices);
-	void addVertex(int vertex);
 	void addEdge(int N, int K, float weight);
+
+	int getVerticesNum();
+	int getEdgeSize();
+	int getRealSize();
+	Edge** getEdgeSet();
+	float getWeight(int N, int K);
 
 	void printList();
 
