@@ -11,13 +11,6 @@ public:
 	float priorities;
 };
 
-class DataValues : public Data {
-public:	
-	DataValues(Edge *edge);
-	Edge *edge;
-};
-
-
 class DAryHeap{
 protected:
 	Data **keys;

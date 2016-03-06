@@ -1,11 +1,5 @@
 #include "d-ary-heap.h"
 
-DataValues::DataValues(Edge *edge)
-{
-	this->edge = edge;
-	priorities = edge->weight;
-}
-
 DAryHeap::DAryHeap(int d)
 {
 	this->d = d;
@@ -36,6 +30,7 @@ void DAryHeap::addSet(Data **key, int num)
 		keys[i] = key[i - size];
 	}
 	size += num;
+	spudding();
 }
 
 Data* DAryHeap::erase()
@@ -87,7 +82,7 @@ void DAryHeap::surfacing(int i)
 
 void DAryHeap::immersion(int i)
 {
-	if ((i < 0)||(i >= size))
+	if ((i < 0)||(i > size))
 		throw "DAryHeap: Invalid index";
 
 	int c = minChild(i);

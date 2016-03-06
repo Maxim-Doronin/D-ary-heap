@@ -65,7 +65,7 @@ bool Graph::originalityCheck(int N, int K)
 
 float Graph::generateWeight(float minRange, float maxRange)
 {
-	return rand() % (int)(maxRange - minRange -1) + minRange + 1.0/(float)rand();	
+	return rand() % (int)(maxRange - minRange -1) + minRange;// + 1.0/(float)rand();	
 }
 
 void Graph::cleaner()
@@ -107,6 +107,16 @@ void Graph::addEdge(int N, int K, float weight)
 	m_cur++;
 }
 
+int Graph::getVerticesNum()
+{
+	return n;
+}
+
+int Graph::getEdgeSize()
+{
+	return m;
+}
+
 int Graph::getRealSize()
 {
 	return m_cur;
@@ -115,6 +125,17 @@ int Graph::getRealSize()
 Edge** Graph::getEdgeSet()
 {
 	return edges;
+}
+
+float Graph::getWeight(int N, int K)
+{
+	for (int j = 0; j < m_cur; j++)
+		if ((edges[j]->K == K) &&
+			(edges[j]->N == N) ||
+			(edges[j]->N == K) &&
+			(edges[j]->K == N))
+			return edges[j]->weight;
+	throw "Graph: Invalid edge!";
 }
 
 void Graph::printList()
@@ -126,9 +147,9 @@ void Graph::printList()
 		for (int j = 0; j < m_cur; j++)
 		{
 			if (edges[j]->N == i)
-				cout << edges[j]->K << ", ";
+				cout << edges[j]->K << '(' << edges[j]->weight<< ')'<< ", ";
 			if (edges[j]->K == i)
-				cout << edges[j]->N << ", ";
+				cout << edges[j]->N << '(' << edges[j]->weight<< ')'<< ", ";
 		}
 		cout << endl;
 	}
