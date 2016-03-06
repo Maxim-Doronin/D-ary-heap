@@ -33,3 +33,14 @@
 *.suo
 *.ilk
 *.pdb
+*.tlog
+*.log
+*.cache
+*.idb
+*.pdb
+*.lastbuildstate
+*.res
+*.manifest
+*.rc
+*.ipch
+*.opensdf
