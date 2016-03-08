@@ -107,6 +107,19 @@ void Graph::addEdge(int N, int K, float weight)
 	m_cur++;
 }
 
+void Graph::delEdge(int N, int K)
+{
+	for (int j = 0; j < m_cur; j++)
+		if ((edges[j]->K == K) &&
+			(edges[j]->N == N) ||
+			(edges[j]->N == K) &&
+			(edges[j]->K == N))
+		{
+			edges[j] = edges[m_cur - 1];
+			m_cur--;
+		}	
+}
+
 int Graph::getVerticesNum()
 {
 	return n;

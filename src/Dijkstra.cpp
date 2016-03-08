@@ -25,8 +25,7 @@ float* Dijkstra::dijkstra(Graph *&graph, int s)
 	PriorityQueue *queue = new PriorityQueue(dist, n, 4);
 
 	Edge** edges = graph->getEdgeSet();
-	int edgeCount = m;
-	while ((edgeCount != 0) && (!queue->isEmpty()))
+	while (!queue->isEmpty())
 	{
 		Data* tmp = queue->pop();
 		int v = ((DataFloat*)tmp)->v;
@@ -40,9 +39,9 @@ float* Dijkstra::dijkstra(Graph *&graph, int s)
 			if (edges[i]->N == v)
 				v0 = edges[i]->K;
 			if (v0 == -1) continue;
-			//edgeCount--;
 			delta = dist[v0]->priorities - (dist[v]->priorities + graph->getWeight(v, v0));
-			if (delta > 0){
+			if (delta > 0)
+			{
 				dist[v0]->priorities = graph->getWeight(v, v0) + dist[v]->priorities;
 				up[v0] = v;
 			}

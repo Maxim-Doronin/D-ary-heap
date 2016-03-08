@@ -1,5 +1,6 @@
 #include "graphs.h"
 #include "Dijkstra.h"
+#include <cfloat>
 
 int main(int argc, char **argv)
 {
@@ -19,6 +20,9 @@ int main(int argc, char **argv)
 	using namespace std;
 	cout << endl;
 	for (int i = 0; i < n; i++)
+		if (dist[i] == FLT_MAX)
+			cout << "inf ";
+		else
 		cout << dist[i] << ' ';
 	cout << endl;
 

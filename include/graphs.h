@@ -26,6 +26,7 @@ public:
 
 	void generateGraph(float minRange, float maxRange);
 	void addEdge(int N, int K, float weight);
+	void delEdge(int N, int K);
 
 	int getVerticesNum();
 	int getEdgeSize();
