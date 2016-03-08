@@ -2,6 +2,8 @@
 
 SeparatedSet::SeparatedSet(int n)
 {
+	if (n < 0)
+		throw "SeparatedSet: Invalid size!";
 	parent = new int [n];
 	for (int i = 0; i < n; i++)
 		parent[i] = -1;
@@ -68,8 +70,8 @@ int SeparatedSet::getSetSize(int i)
 {
 	int count = 0;
 	int local_parent = defineSet(i);
-	for (int i = 0; i < n; i++)
-		if (parent[i] = local_parent)
+	for (int j = 0; j < n; j++)
+		if (defineSet(j) == local_parent)
 			count++;
 	return count;
 }
