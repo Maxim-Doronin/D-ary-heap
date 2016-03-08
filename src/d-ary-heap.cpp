@@ -13,7 +13,7 @@ DAryHeap::DAryHeap(const DAryHeap &heap)
 {
 	this->d = heap.d;
 	keys = new Data*[maxSize];
-	for (int i = 0; i < heap.lastIdx; i++)
+	for (int i = 0; i <= heap.lastIdx; i++)
 		keys[i] = heap.keys[i];
 	this->lastIdx = heap.lastIdx;
 }
