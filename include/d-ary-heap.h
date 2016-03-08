@@ -18,6 +18,7 @@ protected:
 	int lastIdx;			//current size of heap
 public:
 	DAryHeap(int d);
+	DAryHeap(const DAryHeap &heap);
 	~DAryHeap();
 
 	void add(Data *&key);

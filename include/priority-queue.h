@@ -6,6 +6,7 @@ protected:
 	DAryHeap *heap;
 public:
 	PriorityQueue(int d = 4);
+	PriorityQueue(const PriorityQueue &queue);
 	PriorityQueue(Data **keys, int num, int d = 4);
 	~PriorityQueue();
 
