@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#define maxVerticesSize 40
+
 class Edge {
 public: 
 	int N;
@@ -38,8 +40,8 @@ public:
 
 private:
 	void generateVertices(int &N, int &K);
-	bool originalityCheck(int N, int K);
 	float generateWeight(float minRange, float maxRange);
 	void cleaner();
+	int findEdge(int N, int K);
 };
 
