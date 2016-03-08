@@ -46,7 +46,7 @@ TEST(D_ARY_HEAP, can_add_element)
 TEST(D_ARY_HEAP, throws_when_try_add_element_to_full_heap)
 {
 	DAryHeap *heap = new DAryHeap(4);
-	for (int i = 0; i < 1000; i++){
+	for (int i = 0; i < maxSize; i++){
 		Data* data = new Data();
 		data->priorities = 10;
 		heap->add(data);
@@ -70,13 +70,13 @@ TEST(D_ARY_HEAP, can_add_set_to_heap)
 
 TEST(D_ARY_HEAP, throws_when_try_add_too_large_set)
 {
-	Data** data = new Data*[1005];
-	for (int i = 0; i < 1005; i++){
+	Data** data = new Data*[maxSize + 10];
+	for (int i = 0; i < maxSize + 10; i++){
 		data[i] = new Data;
 		data[i]->priorities = i;
 	}
 	DAryHeap *heap = new DAryHeap(4);
-	ASSERT_ANY_THROW(heap->addSet(data, 1005));
+	ASSERT_ANY_THROW(heap->addSet(data, maxSize + 10));
 }
 
 TEST(D_ARY_HEAP, can_erase_element_from_heap)
@@ -200,7 +200,7 @@ TEST(D_ARY_HEAP, throws_when_immersion_negative_i)
 TEST(D_ARY_HEAP, isFull_when_heap_is_full)
 {
 	DAryHeap *heap = new DAryHeap(4);
-	for (int i = 0; i < 1000; i++){
+	for (int i = 0; i < maxSize; i++){
 		Data* data = new Data();
 		data->priorities = 10;
 		heap->add(data);
@@ -220,6 +220,12 @@ TEST(D_ARY_HEAP, isEmpty_when_heap_is_empty)
 	ASSERT_TRUE(heap->isEmpty());
 }
 
+TEST(D_ARY_HEAP, isEmpty_when_heap_is_not_empty)
+{
+	DAryHeap *heap = createHeap();
+	ASSERT_FALSE(heap->isEmpty());
+}
+
 TEST(D_ARY_HEAP, isEmpty_after_erasing)
 {
 	DAryHeap *heap = new DAryHeap(4);
@@ -230,8 +236,3 @@ TEST(D_ARY_HEAP, isEmpty_after_erasing)
 	ASSERT_TRUE(heap->isEmpty());
 }
 
-TEST(D_ARY_HEAP, isEmpty_when_heap_is_not_empty)
-{
-	DAryHeap *heap = createHeap();
-	ASSERT_FALSE(heap->isEmpty());
-}

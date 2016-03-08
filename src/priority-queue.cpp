@@ -21,11 +21,6 @@ void PriorityQueue::push(Data *&key)
 	heap->add(key);
 }
 
-Data* PriorityQueue::pop(int i)
-{
-	return heap->erase(i);
-}
-
 Data* PriorityQueue::pop()
 {
 	return heap->erase(0);
