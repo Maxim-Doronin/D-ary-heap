@@ -218,6 +218,30 @@ TEST(D_ARY_HEAP, throws_when_immersion_negative_i)
 	ASSERT_ANY_THROW(heap->immersion(-10));
 }
 
+TEST(D_ARY_HEAP, spudding_is_correct)
+{
+	DAryHeap *heap = new DAryHeap(3);
+	Data **data = new Data*[10];
+	for (int i = 0; i < 10; i++){
+		data[i] = new Data;
+		data[i]->priorities = 9 - i;
+	}
+	heap->addSet(data, 10);
+	int flag = 1;
+	if ((heap->erase()->priorities != 7)||
+		(heap->erase()->priorities != 9)||
+		(heap->erase()->priorities != 2)||
+		(heap->erase()->priorities != 8)||
+		(heap->erase()->priorities != 4)||
+		(heap->erase()->priorities != 5)||
+		(heap->erase()->priorities != 6)||
+		(heap->erase()->priorities != 1)||
+		(heap->erase()->priorities != 3)||
+		(heap->erase()->priorities != 0))
+		flag = 0;
+	ASSERT_TRUE(flag);
+}
+
 TEST(D_ARY_HEAP, isFull_when_heap_is_full)
 {
 	DAryHeap *heap = new DAryHeap(4);
