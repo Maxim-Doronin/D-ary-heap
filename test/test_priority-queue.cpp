@@ -21,6 +21,30 @@ TEST(PRIORITY_QUEUE, can_create_empty_queue_with_fixed_d)
 	ASSERT_NO_THROW(PriorityQueue *q = new PriorityQueue(6));
 }
 
+TEST(PRIORITY_QUEUE, can_create_copied_queue)
+{
+	Data **data = createData();
+	PriorityQueue *q = new PriorityQueue(data, 10);
+	ASSERT_NO_THROW(PriorityQueue *nq = new PriorityQueue (*q));
+}
+
+TEST(PRIORITY_QUEUE, copied_queue_is_equal_to_sourse_one)
+{
+	Data **data = createData();
+	PriorityQueue *q = new PriorityQueue(data, 10);
+	PriorityQueue *nq = new PriorityQueue (*q);
+	EXPECT_EQ(q->pop()->priorities, nq->pop()->priorities);
+}
+
+TEST(PRIORITY_QUEUE, copied_queue_has_its_own_memory)
+{
+	Data **data = createData();
+	PriorityQueue *q = new PriorityQueue(data, 10);
+	PriorityQueue *nq = new PriorityQueue (*q);
+	nq->pop();
+	EXPECT_NE(q->pop()->priorities, nq->pop()->priorities);
+}
+
 TEST(PRIORITY_QUEUE, can_create_queue_from_data_array)
 {
 	Data **data = createData();

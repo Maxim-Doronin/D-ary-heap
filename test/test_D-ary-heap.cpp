@@ -35,6 +35,27 @@ TEST(D_ARY_HEAP, throws_when_d_is_negative)
 	ASSERT_ANY_THROW(DAryHeap *heap = new DAryHeap(-1));
 }
 
+TEST(D_ARY_HEAP, can_create_copied_heap)
+{
+	DAryHeap *heap = createHeap();
+	ASSERT_NO_THROW(DAryHeap *nheap = new DAryHeap(*heap));
+}
+
+TEST(D_ARY_HEAP, copied_heap_is_equal_to_sourse_one)
+{
+	DAryHeap *heap = createHeap();
+	DAryHeap *nheap = new DAryHeap(*heap);
+	EXPECT_EQ(nheap->erase()->priorities, heap->erase()->priorities);
+}
+
+TEST(D_ARY_HEAP, copied_heap_has_its_own_data_array)
+{
+	DAryHeap *heap = createHeap();
+	DAryHeap *nheap = new DAryHeap(*heap);
+	nheap->erase();
+	EXPECT_NE(nheap->erase()->priorities, heap->erase()->priorities);
+}
+
 TEST(D_ARY_HEAP, can_add_element)
 {
 	Data* data = new Data();
