@@ -12,7 +12,7 @@ Graph* Kruskal::kruskal(Graph *&graph)
 	int m = graph->getRealSize();
 	Graph *tree = new Graph(n);
 
-	SharedSet *set = new SharedSet(n);
+	SeparatedSet *set = new SeparatedSet(n);
 	for (int i = 0; i < n; i++)
 		set->singleton(i);
 	

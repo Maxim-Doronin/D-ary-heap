@@ -1,14 +1,14 @@
 #pragma once
 
-class SharedSet {
+class SeparatedSet {
 private:
 	int *parent;
 	int *height;
 	int n;
 	bool validIndex(int i);
 public:
-	SharedSet(int n);
-	~SharedSet();
+	SeparatedSet(int n);
+	~SeparatedSet();
 
 	void singleton(int i);
 	void association(int i, int j);

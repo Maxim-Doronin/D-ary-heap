@@ -1,6 +1,6 @@
 #include "separated-set.h"
 
-SharedSet::SharedSet(int n)
+SeparatedSet::SeparatedSet(int n)
 {
 	parent = new int [n];
 	for (int i = 0; i < n; i++)
@@ -9,13 +9,13 @@ SharedSet::SharedSet(int n)
 	this->n = n;
 }
 
-SharedSet::~SharedSet()
+SeparatedSet::~SeparatedSet()
 {
 	delete [] parent;
 	delete [] height;
 }
 
-bool SharedSet::validIndex(int i)
+bool SeparatedSet::validIndex(int i)
 {
 	if ((i < 0) || (i >= n))
 		return false;
@@ -23,22 +23,22 @@ bool SharedSet::validIndex(int i)
 		return true;
 }
 
-void SharedSet::singleton(int i)
+void SeparatedSet::singleton(int i)
 {
 	if (!validIndex(i))
-		throw "SharedSet: Invalid Index!";
+		throw "SeparatedSet: Invalid Index!";
 	if (parent[i] != -1)
 		return;
 	parent[i] = i;
 	height[i] = 0;
 }
 
-void SharedSet::association(int i, int j)
+void SeparatedSet::association(int i, int j)
 {
 	if ((!validIndex(i)) || (!validIndex(j)))
-		throw "SharedSet: Invalid Indexes!";
+		throw "SeparatedSet: Invalid Indexes!";
 	if ((parent[i] == -1)||(parent[j] == -1))
-		throw "SharedSet: Empty set!";
+		throw "SeparatedSet: Empty set!";
 	if (parent[i] != i)
 		i = defineSet(i);
 	if (parent[j] != i)
@@ -53,10 +53,10 @@ void SharedSet::association(int i, int j)
 	}
 }
 
-int SharedSet::defineSet(int i)
+int SeparatedSet::defineSet(int i)
 {
 	if (!validIndex(i))
-		throw "SharedSet: Invalid Index!";
+		throw "SeparatedSet: Invalid Index!";
 	if (parent[i] == -1)
 		return -1;
 	while (parent[i] != i)
@@ -64,7 +64,7 @@ int SharedSet::defineSet(int i)
 	return i;
 }
 
-int SharedSet::getSetSize(int i)
+int SeparatedSet::getSetSize(int i)
 {
 	int count = 0;
 	int local_parent = defineSet(i);
