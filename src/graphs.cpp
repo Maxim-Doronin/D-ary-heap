@@ -114,6 +114,7 @@ void Graph::delEdge(int N, int K)
 	int j = findEdge(N, K);
 	if (j == -1)
 		throw "Graph: try delete non-existent edge";
+	delete edges[j];
 	edges[j] = edges[m_cur - 1];
 	m_cur--;
 }
@@ -138,6 +139,11 @@ Edge** Graph::getEdgeSet()
 	if (m_cur == 0)
 		return 0;
 	return edges;
+}
+
+Edge* Graph::getEdge(int j)
+{
+	return edges[j];
 }
 
 float Graph::getWeight(int N, int K)

@@ -34,6 +34,7 @@ public:
 	int getEdgeSize();
 	int getRealSize();
 	Edge** getEdgeSet();
+	Edge*  getEdge(int j); //TEST!!!
 	float getWeight(int N, int K);
 
 	void printList();
