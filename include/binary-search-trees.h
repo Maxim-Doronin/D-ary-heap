@@ -22,5 +22,6 @@ public:
 	Node* search(float key);
 
 	void insert(Node *node);
-	Node* remove(float key);
+	void remove(float key);
+	Node* pull(float key);
 };

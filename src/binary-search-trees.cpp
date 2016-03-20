@@ -2,10 +2,12 @@
 
 BinarySearchTree::BinarySearchTree()
 {
+	root = 0;
 }
 
 BinarySearchTree::~BinarySearchTree()
 {
+	//DELETE TREE!
 }
 
 Node* BinarySearchTree::searchMin(Node *node)
@@ -100,7 +102,7 @@ void BinarySearchTree::insert(Node *node)
 		tmpPrev->left = node;
 }
 
-Node* BinarySearchTree::remove(float key)
+Node* BinarySearchTree::pull(float key)
 {
 	Node *x = 0;
 	Node *y = 0;
@@ -122,9 +124,11 @@ Node* BinarySearchTree::remove(float key)
 		else
 			y->parent->right = x;
 	if (y != z)
-	{
 		z->key = y->key;
-		delete y;
-	}
-	return 0;
+	return y;
+}
+
+void BinarySearchTree::remove(float key)
+{
+	delete pull(key);
 }
