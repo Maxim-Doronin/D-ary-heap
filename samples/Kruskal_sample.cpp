@@ -56,6 +56,8 @@ int main(int argc, char **argv)
 	if(output)
 		remove("tree.txt");			//удалил, если такой уже есть
 	ofstream ofs("tree.txt");		//создал файл
+	if(!output)
+		output.open("tree.txt", fstream::in | fstream::out);
 	output << n << endl;			//печатаю количество вершин
 
 	float **matrix = new float*[n]; //матрица смежности
@@ -67,7 +69,7 @@ int main(int argc, char **argv)
 	
 	m = graph->getRealSize();
 	Edge* edge;
-	for (int j = 0; j < m; j++) {	//матрица -- исходный граф
+	/*for (int j = 0; j < m; j++) {	//матрица -- исходный граф
 		edge = graph->getEdge(j);
 		matrix[edge->N][edge->K] = edge->weight;
 		matrix[edge->K][edge->N] = edge->weight;
@@ -82,8 +84,15 @@ int main(int argc, char **argv)
 	for (int i = 0; i < n; i++)		//обнуляем матрицу
 		for (int j = 0; j < n; j++)
 			matrix[i][j] = 0;
+	*/
+
+	for (int j = 0; j < m; j++) {
+		edge = graph->getEdge(j);
+		output << edge->K << ' ' << edge->N << ' ' << edge->weight << endl;
+	}
 
 	m = tree->getRealSize();
+	/*
 	for (int j = 0; j < m; j++)	{	//матрица -- дерево
 		edge = tree->getEdge(j);
 		matrix[edge->N][edge->K] = edge->weight;
@@ -96,7 +105,13 @@ int main(int argc, char **argv)
 			output << matrix[i][j] << ' ';
 		output << endl;
 	} 
-	
+	*/
+	output << endl;
+	for (int j = 0; j < m; j++) {
+		edge = tree->getEdge(j);
+		output << edge->K << ' ' << edge->N << ' ' << edge->weight << endl;
+	}
+
 	output.close();
 	delete graph;
 	delete tree;
