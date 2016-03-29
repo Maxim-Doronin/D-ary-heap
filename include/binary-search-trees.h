@@ -6,6 +6,7 @@ public:
 	Node* left;
 	Node* right;
 	Node* parent;
+	char balance;
 };
 
 class BinarySearchTree {
@@ -24,4 +25,9 @@ public:
 	void insert(Node *node);
 	void remove(float key);
 	Node* pull(float key);
+
+private:
+	char balanceDetection(Node *&node);
+	int depth(Node *node);
+	void insertSingleRightTurn(Node *&node);
 };

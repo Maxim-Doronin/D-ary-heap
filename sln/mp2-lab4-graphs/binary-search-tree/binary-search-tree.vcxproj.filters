@@ -19,5 +19,8 @@
     <ClCompile Include="..\..\..\src\binary-search-trees.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\tree-turns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\binary-search-trees.cpp" />
+    <ClCompile Include="..\..\..\src\tree-turns.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{53BBEEC6-4F33-42E1-BE9D-A2B731C0C783}</ProjectGuid>
