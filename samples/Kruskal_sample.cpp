@@ -10,8 +10,7 @@ int main(int argc, char **argv)
 	Graph *graph;
 	int n;
 	int m;
-	if (argc == 5)					//граф рандомный	
-	{
+	if (argc == 5)	{				//граф рандомный	
 		n = atoi(argv[1]);
 		m = atoi(argv[2]);
 		int minRange = atoi(argv[3]);
@@ -19,14 +18,11 @@ int main(int argc, char **argv)
 
 		graph = new Graph(n, m);
 		graph->generateGraph(minRange, maxRange);
-		graph->printList();
 	}
 	else if (argc == 2)	{			//граф задан матрицей
 		string filename(argv[1]);
 		ifstream input(filename);
-		//ifstream input("C:/Users/asus/D-ary-heap/sln/mp2-lab4-graphs/Debug/graph.txt");
-		if (!input) 
-		{
+		if (!input) {
 			cout << "error!";
 			return 2;
 		}
@@ -46,9 +42,9 @@ int main(int argc, char **argv)
 	}
 	else return 1;
 
+	graph->printList();
+	cout << endl;
 	Graph *tree = Kruskal::kruskal(graph);
-	
-	std::cout << std::endl;
 	tree->printList();
 
 	fstream output;
@@ -59,53 +55,15 @@ int main(int argc, char **argv)
 	if(!output)
 		output.open("tree.txt", fstream::in | fstream::out);
 	output << n << endl;			//печатаю количество вершин
-
-	float **matrix = new float*[n]; //матрица смежности
-	for (int i = 0; i < n; i++)
-		matrix[i] = new float[n];
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			matrix[i][j] = 0;
 	
 	m = graph->getRealSize();
 	Edge* edge;
-	/*for (int j = 0; j < m; j++) {	//матрица -- исходный граф
-		edge = graph->getEdge(j);
-		matrix[edge->N][edge->K] = edge->weight;
-		matrix[edge->K][edge->N] = edge->weight;
-	}
-
-	for (int i = 0; i < n; i++) {	//записываем матрицу
-		for (int j = 0; j < n; j++)
-			output << matrix[i][j] << ' ';
-		output << endl;
-	} 
-
-	for (int i = 0; i < n; i++)		//обнуляем матрицу
-		for (int j = 0; j < n; j++)
-			matrix[i][j] = 0;
-	*/
-
 	for (int j = 0; j < m; j++) {
 		edge = graph->getEdge(j);
 		output << edge->K << ' ' << edge->N << ' ' << edge->weight << endl;
 	}
 
 	m = tree->getRealSize();
-	/*
-	for (int j = 0; j < m; j++)	{	//матрица -- дерево
-		edge = tree->getEdge(j);
-		matrix[edge->N][edge->K] = edge->weight;
-		matrix[edge->K][edge->N] = edge->weight;
-	}
-    
-	output << endl;
-	for (int i = 0; i < n; i++)	{	//записываем дерево
-		for (int j = 0; j < n; j++)
-			output << matrix[i][j] << ' ';
-		output << endl;
-	} 
-	*/
 	output << endl;
 	for (int j = 0; j < m; j++) {
 		edge = tree->getEdge(j);
