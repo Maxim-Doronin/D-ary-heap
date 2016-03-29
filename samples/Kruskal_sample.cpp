@@ -28,16 +28,13 @@ int main(int argc, char **argv)
 		}
 		input >> n;
 		graph = new Graph(n);
+		int N, K;
 		float weight;
-		for (int i = 0; i < n; i++){
-			for (int j = 0; j < i; j++)
-				input >> weight;
-			for (int j = i; j < n; j++){
-				weight = 0;
-				input >> weight;
-				if (weight != 0)
-					graph->addEdge(i, j, weight);
-			}
+		while(!input.eof()){
+			input >> N;
+			input >> K;
+			input >> weight;
+			graph->addEdge(N, K, weight);
 		}
 	}
 	else return 1;
@@ -54,7 +51,7 @@ int main(int argc, char **argv)
 	ofstream ofs("tree.txt");		//создал файл
 	if(!output)
 		output.open("tree.txt", fstream::in | fstream::out);
-	output << n << endl;			//печатаю количество вершин
+	output << n << ' ' << m << endl;			//печатаю количество вершин и ребер
 	
 	m = graph->getRealSize();
 	Edge* edge;
@@ -73,6 +70,7 @@ int main(int argc, char **argv)
 	output.close();
 	delete graph;
 	delete tree;
+	//system("pause");
     return 0;
 }
 

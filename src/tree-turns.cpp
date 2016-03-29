@@ -17,6 +17,7 @@ char BinarySearchTree::balanceDetection(Node *&node)
 		node->balance = 1;
 	else 
 		node->balance = 0;
+	return 0;
 }
 
 void BinarySearchTree::insertSingleRightTurn(Node *&node)

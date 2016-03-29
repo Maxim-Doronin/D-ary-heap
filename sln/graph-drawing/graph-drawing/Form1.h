@@ -1,5 +1,9 @@
 #pragma once
 #include "windows.h"
+#include <stdio.h>
+#include <vcclr.h>
+#include <fstream>
+#include <string>
 
 namespace graphdrawing {
 
@@ -10,6 +14,7 @@ namespace graphdrawing {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace Microsoft::Glee::Drawing;
+	using namespace System::Runtime::InteropServices;
 
 	/// <summary>
 	/// Summary for Form1
@@ -405,60 +410,106 @@ namespace graphdrawing {
 
 		}
 #pragma endregion
-		static int vertices = 0;
-		static int edges = 0;
+		static unsigned int vertices = 0;
+		static unsigned int edges = 0;
 		static float minRange;
 		static float maxRange;
+		Graph ^g;
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
-			
+
 			 }
 	private: System::Void gViewer1_Load(System::Object^  sender, System::EventArgs^  e) {
-				 Graph ^g = gcnew Graph("graph");
-                 g->AddNode("1"); // добавление узла с идентификатором 1
-                 g->AddNode("2"); // добавление узла с идентификатором 2
-                 g->AddNode("3"); // добавление узла с идентификатором 3
-                 g->AddNode("4"); // добавление узла с идентификатором 4
-                 g->AddEdge("1", "9", "2"); // добавление ребра от узла 1 к узлу 2 с меткой 9
-                 g->AddEdge("2", "-7", "4");// добавление ребра от узла 2 к узлу 4 с меткой -7
-                 g->AddEdge("1", "2", "3"); // добавление ребра от узла 1 к узлу 3 с меткой 2
-                 gViewer1->Graph = g;
-			}
+				 g = gcnew Graph("graph");
+				 g->AddNode("1"); // добавление узла с идентификатором 1
+				 g->AddNode("2"); // добавление узла с идентификатором 2
+				 g->AddNode("3"); // добавление узла с идентификатором 3
+				 g->AddNode("4"); // добавление узла с идентификатором 4
+				 g->AddEdge("1", "9", "2"); // добавление ребра от узла 1 к узлу 2 с меткой 9
+				 g->AddEdge("2", "-7", "4");// добавление ребра от узла 2 к узлу 4 с меткой -7
+				 g->AddEdge("1", "2", "3"); // добавление ребра от узла 1 к узлу 3 с меткой 2
+				 gViewer1->Graph = g;
+			 }
+	private: System::Void graphUpd(){
+				 using namespace std;
+				 ifstream input("tree.txt");
+				 int n, m;
+				 input >> n;
+				 input >> m;
+				 vertices = n;
+				 edges = m;
+				 for (int i = 0; i < vertices; i++)
+					 g->AddNode(System::Convert::ToString(i));
+				 int N, K;
+				 float W;
+				 for (int i = 0; i < edges; i++){
+					 input >> N;
+					 input >> K;
+					 input >> W;
+					 g->AddEdge(System::Convert::ToString(N),
+								System::Convert::ToString(W),
+								System::Convert::ToString(K));
+				 }
+				 gViewer1->Graph = g;
+			 
+			 }
 	private: System::Void label5_Click(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void textBox3_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void textBox4_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void textBox5_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void label6_Click(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void label4_Click(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-			}
-private: System::Void nBox_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
-			
-		 }
+			 }
+	private: System::Void textBox3_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void textBox4_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void textBox5_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void label6_Click(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void label4_Click(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void nBox_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
 
-private: System::Void numericUpDown1_ValueChanged_1(System::Object^  sender, System::EventArgs^  e) {
-		 }
-private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
-		 vertices = (int)numericUpDown1->Value;
-		 edges = (int)numericUpDown2->Value;
-		 System::String^ buf = minBox->Text;
-		 minRange = (float)(Convert::ToDouble(buf));
-		 buf = maxBox->Text;
-		 maxRange = (float)(Convert::ToDouble(buf));
-		 System::String^ parameters = ToString(vertices);
-		 STARTUPINFO cif;
-		 ZeroMemory(&cif,sizeof(STARTUPINFO));
-		 PROCESS_INFORMATION pi;
-		 CreateProcess("C:/Users/asus/D-ary-heap/sln/mp2-lab4-graphs/Debug/Kruskal_sample.exe",
-			 "6 12 1 100", NULL, NULL, FALSE, NULL, NULL, NULL, &cif, &pi);
-		 }
-};
+			 }
+
+	private: System::Void numericUpDown1_ValueChanged_1(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
+				 vertices = (unsigned int)numericUpDown1->Value;
+				 edges = (unsigned int)numericUpDown2->Value;
+				 System::String^ buf = minBox->Text;
+				 minRange = (float)(Convert::ToDouble(buf));
+				 buf = maxBox->Text;
+				 maxRange = (float)(Convert::ToDouble(buf));
+				 
+				 //const WCHAR pathToExec[] = L"Kruskal_sample.exe";
+				 //WCHAR fullCommandLine[MAX_PATH] = {0};
+				 //wchar_t *argPtr = (wchar_t *)Marshal::StringToHGlobalUni(textBoxInput->Text).ToPointer();
+				 //swprintf_s(fullCommandLine, L"\"%s\" \"%s\"", pathToExec, argPtr);
+
+				 STARTUPINFO si;
+				 PROCESS_INFORMATION pi;
+				 ZeroMemory(&pi, sizeof(pi));
+				 ZeroMemory(&si, sizeof(STARTUPINFO));
+
+				 if (CreateProcess(
+					 0,
+					 "Kruskal_sample.exe 6 12 1 100",
+					 0, 
+					 0, 
+					 TRUE, 
+					 0, 
+					 0, 
+					 0, 
+					 &si, 
+					 &pi))
+				 {
+					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 }
+				 CloseHandle(pi.hProcess);
+				 CloseHandle(pi.hThread);
+				 graphUpd();
+			 };
+	};
 }
 

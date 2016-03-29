@@ -33,13 +33,13 @@ int main(int argc, char **argv)
 		graph = new Graph(n);
 		float weight;
 		for (int i = 0; i < n; i++){
-			for (int j = 0; j < i; j++)
+			int N, K;
+			float weight;
+			while(!input.eof()){
+				input >> N;
+				input >> K;
 				input >> weight;
-			for (int j = i; j < n; j++){
-				weight = 0;
-				input >> weight;
-				if (weight != 0)
-					graph->addEdge(i, j, weight);
+				graph->addEdge(N, K, weight);
 			}
 		}
 	}
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 	ofstream ofs("ways.txt");		//создал файл
 	if(!output)
 		output.open("ways.txt", fstream::in | fstream::out);
-	output << n << endl;			//печатаю количество вершин
+	output << n << ' ' << m << endl;//печатаю количество вершин
 	output << s << endl;			//печатаю стартовую вершину
 
 	m = graph->getRealSize();
