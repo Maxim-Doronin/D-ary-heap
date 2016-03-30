@@ -27,7 +27,10 @@ public:
 	Node* pull(float key);
 
 private:
-	char balanceDetection(Node *&node);
+	int balanceDetection(Node *&node);
 	int depth(Node *node);
 	void insertSingleRightTurn(Node *&node);
+	void insertSingleLeftTurn(Node *&node);
+	void insertDoubleRightTurn(Node *&node);
+	void insertDoubleLeftTurn(Node *&node);
 };
