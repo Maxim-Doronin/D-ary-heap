@@ -9,6 +9,7 @@ DataEdge::DataEdge(Edge *edge)
 Graph* Kruskal::kruskal(Graph *&graph)
 {
 	int n = graph->getVerticesNum();
+	if (n == 0) throw "Kruskal: Graph has no vertices!";
 	int m = graph->getRealSize();
 	Graph *tree = new Graph(n);
 

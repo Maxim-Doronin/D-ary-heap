@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\test\test_D-ary-heap.cpp" />
     <ClCompile Include="..\..\..\test\test_graph.cpp" />
+    <ClCompile Include="..\..\..\test\test_Kruskal.cpp" />
     <ClCompile Include="..\..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\..\test\test_priority-queue.cpp" />
     <ClCompile Include="..\..\..\test\test_separated-set.cpp" />

@@ -477,10 +477,22 @@ namespace graphdrawing {
 	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
 				 vertices = (unsigned int)numericUpDown1->Value;
 				 edges = (unsigned int)numericUpDown2->Value;
-				 System::String^ buf = minBox->Text;
+				 System::String^ minRangeText;
+				 minRangeText = minBox->Text;
 				 minRange = (float)(Convert::ToDouble(buf));
-				 buf = maxBox->Text;
+				 System::String^ maxRangeText;
+				 maxRangeText = maxBox->Text;
 				 maxRange = (float)(Convert::ToDouble(buf));
+
+				 System::String^ pathToExec = "Kruskal_sample.exe";
+				 System::String^ verticesText = System::Convert::ToString(vertices);
+				 System::String^ edgesText = System::Convert::ToString(edges);
+
+				 System::String^ fullCommandLine = System::String::Concat(pathToExec, ' ');
+				 fullCommandLine = System::String::Concat(fullCommandLine, verticesText, ' ');
+				 fullCommandLine = System::String::Concat(fullCommandLine, edgesText, ' ');
+				 fullCommandLine = System::String::Concat(fullCommandLine, minRangeText, ' ');
+				 fullCommandLine = System::String::Concat(fullCommandLine, maxRangeText);
 				 
 				 //const WCHAR pathToExec[] = L"Kruskal_sample.exe";
 				 //WCHAR fullCommandLine[MAX_PATH] = {0};
