@@ -6,15 +6,15 @@ DataFloat::DataFloat(int v, float dist)
 	priorities = dist;
 }
 
-float* Dijkstra::dijkstra(Graph *&graph, int s)
+void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 {
 	int n = graph->getVerticesNum();
-	if ((s < 0)||(s >= n))
-		return 0;
 	int m = graph->getRealSize();
+	if ((s < 0)||(s >= n))
+		throw "Dijkstra: Invalid start vertex!";
 	
 	Data** dist = new Data*[n];
-	int* up = new int[n];
+	up = new int[n];
 
 	for (int i = 0; i < n; i++){
 		up[i] = 0;
@@ -48,15 +48,12 @@ float* Dijkstra::dijkstra(Graph *&graph, int s)
 		}
 	}
 	
-	float *result = new float[n];
+	distance = new float[n];
 	for (int i = 0; i < n; i++)
-		result[i] = dist[i]->priorities;
+		distance[i] = dist[i]->priorities;
 
 	for (int i = 0; i < n; i++)
 		delete dist[i];
 	delete []dist;
 	delete queue;
-	delete []up;
-
-	return result;
 }

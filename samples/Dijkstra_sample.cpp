@@ -47,7 +47,9 @@ int main(int argc, char **argv)
 	graph->printList();
 	cout << endl;
 
-	float *dist = Dijkstra::dijkstra(graph, s);
+	float *dist;
+	int *up;
+	Dijkstra::dijkstra(graph, s, dist, up);
 
 	remove("ways.txt");	
 	ofstream output("ways.txt");
@@ -71,13 +73,14 @@ int main(int argc, char **argv)
 
 	for (int i = 0; i < n; i++) {
 		output << i;
-		if (dist[i] != FLT_MIN) 
-			output << ' ' << dist[i];
+		output << ' ' << dist[i];
+		output << ' ' << up[i];
 		output << endl;
 	}
 
 	output.close();
 	delete graph;
 	delete []dist;
+	delete []up;
 	return 0;
 }

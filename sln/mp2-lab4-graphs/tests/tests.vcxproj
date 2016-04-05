@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\test\test_D-ary-heap.cpp" />
+    <ClCompile Include="..\..\..\test\test_Dijkstra.cpp" />
     <ClCompile Include="..\..\..\test\test_graph.cpp" />
     <ClCompile Include="..\..\..\test\test_Kruskal.cpp" />
     <ClCompile Include="..\..\..\test\test_main.cpp" />
