@@ -217,7 +217,6 @@ namespace graphdrawing {
 			this->label4->Size = System::Drawing::Size(69, 17);
 			this->label4->TabIndex = 11;
 			this->label4->Text = L"Set edge:";
-			this->label4->Click += gcnew System::EventHandler(this, &Form1::label4_Click);
 			// 
 			// label5
 			// 
@@ -229,7 +228,6 @@ namespace graphdrawing {
 			this->label5->Size = System::Drawing::Size(38, 17);
 			this->label5->TabIndex = 12;
 			this->label5->Text = L"Start";
-			this->label5->Click += gcnew System::EventHandler(this, &Form1::label5_Click);
 			// 
 			// label6
 			// 
@@ -241,7 +239,6 @@ namespace graphdrawing {
 			this->label6->Size = System::Drawing::Size(33, 17);
 			this->label6->TabIndex = 13;
 			this->label6->Text = L"End";
-			this->label6->Click += gcnew System::EventHandler(this, &Form1::label6_Click);
 			// 
 			// label7
 			// 
@@ -253,7 +250,6 @@ namespace graphdrawing {
 			this->label7->Size = System::Drawing::Size(52, 17);
 			this->label7->TabIndex = 14;
 			this->label7->Text = L"Weight";
-			this->label7->Click += gcnew System::EventHandler(this, &Form1::label7_Click);
 			// 
 			// startBox
 			// 
@@ -261,7 +257,6 @@ namespace graphdrawing {
 			this->startBox->Name = L"startBox";
 			this->startBox->Size = System::Drawing::Size(47, 22);
 			this->startBox->TabIndex = 15;
-			this->startBox->TextChanged += gcnew System::EventHandler(this, &Form1::textBox3_TextChanged);
 			// 
 			// weightBox
 			// 
@@ -269,7 +264,6 @@ namespace graphdrawing {
 			this->weightBox->Name = L"weightBox";
 			this->weightBox->Size = System::Drawing::Size(47, 22);
 			this->weightBox->TabIndex = 16;
-			this->weightBox->TextChanged += gcnew System::EventHandler(this, &Form1::textBox4_TextChanged);
 			// 
 			// endBox
 			// 
@@ -277,7 +271,6 @@ namespace graphdrawing {
 			this->endBox->Name = L"endBox";
 			this->endBox->Size = System::Drawing::Size(47, 22);
 			this->endBox->TabIndex = 17;
-			this->endBox->TextChanged += gcnew System::EventHandler(this, &Form1::textBox5_TextChanged);
 			// 
 			// addEdge
 			// 
@@ -287,7 +280,7 @@ namespace graphdrawing {
 			this->addEdge->TabIndex = 18;
 			this->addEdge->Text = L"Add";
 			this->addEdge->UseVisualStyleBackColor = true;
-			this->addEdge->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
+			this->addEdge->Click += gcnew System::EventHandler(this, &Form1::AddEdgeClick);
 			// 
 			// label8
 			// 
@@ -355,6 +348,7 @@ namespace graphdrawing {
 			this->reset->TabIndex = 25;
 			this->reset->Text = L"Reset";
 			this->reset->UseVisualStyleBackColor = true;
+			this->reset->Click += gcnew System::EventHandler(this, &Form1::ResetClick);
 			// 
 			// numericUpDown1
 			// 
@@ -362,7 +356,6 @@ namespace graphdrawing {
 			this->numericUpDown1->Name = L"numericUpDown1";
 			this->numericUpDown1->Size = System::Drawing::Size(69, 22);
 			this->numericUpDown1->TabIndex = 28;
-			this->numericUpDown1->ValueChanged += gcnew System::EventHandler(this, &Form1::numericUpDown1_ValueChanged_1);
 			// 
 			// numericUpDown2
 			// 
@@ -414,20 +407,12 @@ namespace graphdrawing {
 		static unsigned int edges = 0;
 		static float minRange;
 		static float maxRange;
-		Graph ^g;
+		
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 
 			 }
 	private: System::Void gViewer1_Load(System::Object^  sender, System::EventArgs^  e) {
-				 g = gcnew Graph("graph");
-				 g->AddNode("1"); // добавление узла с идентификатором 1
-				 g->AddNode("2"); // добавление узла с идентификатором 2
-				 g->AddNode("3"); // добавление узла с идентификатором 3
-				 g->AddNode("4"); // добавление узла с идентификатором 4
-				 g->AddEdge("1", "9", "2"); // добавление ребра от узла 1 к узлу 2 с меткой 9
-				 g->AddEdge("2", "-7", "4");// добавление ребра от узла 2 к узлу 4 с меткой -7
-				 g->AddEdge("1", "2", "3"); // добавление ребра от узла 1 к узлу 3 с меткой 2
-				 gViewer1->Graph = g;
+
 			 }
 	private: System::Void graphUpd(){
 				 using namespace std;
@@ -437,6 +422,7 @@ namespace graphdrawing {
 				 input >> m;
 				 vertices = n;
 				 edges = m;
+				 Graph ^g = gcnew Graph("graph");
 				 for (int i = 0; i < vertices; i++)
 					 g->AddNode(System::Convert::ToString(i));
 				 int N, K;
@@ -450,55 +436,36 @@ namespace graphdrawing {
 								System::Convert::ToString(K));
 				 }
 				 gViewer1->Graph = g;
+				 input.close();
 			 
-			 }
-	private: System::Void label5_Click(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void textBox3_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void textBox4_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void textBox5_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void label6_Click(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void label4_Click(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 			 }
 	private: System::Void nBox_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
 
 			 }
 
-	private: System::Void numericUpDown1_ValueChanged_1(System::Object^  sender, System::EventArgs^  e) {
-			 }
 	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
 				 vertices = (unsigned int)numericUpDown1->Value;
 				 edges = (unsigned int)numericUpDown2->Value;
 				 System::String^ minRangeText;
 				 minRangeText = minBox->Text;
-				 minRange = (float)(Convert::ToDouble(buf));
+				 minRange = (float)(Convert::ToDouble(minRangeText));
 				 System::String^ maxRangeText;
 				 maxRangeText = maxBox->Text;
-				 maxRange = (float)(Convert::ToDouble(buf));
+				 maxRange = (float)(Convert::ToDouble(maxRangeText));
 
 				 System::String^ pathToExec = "Kruskal_sample.exe";
 				 System::String^ verticesText = System::Convert::ToString(vertices);
 				 System::String^ edgesText = System::Convert::ToString(edges);
 
-				 System::String^ fullCommandLine = System::String::Concat(pathToExec, ' ');
-				 fullCommandLine = System::String::Concat(fullCommandLine, verticesText, ' ');
-				 fullCommandLine = System::String::Concat(fullCommandLine, edgesText, ' ');
-				 fullCommandLine = System::String::Concat(fullCommandLine, minRangeText, ' ');
+				 System::String^ fullCommandLine = System::String::Concat(pathToExec, " ");
+				 fullCommandLine = System::String::Concat(fullCommandLine, verticesText, " ");
+				 fullCommandLine = System::String::Concat(fullCommandLine, edgesText, " ");
+				 fullCommandLine = System::String::Concat(fullCommandLine, minRangeText, " ");
 				 fullCommandLine = System::String::Concat(fullCommandLine, maxRangeText);
-				 
-				 //const WCHAR pathToExec[] = L"Kruskal_sample.exe";
-				 //WCHAR fullCommandLine[MAX_PATH] = {0};
-				 //wchar_t *argPtr = (wchar_t *)Marshal::StringToHGlobalUni(textBoxInput->Text).ToPointer();
-				 //swprintf_s(fullCommandLine, L"\"%s\" \"%s\"", pathToExec, argPtr);
 
+				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLine);
+				 char* msg = static_cast<char*>(hglob.ToPointer());
+				
 				 STARTUPINFO si;
 				 PROCESS_INFORMATION pi;
 				 ZeroMemory(&pi, sizeof(pi));
@@ -506,7 +473,7 @@ namespace graphdrawing {
 
 				 if (CreateProcess(
 					 0,
-					 "Kruskal_sample.exe 6 12 1 100",
+					 msg,
 					 0, 
 					 0, 
 					 TRUE, 
@@ -522,6 +489,85 @@ namespace graphdrawing {
 				 CloseHandle(pi.hThread);
 				 graphUpd();
 			 };
-	};
+	
+	private: System::Void AddEdgeClick(System::Object^  sender, System::EventArgs^  e) {
+				 using namespace std;
+
+				 int newN = (int)(Convert::ToInt32(startBox->Text));
+				 int newK = (int)(Convert::ToInt32(endBox->Text));
+				 float newWeight = (float)(Convert::ToDouble(weightBox->Text));
+
+				 fstream input;
+				 input.open("tree.txt", fstream::in | fstream::out);
+				 if(!input){
+					 ofstream ofs("tree.txt");		
+					 ofs.close();
+				 }
+				 
+				 
+				 remove("graph.txt");
+				 ofstream graph("graph.txt");			
+				 
+				 int n = 0, m = 0;
+				 input >> n;
+				 input >> m;
+				 
+				 if ((newN >= n)||(newK >= n))
+					 n = max(newN + 1, newK + 1);
+
+				 graph << n << ' ' << m + 1 << endl;
+
+				 int N, K;
+				 float weight;
+				 for (int j = 0; j < m; j++) {
+					 input >> N;
+					 input >> K;
+					 input >> weight;
+					 graph << N << ' ' << K << ' ' << weight << endl;
+				 }
+				 		 
+				 graph << newN << ' ' << newK << ' ' << newWeight;
+
+				 input.close();
+				 graph.close();
+
+
+				 System::String^ pathToExec = "Kruskal_sample.exe";
+				 System::String^ sourseGraph = "../../graph-drawing/graph-drawing/graph.txt";
+			 	 System::String^ fullCommandLine = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
+
+				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLine);
+				 char* msg = static_cast<char*>(hglob.ToPointer());
+				
+				 STARTUPINFO si;
+				 PROCESS_INFORMATION pi;
+				 ZeroMemory(&pi, sizeof(pi));
+				 ZeroMemory(&si, sizeof(STARTUPINFO));
+
+				 if (CreateProcess(
+					 0,
+					 msg,
+					 0, 
+					 0, 
+					 TRUE, 
+					 0, 
+					 0, 
+					 0, 
+					 &si, 
+					 &pi))
+				 {
+					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 }
+				 CloseHandle(pi.hProcess);
+				 CloseHandle(pi.hThread);
+				 graphUpd();
+			 }
+
+
+	private: System::Void ResetClick(System::Object^  sender, System::EventArgs^  e) {
+				 Graph ^g = gcnew Graph("graph");
+				 gViewer1->Graph = g;
+			 }
+};
 }
 
