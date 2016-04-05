@@ -83,6 +83,7 @@ namespace graphdrawing {
 	private: System::Windows::Forms::Button^  reset;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
+	private: System::Windows::Forms::Button^  button1;
 
 
 
@@ -128,6 +129,7 @@ namespace graphdrawing {
 			this->reset = (gcnew System::Windows::Forms::Button());
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown2))->BeginInit();
 			this->SuspendLayout();
@@ -330,6 +332,7 @@ namespace graphdrawing {
 			this->treeKruskal->TabIndex = 24;
 			this->treeKruskal->Text = L"Spanning tree";
 			this->treeKruskal->UseVisualStyleBackColor = true;
+			this->treeKruskal->Click += gcnew System::EventHandler(this, &Form1::treeKruskal_Click);
 			// 
 			// nextKruskal
 			// 
@@ -342,13 +345,13 @@ namespace graphdrawing {
 			// 
 			// reset
 			// 
-			this->reset->Location = System::Drawing::Point(12, 517);
+			this->reset->Location = System::Drawing::Point(12, 565);
 			this->reset->Name = L"reset";
 			this->reset->Size = System::Drawing::Size(172, 40);
 			this->reset->TabIndex = 25;
-			this->reset->Text = L"Reset";
+			this->reset->Text = L"Clean";
 			this->reset->UseVisualStyleBackColor = true;
-			this->reset->Click += gcnew System::EventHandler(this, &Form1::ResetClick);
+			this->reset->Click += gcnew System::EventHandler(this, &Form1::CleanClick);
 			// 
 			// numericUpDown1
 			// 
@@ -364,11 +367,22 @@ namespace graphdrawing {
 			this->numericUpDown2->Size = System::Drawing::Size(69, 22);
 			this->numericUpDown2->TabIndex = 29;
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(12, 519);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(172, 40);
+			this->button1->TabIndex = 30;
+			this->button1->Text = L"Reset";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Form1::ResetClick);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1006, 671);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->numericUpDown2);
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->reset);
@@ -411,9 +425,11 @@ namespace graphdrawing {
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 
 			 }
+	
 	private: System::Void gViewer1_Load(System::Object^  sender, System::EventArgs^  e) {
 
 			 }
+	
 	private: System::Void graphUpd(){
 				 using namespace std;
 				 ifstream input("tree.txt");
@@ -439,9 +455,6 @@ namespace graphdrawing {
 				 input.close();
 			 
 			 }
-	private: System::Void nBox_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
-
-			 }
 
 	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
 				 vertices = (unsigned int)numericUpDown1->Value;
@@ -457,14 +470,14 @@ namespace graphdrawing {
 				 System::String^ verticesText = System::Convert::ToString(vertices);
 				 System::String^ edgesText = System::Convert::ToString(edges);
 
-				 System::String^ fullCommandLine = System::String::Concat(pathToExec, " ");
-				 fullCommandLine = System::String::Concat(fullCommandLine, verticesText, " ");
-				 fullCommandLine = System::String::Concat(fullCommandLine, edgesText, " ");
-				 fullCommandLine = System::String::Concat(fullCommandLine, minRangeText, " ");
-				 fullCommandLine = System::String::Concat(fullCommandLine, maxRangeText);
+				 System::String^ fullCommandLineStr = System::String::Concat(pathToExec, " ");
+				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, verticesText, " ");
+				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, edgesText, " ");
+				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, minRangeText, " ");
+				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, maxRangeText);
 
-				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLine);
-				 char* msg = static_cast<char*>(hglob.ToPointer());
+				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLineStr);
+				 char* fullCommandLine = static_cast<char*>(hglob.ToPointer());
 				
 				 STARTUPINFO si;
 				 PROCESS_INFORMATION pi;
@@ -473,7 +486,7 @@ namespace graphdrawing {
 
 				 if (CreateProcess(
 					 0,
-					 msg,
+					 fullCommandLine,
 					 0, 
 					 0, 
 					 TRUE, 
@@ -503,8 +516,7 @@ namespace graphdrawing {
 					 ofstream ofs("tree.txt");		
 					 ofs.close();
 				 }
-				 
-				 
+				 				 
 				 remove("graph.txt");
 				 ofstream graph("graph.txt");			
 				 
@@ -533,11 +545,11 @@ namespace graphdrawing {
 
 
 				 System::String^ pathToExec = "Kruskal_sample.exe";
-				 System::String^ sourseGraph = "../../graph-drawing/graph-drawing/graph.txt";
-			 	 System::String^ fullCommandLine = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
+				 System::String^ sourseGraph = "graph.txt";
+			 	 System::String^ fullCommandLineStr = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
 
-				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLine);
-				 char* msg = static_cast<char*>(hglob.ToPointer());
+				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLineStr);
+				 char* fullCommandLine = static_cast<char*>(hglob.ToPointer());
 				
 				 STARTUPINFO si;
 				 PROCESS_INFORMATION pi;
@@ -546,7 +558,7 @@ namespace graphdrawing {
 
 				 if (CreateProcess(
 					 0,
-					 msg,
+					 fullCommandLine,
 					 0, 
 					 0, 
 					 TRUE, 
@@ -563,8 +575,41 @@ namespace graphdrawing {
 				 graphUpd();
 			 }
 
-
 	private: System::Void ResetClick(System::Object^  sender, System::EventArgs^  e) {
+				 graphUpd();
+			 }
+	
+	private: System::Void treeKruskal_Click(System::Object^  sender, System::EventArgs^  e) {
+				 using namespace std;
+				 ifstream input("tree.txt");
+				 int n, m;
+				 input >> n;
+				 input >> m;
+				 vertices = n;
+				 edges = m;
+				 Graph ^g = gcnew Graph("graph");
+
+				 int N, K;
+				 float weight;
+				 for (int i = 0; i < edges; i++){
+					 input >> N;
+					 input >> K;
+					 input >> weight;
+				 }
+				 for (int i = 0; i < vertices - 1; i++){
+					 input >> N;
+					 input >> K;
+					 input >> weight;
+					 g->AddEdge(System::Convert::ToString(N),
+								System::Convert::ToString(weight),
+								System::Convert::ToString(K));
+				 }
+
+				 gViewer1->Graph = g;
+				 input.close();
+			 }
+
+	private: System::Void CleanClick(System::Object^  sender, System::EventArgs^  e) {
 				 Graph ^g = gcnew Graph("graph");
 				 gViewer1->Graph = g;
 			 }
