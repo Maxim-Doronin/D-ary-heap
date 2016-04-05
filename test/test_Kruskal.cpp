@@ -1,7 +1,7 @@
 #include "gtest.h"
 #include "Kruskal.h"
 
-TEST(KRUSKAL, algorithm_is_correct)
+TEST(KRUSKAL, algorithm_is_correct1)
 {
 	Graph *g = new Graph(6, 7);
 	g->addEdge(1, 5, 1);
@@ -12,6 +12,7 @@ TEST(KRUSKAL, algorithm_is_correct)
 	g->addEdge(3, 5, 6);
 	g->addEdge(4, 5, 7);
 
+	bool flag = false;
 	Graph *tree = Kruskal::kruskal(g);
 	Edge** edges = tree->getEdgeSet();
 	if ((edges[0]->N == 1) && (edges[0]->K == 5) &&
@@ -19,9 +20,58 @@ TEST(KRUSKAL, algorithm_is_correct)
 		(edges[2]->N == 1) && (edges[2]->K == 2) &&
 		(edges[3]->N == 2) && (edges[3]->K == 3) &&
 		(tree->getRealSize() == 4))
-		ASSERT_TRUE(1);
-	else
-		ASSERT_TRUE(0);	
+			flag = true;
+	ASSERT_TRUE(flag);
+	delete tree;
+	delete g;
+}
+
+TEST(KRUSKAL, algorithm_is_correct2)
+{
+	Graph *g = new Graph(6, 7);
+	g->addEdge(0, 1, 1);
+	g->addEdge(1, 2, 2);
+	g->addEdge(2, 0, 1);
+	g->addEdge(2, 3, 3);
+	g->addEdge(3, 4, 1);
+	g->addEdge(4, 5, 1);
+	g->addEdge(5, 3, 2);
+	
+	bool flag = true;
+	Graph *tree = Kruskal::kruskal(g);
+	Edge** edges = tree->getEdgeSet();
+	for (int i = 0; i < tree->getRealSize(); i++)
+		if (edges[i]->weight == 2)
+			flag = false;
+	
+	ASSERT_TRUE(flag);
+	delete tree;
+	delete g;
+}
+
+TEST(KRUSKAL, algorithm_is_correct3)
+{
+	Graph *g = new Graph(7, 12);
+	g->addEdge(0, 1, 16);
+	g->addEdge(0, 2, 12);
+	g->addEdge(0, 3, 21);
+	g->addEdge(1, 4, 20);
+	g->addEdge(1, 3, 17);
+	g->addEdge(2, 3, 28);
+	g->addEdge(2, 5, 31);
+	g->addEdge(3, 4, 18);
+	g->addEdge(3, 5, 19);
+	g->addEdge(3, 6, 23);
+	g->addEdge(4, 6, 11);
+	g->addEdge(5, 6, 27);
+
+	int weightCount = 0;
+	Graph *tree = Kruskal::kruskal(g);
+	Edge** edges = tree->getEdgeSet();
+	for (int i = 0; i < tree->getRealSize(); i++)
+		weightCount += edges[i]->weight;
+	
+	EXPECT_EQ(weightCount, 93);
 	delete tree;
 	delete g;
 }
