@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 			return 2;
 		}
 		input >> n;
+		input >> m;
 		graph = new Graph(n);
 		int N, K;
 		float weight;
@@ -36,6 +37,7 @@ int main(int argc, char **argv)
 			input >> weight;
 			graph->addEdge(N, K, weight);
 		}
+		input.close();
 	}
 	else return 1;
 
@@ -44,33 +46,28 @@ int main(int argc, char **argv)
 	Graph *tree = Kruskal::kruskal(graph);
 	tree->printList();
 
-	fstream output;
-	output.open("tree.txt", fstream::in | fstream::out);
-	if(output)
-		remove("tree.txt");			//удалил, если такой уже есть
-	ofstream ofs("tree.txt");		//создал файл
-	if(!output)
-		output.open("tree.txt", fstream::in | fstream::out);
+	remove("tree.txt");
+	ofstream output("tree.txt");
+	
 	output << n << ' ' << m << endl;			//печатаю количество вершин и ребер
 	
 	m = graph->getRealSize();
 	Edge* edge;
 	for (int j = 0; j < m; j++) {
 		edge = graph->getEdge(j);
-		output << edge->K << ' ' << edge->N << ' ' << edge->weight << endl;
+		output << edge->N << ' ' << edge->K << ' ' << edge->weight << endl;
 	}
 
 	m = tree->getRealSize();
 	output << endl;
 	for (int j = 0; j < m; j++) {
 		edge = tree->getEdge(j);
-		output << edge->K << ' ' << edge->N << ' ' << edge->weight << endl;
+		output << edge->N << ' ' << edge->K << ' ' << edge->weight << endl;
 	}
 
 	output.close();
 	delete graph;
 	delete tree;
-	//system("pause");
     return 0;
 }
 

@@ -29,19 +29,18 @@ int main(int argc, char **argv)
 			return 2;
 		}
 		input >> n;
+		input >> m;
 		s = atoi(argv[2]);
 		graph = new Graph(n);
+		int N, K;
 		float weight;
-		for (int i = 0; i < n; i++){
-			int N, K;
-			float weight;
-			while(!input.eof()){
+		while(!input.eof()){
 				input >> N;
 				input >> K;
 				input >> weight;
 				graph->addEdge(N, K, weight);
-			}
 		}
+		input.close();
 	}
 	else return 1;
 
@@ -50,13 +49,9 @@ int main(int argc, char **argv)
 
 	float *dist = Dijkstra::dijkstra(graph, s);
 
-	fstream output;
-	output.open("ways.txt", fstream::in | fstream::out);
-	if(output)
-		remove("ways.txt");			//удалил, если такой уже есть
-	ofstream ofs("ways.txt");		//создал файл
-	if(!output)
-		output.open("ways.txt", fstream::in | fstream::out);
+	remove("ways.txt");	
+	ofstream output("ways.txt");
+	
 	output << n << ' ' << m << endl;//печатаю количество вершин
 	output << s << endl;			//печатаю стартовую вершину
 
@@ -64,7 +59,7 @@ int main(int argc, char **argv)
 	Edge* edge;
 	for (int j = 0; j < m; j++) {
 		edge = graph->getEdge(j);
-		output << edge->K << ' ' << edge->N << ' ' << edge->weight << endl;
+		output << edge->N << ' ' << edge->K << ' ' << edge->weight << endl;
 	}
 
 	output << endl;
