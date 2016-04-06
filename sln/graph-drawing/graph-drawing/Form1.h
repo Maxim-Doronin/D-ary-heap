@@ -42,27 +42,35 @@ namespace graphdrawing {
 			}
 		}
 	private: Microsoft::Glee::GraphViewerGdi::GViewer^  gViewer1;
-
-
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::Label^  label2;
-
-
+	private: System::Windows::Forms::Label^  verticesLbl;
+	private: System::Windows::Forms::Label^  edgeLbl;
+	private: System::Windows::Forms::Label^  weightRangesLbl;
 
 
 
-	private: System::Windows::Forms::Label^  label3;
+
+
+
+
+
+
+
+
 	private: System::Windows::Forms::Button^  random;
 	private: System::Windows::Forms::TextBox^  minBox;
 	private: System::Windows::Forms::TextBox^  maxBox;
+	private: System::Windows::Forms::Label^  setEdgeLbl;
+	private: System::Windows::Forms::Label^  startLbl;
+	private: System::Windows::Forms::Label^  endLbl;
+	private: System::Windows::Forms::Label^  weightLbl;
 
 
 
 
-	private: System::Windows::Forms::Label^  label4;
-	private: System::Windows::Forms::Label^  label5;
-	private: System::Windows::Forms::Label^  label6;
-	private: System::Windows::Forms::Label^  label7;
+
+
+
+
 	private: System::Windows::Forms::TextBox^  startBox;
 	private: System::Windows::Forms::TextBox^  weightBox;
 
@@ -70,20 +78,24 @@ namespace graphdrawing {
 	private: System::Windows::Forms::TextBox^  endBox;
 
 	private: System::Windows::Forms::Button^  addEdge;
+	private: System::Windows::Forms::Label^  DijkstraLbl;
 
-	private: System::Windows::Forms::Label^  label8;
+
 	private: System::Windows::Forms::Button^  nextDijkstra;
 	private: System::Windows::Forms::Button^  treeDijkstra;
+	private: System::Windows::Forms::Label^  KruskalLbl;
 
 
-	private: System::Windows::Forms::Label^  label9;
+
 	private: System::Windows::Forms::Button^  treeKruskal;
 
 	private: System::Windows::Forms::Button^  nextKruskal;
-	private: System::Windows::Forms::Button^  reset;
+	private: System::Windows::Forms::Button^  cleanBtm;
+
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  resetBtm;
+
 
 
 
@@ -106,30 +118,30 @@ namespace graphdrawing {
 		void InitializeComponent(void)
 		{
 			this->gViewer1 = (gcnew Microsoft::Glee::GraphViewerGdi::GViewer());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->verticesLbl = (gcnew System::Windows::Forms::Label());
+			this->edgeLbl = (gcnew System::Windows::Forms::Label());
+			this->weightRangesLbl = (gcnew System::Windows::Forms::Label());
 			this->random = (gcnew System::Windows::Forms::Button());
 			this->minBox = (gcnew System::Windows::Forms::TextBox());
 			this->maxBox = (gcnew System::Windows::Forms::TextBox());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->setEdgeLbl = (gcnew System::Windows::Forms::Label());
+			this->startLbl = (gcnew System::Windows::Forms::Label());
+			this->endLbl = (gcnew System::Windows::Forms::Label());
+			this->weightLbl = (gcnew System::Windows::Forms::Label());
 			this->startBox = (gcnew System::Windows::Forms::TextBox());
 			this->weightBox = (gcnew System::Windows::Forms::TextBox());
 			this->endBox = (gcnew System::Windows::Forms::TextBox());
 			this->addEdge = (gcnew System::Windows::Forms::Button());
-			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->DijkstraLbl = (gcnew System::Windows::Forms::Label());
 			this->nextDijkstra = (gcnew System::Windows::Forms::Button());
 			this->treeDijkstra = (gcnew System::Windows::Forms::Button());
-			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->KruskalLbl = (gcnew System::Windows::Forms::Label());
 			this->treeKruskal = (gcnew System::Windows::Forms::Button());
 			this->nextKruskal = (gcnew System::Windows::Forms::Button());
-			this->reset = (gcnew System::Windows::Forms::Button());
+			this->cleanBtm = (gcnew System::Windows::Forms::Button());
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->resetBtm = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown2))->BeginInit();
 			this->SuspendLayout();
@@ -141,55 +153,60 @@ namespace graphdrawing {
 			this->gViewer1->BackwardEnabled = false;
 			this->gViewer1->ForwardEnabled = false;
 			this->gViewer1->Graph = nullptr;
-			this->gViewer1->Location = System::Drawing::Point(201, 12);
+			this->gViewer1->Location = System::Drawing::Point(151, 10);
+			this->gViewer1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->gViewer1->MouseHitDistance = 0.05;
 			this->gViewer1->Name = L"gViewer1";
 			this->gViewer1->NavigationVisible = true;
 			this->gViewer1->PanButtonPressed = false;
 			this->gViewer1->SaveButtonVisible = true;
-			this->gViewer1->Size = System::Drawing::Size(793, 647);
+			this->gViewer1->Size = System::Drawing::Size(595, 526);
 			this->gViewer1->TabIndex = 0;
 			this->gViewer1->ZoomF = 1;
 			this->gViewer1->ZoomFraction = 0.5;
 			this->gViewer1->ZoomWindowThreshold = 0.05;
 			this->gViewer1->Load += gcnew System::EventHandler(this, &Form1::gViewer1_Load);
 			// 
-			// label1
+			// verticesLbl
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->verticesLbl->AutoSize = true;
+			this->verticesLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(9, 18);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(59, 17);
-			this->label1->TabIndex = 2;
-			this->label1->Text = L"Vertices";
+			this->verticesLbl->Location = System::Drawing::Point(7, 15);
+			this->verticesLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->verticesLbl->Name = L"verticesLbl";
+			this->verticesLbl->Size = System::Drawing::Size(45, 13);
+			this->verticesLbl->TabIndex = 2;
+			this->verticesLbl->Text = L"Vertices";
 			// 
-			// label2
+			// edgeLbl
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->edgeLbl->AutoSize = true;
+			this->edgeLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label2->Location = System::Drawing::Point(112, 18);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(48, 17);
-			this->label2->TabIndex = 3;
-			this->label2->Text = L"Edges";
+			this->edgeLbl->Location = System::Drawing::Point(84, 15);
+			this->edgeLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->edgeLbl->Name = L"edgeLbl";
+			this->edgeLbl->Size = System::Drawing::Size(37, 13);
+			this->edgeLbl->TabIndex = 3;
+			this->edgeLbl->Text = L"Edges";
 			// 
-			// label3
+			// weightRangesLbl
 			// 
-			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(50, 71);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(95, 16);
-			this->label3->TabIndex = 7;
-			this->label3->Text = L"Weight ranges";
+			this->weightRangesLbl->AutoSize = true;
+			this->weightRangesLbl->Location = System::Drawing::Point(38, 58);
+			this->weightRangesLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->weightRangesLbl->Name = L"weightRangesLbl";
+			this->weightRangesLbl->Size = System::Drawing::Size(76, 13);
+			this->weightRangesLbl->TabIndex = 7;
+			this->weightRangesLbl->Text = L"Weight ranges";
 			// 
 			// random
 			// 
-			this->random->Location = System::Drawing::Point(12, 118);
+			this->random->Location = System::Drawing::Point(9, 96);
+			this->random->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->random->Name = L"random";
-			this->random->Size = System::Drawing::Size(172, 40);
+			this->random->Size = System::Drawing::Size(129, 32);
 			this->random->TabIndex = 8;
 			this->random->Text = L"Random!";
 			this->random->UseVisualStyleBackColor = true;
@@ -197,138 +214,153 @@ namespace graphdrawing {
 			// 
 			// minBox
 			// 
-			this->minBox->Location = System::Drawing::Point(12, 90);
+			this->minBox->Location = System::Drawing::Point(9, 73);
+			this->minBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->minBox->Name = L"minBox";
-			this->minBox->Size = System::Drawing::Size(69, 22);
+			this->minBox->Size = System::Drawing::Size(53, 20);
 			this->minBox->TabIndex = 9;
 			// 
 			// maxBox
 			// 
-			this->maxBox->Location = System::Drawing::Point(115, 90);
+			this->maxBox->Location = System::Drawing::Point(86, 73);
+			this->maxBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->maxBox->Name = L"maxBox";
-			this->maxBox->Size = System::Drawing::Size(69, 22);
+			this->maxBox->Size = System::Drawing::Size(53, 20);
 			this->maxBox->TabIndex = 10;
 			// 
-			// label4
+			// setEdgeLbl
 			// 
-			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->setEdgeLbl->AutoSize = true;
+			this->setEdgeLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label4->Location = System::Drawing::Point(9, 175);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(69, 17);
-			this->label4->TabIndex = 11;
-			this->label4->Text = L"Set edge:";
+			this->setEdgeLbl->Location = System::Drawing::Point(7, 142);
+			this->setEdgeLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->setEdgeLbl->Name = L"setEdgeLbl";
+			this->setEdgeLbl->Size = System::Drawing::Size(53, 13);
+			this->setEdgeLbl->TabIndex = 11;
+			this->setEdgeLbl->Text = L"Set edge:";
 			// 
-			// label5
+			// startLbl
 			// 
-			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->startLbl->AutoSize = true;
+			this->startLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label5->Location = System::Drawing::Point(9, 192);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(38, 17);
-			this->label5->TabIndex = 12;
-			this->label5->Text = L"Start";
+			this->startLbl->Location = System::Drawing::Point(7, 156);
+			this->startLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->startLbl->Name = L"startLbl";
+			this->startLbl->Size = System::Drawing::Size(29, 13);
+			this->startLbl->TabIndex = 12;
+			this->startLbl->Text = L"Start";
 			// 
-			// label6
+			// endLbl
 			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->endLbl->AutoSize = true;
+			this->endLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label6->Location = System::Drawing::Point(71, 192);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(33, 17);
-			this->label6->TabIndex = 13;
-			this->label6->Text = L"End";
+			this->endLbl->Location = System::Drawing::Point(53, 156);
+			this->endLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->endLbl->Name = L"endLbl";
+			this->endLbl->Size = System::Drawing::Size(26, 13);
+			this->endLbl->TabIndex = 13;
+			this->endLbl->Text = L"End";
 			// 
-			// label7
+			// weightLbl
 			// 
-			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->weightLbl->AutoSize = true;
+			this->weightLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label7->Location = System::Drawing::Point(134, 192);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(52, 17);
-			this->label7->TabIndex = 14;
-			this->label7->Text = L"Weight";
+			this->weightLbl->Location = System::Drawing::Point(100, 156);
+			this->weightLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->weightLbl->Name = L"weightLbl";
+			this->weightLbl->Size = System::Drawing::Size(41, 13);
+			this->weightLbl->TabIndex = 14;
+			this->weightLbl->Text = L"Weight";
 			// 
 			// startBox
 			// 
-			this->startBox->Location = System::Drawing::Point(12, 212);
+			this->startBox->Location = System::Drawing::Point(9, 172);
+			this->startBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->startBox->Name = L"startBox";
-			this->startBox->Size = System::Drawing::Size(47, 22);
+			this->startBox->Size = System::Drawing::Size(36, 20);
 			this->startBox->TabIndex = 15;
 			// 
 			// weightBox
 			// 
-			this->weightBox->Location = System::Drawing::Point(137, 212);
+			this->weightBox->Location = System::Drawing::Point(103, 172);
+			this->weightBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->weightBox->Name = L"weightBox";
-			this->weightBox->Size = System::Drawing::Size(47, 22);
+			this->weightBox->Size = System::Drawing::Size(36, 20);
 			this->weightBox->TabIndex = 16;
 			// 
 			// endBox
 			// 
-			this->endBox->Location = System::Drawing::Point(74, 212);
+			this->endBox->Location = System::Drawing::Point(56, 172);
+			this->endBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->endBox->Name = L"endBox";
-			this->endBox->Size = System::Drawing::Size(47, 22);
+			this->endBox->Size = System::Drawing::Size(36, 20);
 			this->endBox->TabIndex = 17;
 			// 
 			// addEdge
 			// 
-			this->addEdge->Location = System::Drawing::Point(12, 240);
+			this->addEdge->Location = System::Drawing::Point(9, 195);
+			this->addEdge->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->addEdge->Name = L"addEdge";
-			this->addEdge->Size = System::Drawing::Size(172, 40);
+			this->addEdge->Size = System::Drawing::Size(129, 32);
 			this->addEdge->TabIndex = 18;
 			this->addEdge->Text = L"Add";
 			this->addEdge->UseVisualStyleBackColor = true;
 			this->addEdge->Click += gcnew System::EventHandler(this, &Form1::AddEdgeClick);
 			// 
-			// label8
+			// DijkstraLbl
 			// 
-			this->label8->AutoSize = true;
-			this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->DijkstraLbl->AutoSize = true;
+			this->DijkstraLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label8->Location = System::Drawing::Point(9, 305);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(127, 17);
-			this->label8->TabIndex = 19;
-			this->label8->Text = L"Dijkstra\'s algorithm";
+			this->DijkstraLbl->Location = System::Drawing::Point(7, 248);
+			this->DijkstraLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->DijkstraLbl->Name = L"DijkstraLbl";
+			this->DijkstraLbl->Size = System::Drawing::Size(94, 13);
+			this->DijkstraLbl->TabIndex = 19;
+			this->DijkstraLbl->Text = L"Dijkstra\'s algorithm";
 			// 
 			// nextDijkstra
 			// 
-			this->nextDijkstra->Location = System::Drawing::Point(12, 325);
+			this->nextDijkstra->Location = System::Drawing::Point(9, 264);
+			this->nextDijkstra->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->nextDijkstra->Name = L"nextDijkstra";
-			this->nextDijkstra->Size = System::Drawing::Size(80, 60);
+			this->nextDijkstra->Size = System::Drawing::Size(60, 49);
 			this->nextDijkstra->TabIndex = 20;
 			this->nextDijkstra->Text = L"Next \r\nstep";
 			this->nextDijkstra->UseVisualStyleBackColor = true;
 			// 
 			// treeDijkstra
 			// 
-			this->treeDijkstra->Location = System::Drawing::Point(104, 325);
+			this->treeDijkstra->Location = System::Drawing::Point(78, 264);
+			this->treeDijkstra->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->treeDijkstra->Name = L"treeDijkstra";
-			this->treeDijkstra->Size = System::Drawing::Size(80, 60);
+			this->treeDijkstra->Size = System::Drawing::Size(60, 49);
 			this->treeDijkstra->TabIndex = 21;
 			this->treeDijkstra->Text = L"Spanning tree";
 			this->treeDijkstra->UseVisualStyleBackColor = true;
 			// 
-			// label9
+			// KruskalLbl
 			// 
-			this->label9->AutoSize = true;
-			this->label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->KruskalLbl->AutoSize = true;
+			this->KruskalLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->label9->Location = System::Drawing::Point(9, 407);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(127, 17);
-			this->label9->TabIndex = 22;
-			this->label9->Text = L"Kruskal\'s algorithm";
+			this->KruskalLbl->Location = System::Drawing::Point(7, 331);
+			this->KruskalLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->KruskalLbl->Name = L"KruskalLbl";
+			this->KruskalLbl->Size = System::Drawing::Size(94, 13);
+			this->KruskalLbl->TabIndex = 22;
+			this->KruskalLbl->Text = L"Kruskal\'s algorithm";
 			// 
 			// treeKruskal
 			// 
-			this->treeKruskal->Location = System::Drawing::Point(104, 427);
+			this->treeKruskal->Location = System::Drawing::Point(78, 347);
+			this->treeKruskal->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->treeKruskal->Name = L"treeKruskal";
-			this->treeKruskal->Size = System::Drawing::Size(80, 60);
+			this->treeKruskal->Size = System::Drawing::Size(60, 49);
 			this->treeKruskal->TabIndex = 24;
 			this->treeKruskal->Text = L"Spanning tree";
 			this->treeKruskal->UseVisualStyleBackColor = true;
@@ -336,77 +368,83 @@ namespace graphdrawing {
 			// 
 			// nextKruskal
 			// 
-			this->nextKruskal->Location = System::Drawing::Point(12, 427);
+			this->nextKruskal->Location = System::Drawing::Point(9, 347);
+			this->nextKruskal->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->nextKruskal->Name = L"nextKruskal";
-			this->nextKruskal->Size = System::Drawing::Size(80, 60);
+			this->nextKruskal->Size = System::Drawing::Size(60, 49);
 			this->nextKruskal->TabIndex = 23;
 			this->nextKruskal->Text = L"Next \r\nstep";
 			this->nextKruskal->UseVisualStyleBackColor = true;
 			// 
-			// reset
+			// cleanBtm
 			// 
-			this->reset->Location = System::Drawing::Point(12, 565);
-			this->reset->Name = L"reset";
-			this->reset->Size = System::Drawing::Size(172, 40);
-			this->reset->TabIndex = 25;
-			this->reset->Text = L"Clean";
-			this->reset->UseVisualStyleBackColor = true;
-			this->reset->Click += gcnew System::EventHandler(this, &Form1::CleanClick);
+			this->cleanBtm->Location = System::Drawing::Point(9, 459);
+			this->cleanBtm->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->cleanBtm->Name = L"cleanBtm";
+			this->cleanBtm->Size = System::Drawing::Size(129, 32);
+			this->cleanBtm->TabIndex = 25;
+			this->cleanBtm->Text = L"Clean";
+			this->cleanBtm->UseVisualStyleBackColor = true;
+			this->cleanBtm->Click += gcnew System::EventHandler(this, &Form1::CleanClick);
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(12, 38);
+			this->numericUpDown1->Location = System::Drawing::Point(9, 31);
+			this->numericUpDown1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(69, 22);
+			this->numericUpDown1->Size = System::Drawing::Size(52, 20);
 			this->numericUpDown1->TabIndex = 28;
 			// 
 			// numericUpDown2
 			// 
-			this->numericUpDown2->Location = System::Drawing::Point(115, 38);
+			this->numericUpDown2->Location = System::Drawing::Point(86, 31);
+			this->numericUpDown2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->numericUpDown2->Name = L"numericUpDown2";
-			this->numericUpDown2->Size = System::Drawing::Size(69, 22);
+			this->numericUpDown2->Size = System::Drawing::Size(52, 20);
 			this->numericUpDown2->TabIndex = 29;
 			// 
-			// button1
+			// resetBtm
 			// 
-			this->button1->Location = System::Drawing::Point(12, 519);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(172, 40);
-			this->button1->TabIndex = 30;
-			this->button1->Text = L"Reset";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Form1::ResetClick);
+			this->resetBtm->Location = System::Drawing::Point(9, 422);
+			this->resetBtm->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->resetBtm->Name = L"resetBtm";
+			this->resetBtm->Size = System::Drawing::Size(129, 32);
+			this->resetBtm->TabIndex = 30;
+			this->resetBtm->Text = L"Reset";
+			this->resetBtm->UseVisualStyleBackColor = true;
+			this->resetBtm->Click += gcnew System::EventHandler(this, &Form1::ResetClick);
 			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1006, 671);
-			this->Controls->Add(this->button1);
+			this->ClientSize = System::Drawing::Size(754, 545);
+			this->Controls->Add(this->resetBtm);
 			this->Controls->Add(this->numericUpDown2);
 			this->Controls->Add(this->numericUpDown1);
-			this->Controls->Add(this->reset);
+			this->Controls->Add(this->cleanBtm);
 			this->Controls->Add(this->treeKruskal);
 			this->Controls->Add(this->nextKruskal);
-			this->Controls->Add(this->label9);
+			this->Controls->Add(this->KruskalLbl);
 			this->Controls->Add(this->treeDijkstra);
 			this->Controls->Add(this->nextDijkstra);
-			this->Controls->Add(this->label8);
+			this->Controls->Add(this->DijkstraLbl);
 			this->Controls->Add(this->addEdge);
 			this->Controls->Add(this->endBox);
 			this->Controls->Add(this->weightBox);
 			this->Controls->Add(this->startBox);
-			this->Controls->Add(this->label7);
-			this->Controls->Add(this->label6);
-			this->Controls->Add(this->label5);
-			this->Controls->Add(this->label4);
+			this->Controls->Add(this->weightLbl);
+			this->Controls->Add(this->endLbl);
+			this->Controls->Add(this->startLbl);
+			this->Controls->Add(this->setEdgeLbl);
 			this->Controls->Add(this->maxBox);
 			this->Controls->Add(this->minBox);
 			this->Controls->Add(this->random);
-			this->Controls->Add(this->label3);
-			this->Controls->Add(this->label2);
-			this->Controls->Add(this->label1);
+			this->Controls->Add(this->weightRangesLbl);
+			this->Controls->Add(this->edgeLbl);
+			this->Controls->Add(this->verticesLbl);
 			this->Controls->Add(this->gViewer1);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"Form1";
 			this->Text = L"Graphs";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
@@ -439,6 +477,7 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 				 Graph ^g = gcnew Graph("graph");
+				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 				 for (int i = 0; i < vertices; i++)
 					 g->AddNode(System::Convert::ToString(i));
 				 int N, K;
@@ -449,7 +488,7 @@ namespace graphdrawing {
 					 input >> W;
 					 g->AddEdge(System::Convert::ToString(N),
 								System::Convert::ToString(W),
-								System::Convert::ToString(K));
+								System::Convert::ToString(K));//->Attr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 				 }
 				 gViewer1->Graph = g;
 				 input.close();
@@ -588,6 +627,7 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 				 Graph ^g = gcnew Graph("graph");
+				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 
 				 int N, K;
 				 float weight;
@@ -595,14 +635,24 @@ namespace graphdrawing {
 					 input >> N;
 					 input >> K;
 					 input >> weight;
-				 }
-				 for (int i = 0; i < vertices - 1; i++){
-					 input >> N;
-					 input >> K;
-					 input >> weight;
 					 g->AddEdge(System::Convert::ToString(N),
 								System::Convert::ToString(weight),
 								System::Convert::ToString(K));
+				 }
+				 while(!input.eof()){
+					 input >> N;
+					 input >> K;
+					 input >> weight;
+					 Edge^ e = gcnew Edge(System::Convert::ToString(N),
+							System::Convert::ToString(weight),
+							System::Convert::ToString(K));
+					 Node^ src = g->FindNode(System::Convert::ToString(N));
+					 Node^ trg = g->FindNode(System::Convert::ToString(K));
+					 int pos = g->Edges->IndexOf(e);
+					 g->Edges->Remove(e);
+					 g->AddEdge(System::Convert::ToString(N),
+								System::Convert::ToString(weight),
+								System::Convert::ToString(K))->Attr->Color = Microsoft::Glee::Drawing::Color::Red;
 				 }
 
 				 gViewer1->Graph = g;

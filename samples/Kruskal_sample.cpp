@@ -59,10 +59,10 @@ int main(int argc, char **argv)
 	}
 
 	m = tree->getRealSize();
-	output << endl;
 	for (int j = 0; j < m; j++) {
 		edge = tree->getEdge(j);
-		output << edge->N << ' ' << edge->K << ' ' << edge->weight << endl;
+		output << endl;
+		output << edge->N << ' ' << edge->K << ' ' << edge->weight;
 	}
 
 	output.close();

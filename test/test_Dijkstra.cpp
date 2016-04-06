@@ -16,7 +16,7 @@ TEST(DIJKSTRA, algorithm_is_correct1)
 	Graph *g = new Graph(10);
 	g->addEdge(0, 1, 5);
 	g->addEdge(0, 2, 8);
-	g->addEdge(0, 3, 11);
+	g->addEdge(0, 3, 12);
 	g->addEdge(1, 4, 4);
 	g->addEdge(2, 3, 3);
 	g->addEdge(2, 4, 2);
