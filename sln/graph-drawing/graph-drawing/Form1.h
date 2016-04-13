@@ -627,6 +627,7 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 				 Graph ^g = gcnew Graph("graph");
+
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 
 				 int N, K;
@@ -635,24 +636,21 @@ namespace graphdrawing {
 					 input >> N;
 					 input >> K;
 					 input >> weight;
-					 g->AddEdge(System::Convert::ToString(N),
-								System::Convert::ToString(weight),
-								System::Convert::ToString(K));
+					 Edge ^edge = gcnew Edge(System::Convert::ToString(N),
+											 System::Convert::ToString(weight),
+											 System::Convert::ToString(K));
+					 g->Edges->Add(edge);
 				 }
 				 while(!input.eof()){
 					 input >> N;
 					 input >> K;
 					 input >> weight;
-					 Edge^ e = gcnew Edge(System::Convert::ToString(N),
-							System::Convert::ToString(weight),
-							System::Convert::ToString(K));
-					 Node^ src = g->FindNode(System::Convert::ToString(N));
-					 Node^ trg = g->FindNode(System::Convert::ToString(K));
-					 int pos = g->Edges->IndexOf(e);
-					 g->Edges->Remove(e);
-					 g->AddEdge(System::Convert::ToString(N),
-								System::Convert::ToString(weight),
-								System::Convert::ToString(K))->Attr->Color = Microsoft::Glee::Drawing::Color::Red;
+					 for (int i = 0; i < g->Edges->Count; i++) {
+						 Edge^ edge = g->EdgeById(System::Convert::ToString(i));
+						 if ((edge->Source == System::Convert::ToString(N)) && (edge->Target == System::Convert::ToString(K)) ||
+							 (edge->Source == System::Convert::ToString(K)) && (edge->Target == System::Convert::ToString(N)))
+								 edge->Attr->Color = Microsoft::Glee::Drawing::Color::Red;
+					 }
 				 }
 
 				 gViewer1->Graph = g;
