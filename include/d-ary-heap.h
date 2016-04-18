@@ -15,9 +15,10 @@ class DAryHeap{
 protected:
 	Data **keys;
 	int d;
-	int size;			//current size of heap
+	int lastIdx;			//current size of heap
 public:
 	DAryHeap(int d);
+	DAryHeap(const DAryHeap &heap);
 	~DAryHeap();
 
 	void add(Data *&key);

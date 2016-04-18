@@ -12,5 +12,5 @@ public:
 
 class Dijkstra {
 public:
-	static float* dijkstra(Graph *&graph, int s); 
+	static void dijkstra(Graph *&graph, int s, float *&distance, int *&up); 
 };

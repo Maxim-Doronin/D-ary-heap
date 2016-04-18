@@ -5,6 +5,11 @@ PriorityQueue::PriorityQueue(int d)
 	heap = new DAryHeap(d);
 }
 
+PriorityQueue::PriorityQueue(const PriorityQueue &queue)
+{
+	this->heap = new DAryHeap(*(queue.heap));
+}
+
 PriorityQueue::PriorityQueue(Data **keys, int num, int d)
 {
 	heap = new DAryHeap(d);
@@ -19,11 +24,6 @@ PriorityQueue::~PriorityQueue()
 void PriorityQueue::push(Data *&key)
 {
 	heap->add(key);
-}
-
-Data* PriorityQueue::pop(int i)
-{
-	return heap->erase(i);
 }
 
 Data* PriorityQueue::pop()

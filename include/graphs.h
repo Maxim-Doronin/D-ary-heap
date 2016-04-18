@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#define maxVerticesSize 40
+
 class Edge {
 public: 
 	int N;
@@ -26,19 +28,21 @@ public:
 
 	void generateGraph(float minRange, float maxRange);
 	void addEdge(int N, int K, float weight);
+	void delEdge(int N, int K);
 
 	int getVerticesNum();
 	int getEdgeSize();
 	int getRealSize();
 	Edge** getEdgeSet();
+	Edge*  getEdge(int j); //TEST!!!
 	float getWeight(int N, int K);
 
 	void printList();
 
 private:
 	void generateVertices(int &N, int &K);
-	bool originalityCheck(int N, int K);
 	float generateWeight(float minRange, float maxRange);
 	void cleaner();
+	int findEdge(int N, int K);
 };
 

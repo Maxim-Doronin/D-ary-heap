@@ -4256,7 +4256,7 @@ void PrettyUnitTestResultPrinter::OnTestCaseStart(const TestCase& test_case) {
 }
 
 void PrettyUnitTestResultPrinter::OnTestStart(const TestInfo& test_info) {
-  ColoredPrintf(COLOR_GREEN,  "[ PUSH ME                  ] ");
+  ColoredPrintf(COLOR_GREEN,  "[ RUN      ] ");
   PrintTestName(test_info.test_case_name(), test_info.name());
   printf("\n");
   fflush(stdout);
@@ -4276,7 +4276,7 @@ void PrettyUnitTestResultPrinter::OnTestPartResult(
 
 void PrettyUnitTestResultPrinter::OnTestEnd(const TestInfo& test_info) {
   if (test_info.result()->Passed()) {
-    ColoredPrintf(COLOR_GREEN, "[   AND THEN JUST TOUCH ME ] ");
+    ColoredPrintf(COLOR_GREEN, "[       OK ] ");
   } else {
     ColoredPrintf(COLOR_RED, "[  FAILED  ] ");
   }
@@ -4339,7 +4339,7 @@ void PrettyUnitTestResultPrinter::PrintFailedTests(const UnitTest& unit_test) {
 
 void PrettyUnitTestResultPrinter::OnTestIterationEnd(const UnitTest& unit_test,
                                                      int /*iteration*/) {
-  ColoredPrintf(COLOR_GREEN,  "[ DO I CAN GET MY ] ");
+  ColoredPrintf(COLOR_GREEN,  "[==========] ");
   printf("%s from %s ran.",
          FormatTestCount(unit_test.test_to_run_count()).c_str(),
          FormatTestCaseCount(unit_test.test_case_to_run_count()).c_str());
@@ -4348,7 +4348,7 @@ void PrettyUnitTestResultPrinter::OnTestIterationEnd(const UnitTest& unit_test,
            internal::StreamableToString(unit_test.elapsed_time()).c_str());
   }
   printf("\n");
-  ColoredPrintf(COLOR_GREEN,  "[  SATISFACTION   ] ");
+  ColoredPrintf(COLOR_GREEN,  "[  PASSED  ] ");
   printf("%s.\n", FormatTestCount(unit_test.successful_test_count()).c_str());
 
   int num_failures = unit_test.failed_test_count();

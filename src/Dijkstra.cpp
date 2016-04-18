@@ -6,15 +6,15 @@ DataFloat::DataFloat(int v, float dist)
 	priorities = dist;
 }
 
-float* Dijkstra::dijkstra(Graph *&graph, int s)
+void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 {
 	int n = graph->getVerticesNum();
-	if ((s < 0)||(s >= n))
-		return 0;
 	int m = graph->getRealSize();
+	if ((s < 0)||(s >= n))
+		throw "Dijkstra: Invalid start vertex!";
 	
 	Data** dist = new Data*[n];
-	int* up = new int[n];
+	up = new int[n];
 
 	for (int i = 0; i < n; i++){
 		up[i] = 0;
@@ -25,8 +25,7 @@ float* Dijkstra::dijkstra(Graph *&graph, int s)
 	PriorityQueue *queue = new PriorityQueue(dist, n, 4);
 
 	Edge** edges = graph->getEdgeSet();
-	int edgeCount = m;
-	while ((edgeCount != 0) && (!queue->isEmpty()))
+	while (!queue->isEmpty())
 	{
 		Data* tmp = queue->pop();
 		int v = ((DataFloat*)tmp)->v;
@@ -40,24 +39,21 @@ float* Dijkstra::dijkstra(Graph *&graph, int s)
 			if (edges[i]->N == v)
 				v0 = edges[i]->K;
 			if (v0 == -1) continue;
-			//edgeCount--;
 			delta = dist[v0]->priorities - (dist[v]->priorities + graph->getWeight(v, v0));
-			if (delta > 0){
+			if (delta > 0)
+			{
 				dist[v0]->priorities = graph->getWeight(v, v0) + dist[v]->priorities;
 				up[v0] = v;
 			}
 		}
 	}
 	
-	float *result = new float[n];
+	distance = new float[n];
 	for (int i = 0; i < n; i++)
-		result[i] = dist[i]->priorities;
+		distance[i] = dist[i]->priorities;
 
 	for (int i = 0; i < n; i++)
 		delete dist[i];
 	delete []dist;
 	delete queue;
-	delete []up;
-
-	return result;
 }

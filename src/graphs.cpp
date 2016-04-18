@@ -9,7 +9,7 @@ Edge::Edge(int N, int K, float weight)
 
 Graph::Graph(int n)
 {
-	if ((n < 0)||(n > 45))
+	if ((n < 0)||(n > maxVerticesSize))
 		throw "Graph: Invalid namber of vertices";
 	else
 		this->n = n;
@@ -21,7 +21,7 @@ Graph::Graph(int n)
 
 Graph::Graph(int n, int m)
 {
-	if ((n < 0)||(n > 45))
+	if ((n < 0)||(n > maxVerticesSize))
 		throw "Graph: Invalid namber of vertices";
 	else
 		this->n = n;
@@ -44,23 +44,23 @@ Graph::~Graph()
 	delete []vertices;
 }
 
-void Graph::generateVertices(int &N, int &K)
-{
-	do {
-		N = rand() % n;
-		K = rand() % n;	}
-	while ((N == K)||(!originalityCheck(N, K)));
-}
-
-bool Graph::originalityCheck(int N, int K)
+int Graph::findEdge(int N, int K)
 {
 	for (int j = 0; j < m_cur; j++)
 		if ((edges[j]->K == K) &&
 			(edges[j]->N == N) ||
 			(edges[j]->N == K) &&
 			(edges[j]->K == N))
-			return false;
-	return true;
+			return j;
+	return -1;
+}
+
+void Graph::generateVertices(int &N, int &K)
+{
+	do {
+		N = rand() % n;
+		K = rand() % n;	}
+	while ((N == K)||(findEdge(N, K) != -1));
 }
 
 float Graph::generateWeight(float minRange, float maxRange)
@@ -83,7 +83,7 @@ void Graph::generateGraph(float minRange, float maxRange)
 	if (minRange > maxRange)
 		throw "Graph: Invalid ranges";
 
-	if (!m_cur){
+	if (m_cur){
 		cleaner();
 		m_cur = 0;
 	}
@@ -103,8 +103,20 @@ void Graph::addEdge(int N, int K, float weight)
 		throw "Graph: Graph is full";
 	if (N == K)
 		throw "Graph: Loops are disabled";
+	if (findEdge(N, K) != -1)
+		throw "Graph: multiple edges arent allowed!";
 	edges[m_cur] = new Edge(N, K, weight);
 	m_cur++;
+}
+
+void Graph::delEdge(int N, int K)
+{
+	int j = findEdge(N, K);
+	if (j == -1)
+		throw "Graph: try delete non-existent edge";
+	delete edges[j];
+	edges[j] = edges[m_cur - 1];
+	m_cur--;
 }
 
 int Graph::getVerticesNum()
@@ -124,18 +136,22 @@ int Graph::getRealSize()
 
 Edge** Graph::getEdgeSet()
 {
+	if (m_cur == 0)
+		return 0;
 	return edges;
+}
+
+Edge* Graph::getEdge(int j)
+{
+	return edges[j];
 }
 
 float Graph::getWeight(int N, int K)
 {
-	for (int j = 0; j < m_cur; j++)
-		if ((edges[j]->K == K) &&
-			(edges[j]->N == N) ||
-			(edges[j]->N == K) &&
-			(edges[j]->K == N))
-			return edges[j]->weight;
-	throw "Graph: Invalid edge!";
+	int j = findEdge(N, K);
+	if (j == -1)
+		throw "Graph: Invalid edge!";
+	return edges[j]->weight;
 }
 
 void Graph::printList()
