@@ -57,7 +57,7 @@ namespace graphdrawing {
 	private: System::Windows::Forms::TextBox^  endBox;
 	private: System::Windows::Forms::Button^  addEdge;
 	private: System::Windows::Forms::Label^  DijkstraLbl;
-	private: System::Windows::Forms::Button^  nextDijkstra;
+
 	private: System::Windows::Forms::Button^  treeDijkstra;
 	private: System::Windows::Forms::Label^  KruskalLbl;
 	private: System::Windows::Forms::Button^  treeKruskal;
@@ -68,6 +68,8 @@ namespace graphdrawing {
 
 
 	private: System::Windows::Forms::Button^  resetBtm;
+	private: System::Windows::Forms::TextBox^  startDijBox;
+	private: System::Windows::Forms::Label^  startDijLbl;
 
 	protected: 
 
@@ -100,7 +102,6 @@ namespace graphdrawing {
 			this->endBox = (gcnew System::Windows::Forms::TextBox());
 			this->addEdge = (gcnew System::Windows::Forms::Button());
 			this->DijkstraLbl = (gcnew System::Windows::Forms::Label());
-			this->nextDijkstra = (gcnew System::Windows::Forms::Button());
 			this->treeDijkstra = (gcnew System::Windows::Forms::Button());
 			this->KruskalLbl = (gcnew System::Windows::Forms::Label());
 			this->treeKruskal = (gcnew System::Windows::Forms::Button());
@@ -109,6 +110,8 @@ namespace graphdrawing {
 			this->verticesUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->edgesUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->resetBtm = (gcnew System::Windows::Forms::Button());
+			this->startDijBox = (gcnew System::Windows::Forms::TextBox());
+			this->startDijLbl = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->verticesUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->edgesUpDown))->BeginInit();
 			this->SuspendLayout();
@@ -276,38 +279,29 @@ namespace graphdrawing {
 			this->DijkstraLbl->AutoSize = true;
 			this->DijkstraLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->DijkstraLbl->Location = System::Drawing::Point(9, 305);
+			this->DijkstraLbl->Location = System::Drawing::Point(9, 320);
 			this->DijkstraLbl->Name = L"DijkstraLbl";
 			this->DijkstraLbl->Size = System::Drawing::Size(127, 17);
 			this->DijkstraLbl->TabIndex = 19;
 			this->DijkstraLbl->Text = L"Dijkstra\'s algorithm";
 			// 
-			// nextDijkstra
-			// 
-			this->nextDijkstra->Location = System::Drawing::Point(12, 325);
-			this->nextDijkstra->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->nextDijkstra->Name = L"nextDijkstra";
-			this->nextDijkstra->Size = System::Drawing::Size(80, 60);
-			this->nextDijkstra->TabIndex = 20;
-			this->nextDijkstra->Text = L"Next \r\nstep";
-			this->nextDijkstra->UseVisualStyleBackColor = true;
-			// 
 			// treeDijkstra
 			// 
-			this->treeDijkstra->Location = System::Drawing::Point(104, 325);
+			this->treeDijkstra->Location = System::Drawing::Point(104, 339);
 			this->treeDijkstra->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->treeDijkstra->Name = L"treeDijkstra";
 			this->treeDijkstra->Size = System::Drawing::Size(80, 60);
 			this->treeDijkstra->TabIndex = 21;
 			this->treeDijkstra->Text = L"Spanning tree";
 			this->treeDijkstra->UseVisualStyleBackColor = true;
+			this->treeDijkstra->Click += gcnew System::EventHandler(this, &Form1::treeDijkstra_Click);
 			// 
 			// KruskalLbl
 			// 
 			this->KruskalLbl->AutoSize = true;
 			this->KruskalLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->KruskalLbl->Location = System::Drawing::Point(9, 407);
+			this->KruskalLbl->Location = System::Drawing::Point(9, 421);
 			this->KruskalLbl->Name = L"KruskalLbl";
 			this->KruskalLbl->Size = System::Drawing::Size(127, 17);
 			this->KruskalLbl->TabIndex = 22;
@@ -315,7 +309,7 @@ namespace graphdrawing {
 			// 
 			// treeKruskal
 			// 
-			this->treeKruskal->Location = System::Drawing::Point(104, 427);
+			this->treeKruskal->Location = System::Drawing::Point(104, 441);
 			this->treeKruskal->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->treeKruskal->Name = L"treeKruskal";
 			this->treeKruskal->Size = System::Drawing::Size(80, 60);
@@ -326,7 +320,7 @@ namespace graphdrawing {
 			// 
 			// nextKruskal
 			// 
-			this->nextKruskal->Location = System::Drawing::Point(12, 427);
+			this->nextKruskal->Location = System::Drawing::Point(12, 441);
 			this->nextKruskal->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->nextKruskal->Name = L"nextKruskal";
 			this->nextKruskal->Size = System::Drawing::Size(80, 60);
@@ -337,7 +331,7 @@ namespace graphdrawing {
 			// 
 			// cleanBtm
 			// 
-			this->cleanBtm->Location = System::Drawing::Point(12, 565);
+			this->cleanBtm->Location = System::Drawing::Point(12, 595);
 			this->cleanBtm->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->cleanBtm->Name = L"cleanBtm";
 			this->cleanBtm->Size = System::Drawing::Size(172, 39);
@@ -364,7 +358,7 @@ namespace graphdrawing {
 			// 
 			// resetBtm
 			// 
-			this->resetBtm->Location = System::Drawing::Point(12, 519);
+			this->resetBtm->Location = System::Drawing::Point(12, 549);
 			this->resetBtm->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->resetBtm->Name = L"resetBtm";
 			this->resetBtm->Size = System::Drawing::Size(172, 39);
@@ -373,11 +367,32 @@ namespace graphdrawing {
 			this->resetBtm->UseVisualStyleBackColor = true;
 			this->resetBtm->Click += gcnew System::EventHandler(this, &Form1::ResetClick);
 			// 
+			// startDijBox
+			// 
+			this->startDijBox->Location = System::Drawing::Point(29, 367);
+			this->startDijBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->startDijBox->Name = L"startDijBox";
+			this->startDijBox->Size = System::Drawing::Size(47, 22);
+			this->startDijBox->TabIndex = 32;
+			// 
+			// startDijLbl
+			// 
+			this->startDijLbl->AutoSize = true;
+			this->startDijLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(204)));
+			this->startDijLbl->Location = System::Drawing::Point(34, 346);
+			this->startDijLbl->Name = L"startDijLbl";
+			this->startDijLbl->Size = System::Drawing::Size(38, 17);
+			this->startDijLbl->TabIndex = 31;
+			this->startDijLbl->Text = L"Start";
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1005, 671);
+			this->Controls->Add(this->startDijBox);
+			this->Controls->Add(this->startDijLbl);
 			this->Controls->Add(this->resetBtm);
 			this->Controls->Add(this->edgesUpDown);
 			this->Controls->Add(this->verticesUpDown);
@@ -386,7 +401,6 @@ namespace graphdrawing {
 			this->Controls->Add(this->nextKruskal);
 			this->Controls->Add(this->KruskalLbl);
 			this->Controls->Add(this->treeDijkstra);
-			this->Controls->Add(this->nextDijkstra);
 			this->Controls->Add(this->DijkstraLbl);
 			this->Controls->Add(this->addEdge);
 			this->Controls->Add(this->endBox);
@@ -418,10 +432,13 @@ namespace graphdrawing {
 		static unsigned int vertices = 0;
 		static unsigned int edges = 0;
 		static float minRange;
+		System::String^ minRangeText;
 		static float maxRange;
+		System::String^ maxRangeText;
+		static System::String^ startText = "0";
 		
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
-
+				 startDijBox->Text = "0";
 			 }
 	
 	private: System::Void gViewer1_Load(System::Object^  sender, System::EventArgs^  e) {
@@ -454,18 +471,38 @@ namespace graphdrawing {
 				 gViewer1->Graph = g;
 				 input.close();
 			 }
+			 
+	private: System::Void createFile() {
+				 using namespace std;
+				 fstream input;
+				 input.open("tree.txt", fstream::in | fstream::out);
+				 if(!input){
+					 ofstream ofs("tree.txt");		
+					 ofs.close();
+				 }
+				 remove("graph.txt");
+				 ofstream graph("graph.txt");
 
-	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
-				 vertices = (unsigned int)verticesUpDown->Value;
-				 edges = (unsigned int)edgesUpDown->Value;
-				 System::String^ minRangeText;
-				 minRangeText = minBox->Text;
-				 minRange = (float)(Convert::ToDouble(minRangeText));
-				 System::String^ maxRangeText;
-				 maxRangeText = maxBox->Text;
-				 maxRange = (float)(Convert::ToDouble(maxRangeText));
+				 int n = 0, m = 0;
+				 input >> n;
+				 input >> m;
 
-				 System::String^ pathToExec = "Kruskal_sample.exe";
+				 graph << n << ' ' << m;
+
+				 int N, K;
+				 float weight;
+				 for (int j = 0; j < m; j++) {
+					 graph << endl;
+					 input >> N;
+					 input >> K;
+					 input >> weight;
+					 graph << N << ' ' << K << ' ' << weight;
+				 }
+				 input.close();
+				 graph.close();
+			  }
+
+	private: System::Void createProcRandom(System::String^ pathToExec) {
 				 System::String^ verticesText = System::Convert::ToString(vertices);
 				 System::String^ edgesText = System::Convert::ToString(edges);
 
@@ -474,7 +511,10 @@ namespace graphdrawing {
 				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, edgesText, " ");
 				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, minRangeText, " ");
 				 fullCommandLineStr = System::String::Concat(fullCommandLineStr, maxRangeText);
-
+				 if (pathToExec == "Dijkstra_sample.exe"){
+					 startText = startDijBox->Text;
+					 fullCommandLineStr = System::String::Concat(fullCommandLineStr, " ", startText);
+				 }
 				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLineStr);
 				 char* fullCommandLine = static_cast<char*>(hglob.ToPointer());
 				
@@ -483,22 +523,45 @@ namespace graphdrawing {
 				 ZeroMemory(&pi, sizeof(pi));
 				 ZeroMemory(&si, sizeof(STARTUPINFO));
 
-				 if (CreateProcess(
-					 0,
-					 fullCommandLine,
-					 0, 
-					 0, 
-					 TRUE, 
-					 0, 
-					 0, 
-					 0, 
-					 &si, 
-					 &pi))
-				 {
+				 if (CreateProcess(0, fullCommandLine, 0, 0, TRUE, 0, 0, 0, &si, &pi))
 					 WaitForSingleObject(pi.hProcess, INFINITE);
-				 }
 				 CloseHandle(pi.hProcess);
 				 CloseHandle(pi.hThread);
+			 }
+
+	private: System::Void createProcFile(System::String^ pathToExec, System::String^ sourseGraph) {
+				 System::String^ fullCommandLineStr = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
+				 if (pathToExec == "Dijkstra_sample.exe"){
+					 startText = startDijBox->Text;
+					 fullCommandLineStr = System::String::Concat(fullCommandLineStr, " ", startText);
+				 }
+				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLineStr);
+				 char* fullCommandLine = static_cast<char*>(hglob.ToPointer());
+				
+				 STARTUPINFO si;
+				 PROCESS_INFORMATION pi;
+				 ZeroMemory(&pi, sizeof(pi));
+				 ZeroMemory(&si, sizeof(STARTUPINFO));
+
+				 if (CreateProcess(0, fullCommandLine, 0, 0, TRUE, 0, 0, 0, &si, &pi))
+					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 CloseHandle(pi.hProcess);
+				 CloseHandle(pi.hThread);
+			 }
+	
+	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
+				 vertices = (unsigned int)verticesUpDown->Value;
+				 edges = (unsigned int)edgesUpDown->Value;
+				 
+				 minRangeText = minBox->Text;
+				 minRange = (float)(Convert::ToDouble(minRangeText));
+				 maxRangeText = maxBox->Text;
+				 maxRange = (float)(Convert::ToDouble(maxRangeText));
+
+				 System::String^ pathToExec1 = "Kruskal_sample.exe";
+				 createProcRandom(pathToExec1);
+				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
+				 createProcRandom(pathToExec2);
 				 graphUpd();
 			 };
 	
@@ -545,45 +608,23 @@ namespace graphdrawing {
 				 input.close();
 				 graph.close();
 
-
-				 System::String^ pathToExec = "Kruskal_sample.exe";
 				 System::String^ sourseGraph = "graph.txt";
-			 	 System::String^ fullCommandLineStr = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
-
-				 IntPtr hglob = Marshal::StringToHGlobalAnsi(fullCommandLineStr);
-				 char* fullCommandLine = static_cast<char*>(hglob.ToPointer());
-				
-				 STARTUPINFO si;
-				 PROCESS_INFORMATION pi;
-				 ZeroMemory(&pi, sizeof(pi));
-				 ZeroMemory(&si, sizeof(STARTUPINFO));
-
-				 if (CreateProcess(
-					 0,
-					 fullCommandLine,
-					 0, 
-					 0, 
-					 TRUE, 
-					 0, 
-					 0, 
-					 0, 
-					 &si, 
-					 &pi))
-				 {
-					 WaitForSingleObject(pi.hProcess, INFINITE);
-				 }
-				 CloseHandle(pi.hProcess);
-				 CloseHandle(pi.hThread);
+			 	 System::String^ pathToExec1 = "Kruskal_sample.exe";
+				 createProcFile(pathToExec1, sourseGraph);
+				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
+				 createProcFile(pathToExec2, sourseGraph);
 				 graphUpd();
 			 }
 
 	private: System::Void treeKruskal_Click(System::Object^  sender, System::EventArgs^  e) {
+				 ResetClick(sender, e);
 				 Graph ^g = gViewer1->Graph;
 				 for (int i = 0; i < vertices - 1; i++)
 					 nextKruskal_Click(sender, e);
 			 }
 
 	private: System::Void nextKruskal_Click(System::Object^  sender, System::EventArgs^  e) {
+
 				 using namespace std;
 				 ifstream input("tree.txt");
 				 int n, m;
@@ -592,6 +633,8 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 				 
+				 if (!gViewer1->Graph)
+					 random_Click(sender, e);
 				 Graph ^g = gViewer1->Graph;
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 
@@ -632,6 +675,66 @@ namespace graphdrawing {
 	private: System::Void CleanClick(System::Object^  sender, System::EventArgs^  e) {
 				 Graph ^g = gcnew Graph("graph");
 				 gViewer1->Graph = g;
+			 }
+	
+	private: System::Void treeDijkstra_Click(System::Object^  sender, System::EventArgs^  e) {
+				 ResetClick(sender, e);
+				 
+				 createFile();
+				 System::String^ sourseGraph = "graph.txt";
+				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
+				 createProcFile(pathToExec2, sourseGraph);
+
+				 using namespace std;
+				 ifstream input("ways.txt");
+				 int n, m, s;
+				 input >> n;
+				 input >> m;
+				 input >> s;
+				 vertices = n;
+				 edges = m;
+
+				 if (!gViewer1->Graph)
+					 random_Click(sender, e);
+				 Graph ^g = gViewer1->Graph;
+				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
+
+				 int N, K;
+				 float weight;
+				 for (int i = 0; i < edges; i++){
+					 input >> N;
+					 input >> K;
+					 input >> weight;
+				 }
+				 
+				 float dist;
+				 int up;
+				 while(!input.eof()){
+					 input >> N;
+					 input >> dist;
+					 input >> up;
+
+					 Node^ node = g->FindNode(System::Convert::ToString(N));
+					 node->Attr->Label  = System::String::Concat(System::Convert::ToString(N), " : ", System::Convert::ToString(dist));
+					 node->Attr->Fillcolor = Microsoft::Glee::Drawing::Color::White;
+
+					 for (int i = 0; i < g->Edges->Count; i++) {
+						 Edge^ edge = g->Edges[i];
+						 if ((g->Edges[i]->Source == System::Convert::ToString(N)) && (g->Edges[i]->Target == System::Convert::ToString(up))) {
+							 g->Edges[i]->Attr->ArrowHeadAtSource = Microsoft::Glee::Drawing::ArrowStyle::Normal;
+							 g->Edges[i]->Attr->LineWidth = 2;
+							 g->Edges[i]->Attr->Color = Microsoft::Glee::Drawing::Color::Green;
+						 }
+						 if ((g->Edges[i]->Source == System::Convert::ToString(up)) && (g->Edges[i]->Target == System::Convert::ToString(N))){
+							 g->Edges[i]->Attr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::Normal;
+							 g->Edges[i]->Attr->LineWidth = 2;
+							 g->Edges[i]->Attr->Color = Microsoft::Glee::Drawing::Color::Green;
+						 }
+					 }
+				 }
+				 g->FindNode(System::Convert::ToString(s))->Attr->Fillcolor = Microsoft::Glee::Drawing::Color::Yellow;
+				 gViewer1->Graph = g;
+				 input.close(); 
 			 }
 };
 }
