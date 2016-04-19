@@ -45,6 +45,7 @@ void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 			{
 				dist[vIncident]->priorities = way;  //поскольку в очереди лежат указатели на объекты dist[i],
 				up[vIncident] = vConsidered;		//то значени€ в очереди автоматически измен€тс€.
+				queue->refresh();
 			}
 		}
 	}
