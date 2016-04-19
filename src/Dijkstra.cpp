@@ -21,6 +21,7 @@ void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 		dist[i] = new DataFloat(i, FLT_MAX);
 	}
 	dist[s]->priorities = 0;
+	up[s] = s;
 
 	PriorityQueue *queue = new PriorityQueue(dist, n, 4);
 
