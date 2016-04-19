@@ -27,23 +27,24 @@ void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 	Edge** edges = graph->getEdgeSet();
 	while (!queue->isEmpty())
 	{
-		Data* tmp = queue->pop();
-		int v = ((DataFloat*)tmp)->v;
-		int v0 = -1;
+		int vConsidered = ((DataFloat*)queue->pop())->v;
 		float delta;
+
 		for (int i = 0; i < m; i++)
 		{
-			v0 = -1;
-			if (edges[i]->K == v)
-				v0 = edges[i]->N;
-			if (edges[i]->N == v)
-				v0 = edges[i]->K;
-			if (v0 == -1) continue;
-			delta = dist[v0]->priorities - (dist[v]->priorities + graph->getWeight(v, v0));
+			int vIncident = -1;
+			if (edges[i]->K == vConsidered)
+				vIncident = edges[i]->N;
+			if (edges[i]->N == vConsidered)
+				vIncident = edges[i]->K;
+			if (vIncident == -1) continue;
+			
+			float way = dist[vConsidered]->priorities + graph->getWeight(vConsidered, vIncident);
+			delta = dist[vIncident]->priorities - way;
 			if (delta > 0)
 			{
-				dist[v0]->priorities = graph->getWeight(v, v0) + dist[v]->priorities;
-				up[v0] = v;
+				dist[vIncident]->priorities = way;  //поскольку в очереди лежат указатели на объекты dist[i],
+				up[vIncident] = vConsidered;		//то значени€ в очереди автоматически измен€тс€.
 			}
 		}
 	}
