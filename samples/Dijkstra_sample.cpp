@@ -64,7 +64,6 @@ int main(int argc, char **argv)
 		output << edge->N << ' ' << edge->K << ' ' << edge->weight << endl;
 	}
 
-	output << endl;
 	for (int i = 0; i < n; i++)
 		if (dist [i] != FLT_MAX)
 			cout << dist[i] << ' ';
@@ -72,10 +71,10 @@ int main(int argc, char **argv)
 			cout << "inf" << ' ';
 
 	for (int i = 0; i < n; i++) {
+		output << endl;
 		output << i;
 		output << ' ' << dist[i];
 		output << ' ' << up[i];
-		output << endl;
 	}
 
 	output.close();

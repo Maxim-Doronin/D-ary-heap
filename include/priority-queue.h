@@ -12,6 +12,7 @@ public:
 
 	void push(Data *&key);
 	Data* pop();
+	void refresh();
 
 	int isFull();
 	int isEmpty();

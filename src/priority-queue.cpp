@@ -31,6 +31,11 @@ Data* PriorityQueue::pop()
 	return heap->erase(0);
 }
 
+void PriorityQueue::refresh()
+{
+	heap->spudding();
+}
+
 int PriorityQueue::isFull()
 {
 	return heap->isFull();
