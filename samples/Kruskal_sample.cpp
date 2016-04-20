@@ -11,13 +11,18 @@ int main(int argc, char **argv)
 	int n;
 	int m;
 	if (argc == 5)	{				//граф рандомный	
-		n = atoi(argv[1]);
-		m = atoi(argv[2]);
-		int minRange = atoi(argv[3]);
-		int maxRange = atoi(argv[4]);
+		try {
+			n = atoi(argv[1]);
+			m = atoi(argv[2]);
+			int minRange = atoi(argv[3]);
+			int maxRange = atoi(argv[4]);
 
-		graph = new Graph(n, m);
-		graph->generateGraph(minRange, maxRange);
+			graph = new Graph(n, m);
+			graph->generateGraph(minRange, maxRange);
+		}
+		catch (...) {
+			return -1;
+		}
 	}
 	else if (argc == 2)	{			//граф задан матрицей
 		string filename(argv[1]);
@@ -26,16 +31,21 @@ int main(int argc, char **argv)
 			cout << "error!";
 			return 2;
 		}
-		input >> n;
-		input >> m;
-		graph = new Graph(n);
-		int N, K;
-		float weight;
-		while(!input.eof()){
-			input >> N;
-			input >> K;
-			input >> weight;
-			graph->addEdge(N, K, weight);
+		try { 
+			input >> n;
+			input >> m;
+			graph = new Graph(n);
+			int N, K;
+			float weight;
+			while(!input.eof()){
+				input >> N;
+				input >> K;
+				input >> weight;
+				graph->addEdge(N, K, weight);
+			}
+		}
+		catch (...) {
+			return -1;
 		}
 		input.close();
 	}
@@ -43,12 +53,19 @@ int main(int argc, char **argv)
 
 	graph->printList();
 	cout << endl;
-	Graph *tree = Kruskal::kruskal(graph);
+	Graph *tree;
+	try {
+		tree = Kruskal::kruskal(graph);
+	}
+	catch (...) {
+		return -2;
+	}
 	tree->printList();
 
 	remove("tree.txt");
 	ofstream output("tree.txt");
-	
+	output.precision(2);
+
 	output << n << ' ' << m << endl;			//печатаю количество вершин и ребер
 	
 	m = graph->getRealSize();

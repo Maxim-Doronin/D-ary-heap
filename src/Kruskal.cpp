@@ -29,7 +29,7 @@ Graph* Kruskal::kruskal(Graph *&graph)
 		Data* tmp = queue->pop();
 		int N = ((DataEdge*)tmp)->edge->N;
 		int K = ((DataEdge*)tmp)->edge->K;
-		int weight = ((DataEdge*)tmp)->edge->weight;
+		float weight = ((DataEdge*)tmp)->edge->weight;
 		int An = set->defineSet(N);
 		int Ak = set->defineSet(K);
 		if (An != Ak)
