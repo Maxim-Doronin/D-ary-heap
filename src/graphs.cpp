@@ -65,7 +65,10 @@ void Graph::generateVertices(int &N, int &K)
 
 float Graph::generateWeight(float minRange, float maxRange)
 {
-	return rand() % (int)(maxRange - minRange -1) + minRange;// + 1.0/(float)rand();	
+	float d = minRange;
+	float c = (float)(maxRange - minRange)/RAND_MAX;
+	float result = c * rand() + d;
+	return result;	
 }
 
 void Graph::cleaner()

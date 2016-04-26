@@ -436,9 +436,14 @@ namespace graphdrawing {
 		static float maxRange;
 		System::String^ maxRangeText;
 		static System::String^ startText = "0";
-		
+
+		Graph ^g;
+		Graph ^t;
+
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 				 startDijBox->Text = "0";
+				 g = gcnew Graph("graph");
+				 t = gcnew Graph("tree");
 			 }
 	
 	private: System::Void gViewer1_Load(System::Object^  sender, System::EventArgs^  e) {
@@ -454,7 +459,8 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 				 
-				 Graph ^g = gcnew Graph("graph");
+				 delete gViewer1->Graph;
+				 g = gcnew Graph("graph");
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 				 for (int i = 0; i < vertices; i++)
 					 g->AddNode(System::Convert::ToString(i));
@@ -502,7 +508,7 @@ namespace graphdrawing {
 				 graph.close();
 			  }
 
-	private: System::Void createProcRandom(System::String^ pathToExec) {
+	private: int createProcRandom(System::String^ pathToExec) {
 				 System::String^ verticesText = System::Convert::ToString(vertices);
 				 System::String^ edgesText = System::Convert::ToString(edges);
 
@@ -525,11 +531,26 @@ namespace graphdrawing {
 
 				 if (CreateProcess(0, fullCommandLine, 0, 0, TRUE, 0, 0, 0, &si, &pi))
 					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 else {
+					 CloseHandle(pi.hProcess);
+					 CloseHandle(pi.hThread);
+					 return -1;
+				 }
+				 
+				 DWORD exitCode;					 
+				 GetExitCodeProcess(pi.hProcess, &exitCode);
+				 if (exitCode) {
+					 System::String^ message = "Error!\nSomething went wrong!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return -2;
+				 }
 				 CloseHandle(pi.hProcess);
 				 CloseHandle(pi.hThread);
+				 return 0;
 			 }
 
-	private: System::Void createProcFile(System::String^ pathToExec, System::String^ sourseGraph) {
+	private: int createProcFile(System::String^ pathToExec, System::String^ sourseGraph) {
 				 System::String^ fullCommandLineStr = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
 				 if (pathToExec == "Dijkstra_sample.exe"){
 					 startText = startDijBox->Text;
@@ -545,32 +566,70 @@ namespace graphdrawing {
 
 				 if (CreateProcess(0, fullCommandLine, 0, 0, TRUE, 0, 0, 0, &si, &pi))
 					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 else {
+					 CloseHandle(pi.hProcess);
+					 CloseHandle(pi.hThread);
+					 return -1;
+				 }
+
+				 DWORD exitCode;					 
+				 GetExitCodeProcess(pi.hProcess, &exitCode);
+				 if (exitCode) {
+					 System::String^ message = "Error!\nSomething went wrong!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return -2;
+				 }
 				 CloseHandle(pi.hProcess);
 				 CloseHandle(pi.hThread);
+				 return 0;
 			 }
 	
 	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
+				 nextKruskal->Enabled = true;
+				 treeKruskal->Enabled = true;
 				 vertices = (unsigned int)verticesUpDown->Value;
 				 edges = (unsigned int)edgesUpDown->Value;
-				 
-				 minRangeText = minBox->Text;
-				 minRange = (float)(Convert::ToDouble(minRangeText));
-				 maxRangeText = maxBox->Text;
-				 maxRange = (float)(Convert::ToDouble(maxRangeText));
+				 try {
+					 minRangeText = minBox->Text;
+					 minRange = (float)(Convert::ToDouble(minRangeText));
+					 maxRangeText = maxBox->Text;
+					 maxRange = (float)(Convert::ToDouble(maxRangeText));
+				 }
+				 catch(...) {
+					 System::String^ message = "Error!\nInvalid ranges!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return;
+				 }
 
 				 System::String^ pathToExec1 = "Kruskal_sample.exe";
-				 createProcRandom(pathToExec1);
+				 if (createProcRandom(pathToExec1))
+					 return;
 				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
-				 createProcRandom(pathToExec2);
+				 if (createProcRandom(pathToExec2))
+					 return;
 				 graphUpd();
 			 };
 	
 	private: System::Void AddEdgeClick(System::Object^  sender, System::EventArgs^  e) {
+				 nextKruskal->Enabled = true;
+				 treeKruskal->Enabled = true;
 				 using namespace std;
-
-				 int newN = (int)(Convert::ToInt32(startBox->Text));
-				 int newK = (int)(Convert::ToInt32(endBox->Text));
-				 float newWeight = (float)(Convert::ToDouble(weightBox->Text));
+				 int newN;
+				 int newK;
+				 float newWeight;
+				 try {
+					 newN = (int)(Convert::ToInt32(startBox->Text));
+					 newK = (int)(Convert::ToInt32(endBox->Text));
+					 newWeight = (float)(Convert::ToDouble(weightBox->Text));
+				 }
+				 catch(...) {
+					 System::String^ message = "Error!\nInvalid parametrs for edge!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return;
+				 }
 
 				 fstream input;
 				 input.open("tree.txt", fstream::in | fstream::out);
@@ -610,21 +669,31 @@ namespace graphdrawing {
 
 				 System::String^ sourseGraph = "graph.txt";
 			 	 System::String^ pathToExec1 = "Kruskal_sample.exe";
-				 createProcFile(pathToExec1, sourseGraph);
+				 if (createProcFile(pathToExec1, sourseGraph))
+					 return;
 				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
-				 createProcFile(pathToExec2, sourseGraph);
+				 if (createProcFile(pathToExec2, sourseGraph))
+					 return;
 				 graphUpd();
 			 }
 
 	private: System::Void treeKruskal_Click(System::Object^  sender, System::EventArgs^  e) {
+				 if (!gViewer1->Graph)
+					 try {
+						 random_Click(sender, e);
+					 }
+					 catch(...) {
+						 return;
+					 }
 				 ResetClick(sender, e);
 				 Graph ^g = gViewer1->Graph;
 				 for (int i = 0; i < vertices - 1; i++)
 					 nextKruskal_Click(sender, e);
+				 nextKruskal->Enabled = false;
+				 treeKruskal->Enabled = false;
 			 }
 
 	private: System::Void nextKruskal_Click(System::Object^  sender, System::EventArgs^  e) {
-
 				 using namespace std;
 				 ifstream input("tree.txt");
 				 int n, m;
@@ -634,7 +703,12 @@ namespace graphdrawing {
 				 edges = m;
 				 
 				 if (!gViewer1->Graph)
-					 random_Click(sender, e);
+					 try {
+						 random_Click(sender, e);
+					 }
+					 catch(...) {
+						 return;
+					 }
 				 Graph ^g = gViewer1->Graph;
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 
@@ -663,21 +737,34 @@ namespace graphdrawing {
 							 }
 					 }
 				 }
-
+				 nextKruskal->Enabled = false;
+				 treeKruskal->Enabled = false;
 				 gViewer1->Graph = g;
 				 input.close(); 
 			 }
 
 	private: System::Void ResetClick(System::Object^  sender, System::EventArgs^  e) {
+				 nextKruskal->Enabled = true;
+				 treeKruskal->Enabled = true;
 				 graphUpd();
 			 }
 
 	private: System::Void CleanClick(System::Object^  sender, System::EventArgs^  e) {
+				 nextKruskal->Enabled = true;
+				 treeKruskal->Enabled = true;
+				 delete gViewer1->Graph;
 				 Graph ^g = gcnew Graph("graph");
 				 gViewer1->Graph = g;
 			 }
 	
 	private: System::Void treeDijkstra_Click(System::Object^  sender, System::EventArgs^  e) {
+				 if (!gViewer1->Graph)
+					 try {
+						 random_Click(sender, e);
+					 }
+					 catch(...) {
+						 return;
+					 }
 				 ResetClick(sender, e);
 				 
 				 createFile();
@@ -694,8 +781,6 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 
-				 if (!gViewer1->Graph)
-					 random_Click(sender, e);
 				 Graph ^g = gViewer1->Graph;
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 

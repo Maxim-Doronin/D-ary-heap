@@ -12,14 +12,18 @@ int main(int argc, char **argv)
 	int m;
 	int s;
 	if (argc == 6)	{				//граф рандомный	
-		n = atoi(argv[1]);
-		m = atoi(argv[2]);
-		int minRange = atoi(argv[3]);
-		int maxRange = atoi(argv[4]);
-		s = atoi(argv[5]);
-
-		graph = new Graph(n, m);
-		graph->generateGraph(minRange, maxRange);
+		try {
+			n = atoi(argv[1]);
+			m = atoi(argv[2]);
+			int minRange = atoi(argv[3]);
+			int maxRange = atoi(argv[4]);
+			s = atoi(argv[5]);
+			graph = new Graph(n, m);
+			graph->generateGraph(minRange, maxRange);
+		}
+		catch (...) {
+			return -1;
+		}
 	}
 	else if (argc == 3)	{			//граф задан матрицей
 		string filename(argv[1]);
@@ -28,17 +32,22 @@ int main(int argc, char **argv)
 			cout << "error!";
 			return 2;
 		}
-		input >> n;
-		input >> m;
-		s = atoi(argv[2]);
-		graph = new Graph(n);
-		int N, K;
-		float weight;
-		while(!input.eof()){
-				input >> N;
-				input >> K;
-				input >> weight;
-				graph->addEdge(N, K, weight);
+		try {
+			input >> n;
+			input >> m;
+			s = atoi(argv[2]);
+			graph = new Graph(n);
+			int N, K;
+			float weight;
+			while(!input.eof()){
+					input >> N;
+					input >> K;
+					input >> weight;
+					graph->addEdge(N, K, weight);
+			}
+		}
+		catch (...) {
+			return -1;
 		}
 		input.close();
 	}
@@ -49,10 +58,16 @@ int main(int argc, char **argv)
 
 	float *dist;
 	int *up;
-	Dijkstra::dijkstra(graph, s, dist, up);
+	try {
+		Dijkstra::dijkstra(graph, s, dist, up);
+	}
+	catch (...) {
+		return -2;
+	}
 
 	remove("ways.txt");	
 	ofstream output("ways.txt");
+	output.precision(2);
 	
 	output << n << ' ' << m << endl;//печатаю количество вершин
 	output << s << endl;			//печатаю стартовую вершину
