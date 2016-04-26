@@ -502,7 +502,7 @@ namespace graphdrawing {
 				 graph.close();
 			  }
 
-	private: System::Void createProcRandom(System::String^ pathToExec) {
+	private: int createProcRandom(System::String^ pathToExec) {
 				 System::String^ verticesText = System::Convert::ToString(vertices);
 				 System::String^ edgesText = System::Convert::ToString(edges);
 
@@ -525,11 +525,26 @@ namespace graphdrawing {
 
 				 if (CreateProcess(0, fullCommandLine, 0, 0, TRUE, 0, 0, 0, &si, &pi))
 					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 else {
+					 CloseHandle(pi.hProcess);
+					 CloseHandle(pi.hThread);
+					 return -1;
+				 }
+				 
+				 DWORD exitCode;					 
+				 GetExitCodeProcess(pi.hProcess, &exitCode);
+				 if (exitCode) {
+					 System::String^ message = "Error!\nSomething went wrong!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return -2;
+				 }
 				 CloseHandle(pi.hProcess);
 				 CloseHandle(pi.hThread);
+				 return 0;
 			 }
 
-	private: System::Void createProcFile(System::String^ pathToExec, System::String^ sourseGraph) {
+	private: int createProcFile(System::String^ pathToExec, System::String^ sourseGraph) {
 				 System::String^ fullCommandLineStr = System::String::Concat(pathToExec, " ", 	sourseGraph);	 
 				 if (pathToExec == "Dijkstra_sample.exe"){
 					 startText = startDijBox->Text;
@@ -545,32 +560,66 @@ namespace graphdrawing {
 
 				 if (CreateProcess(0, fullCommandLine, 0, 0, TRUE, 0, 0, 0, &si, &pi))
 					 WaitForSingleObject(pi.hProcess, INFINITE);
+				 else {
+					 CloseHandle(pi.hProcess);
+					 CloseHandle(pi.hThread);
+					 return -1;
+				 }
+
+				 DWORD exitCode;					 
+				 GetExitCodeProcess(pi.hProcess, &exitCode);
+				 if (exitCode) {
+					 System::String^ message = "Error!\nSomething went wrong!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return -2;
+				 }
 				 CloseHandle(pi.hProcess);
 				 CloseHandle(pi.hThread);
+				 return 0;
 			 }
 	
 	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
 				 vertices = (unsigned int)verticesUpDown->Value;
 				 edges = (unsigned int)edgesUpDown->Value;
-				 
-				 minRangeText = minBox->Text;
-				 minRange = (float)(Convert::ToDouble(minRangeText));
-				 maxRangeText = maxBox->Text;
-				 maxRange = (float)(Convert::ToDouble(maxRangeText));
+				 try {
+					 minRangeText = minBox->Text;
+					 minRange = (float)(Convert::ToDouble(minRangeText));
+					 maxRangeText = maxBox->Text;
+					 maxRange = (float)(Convert::ToDouble(maxRangeText));
+				 }
+				 catch(...) {
+					 System::String^ message = "Error!\nInvalid ranges!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return;
+				 }
 
 				 System::String^ pathToExec1 = "Kruskal_sample.exe";
-				 createProcRandom(pathToExec1);
+				 if (createProcRandom(pathToExec1))
+					 return;
 				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
-				 createProcRandom(pathToExec2);
+				 if (createProcRandom(pathToExec2))
+					 return;
 				 graphUpd();
 			 };
 	
 	private: System::Void AddEdgeClick(System::Object^  sender, System::EventArgs^  e) {
 				 using namespace std;
-
-				 int newN = (int)(Convert::ToInt32(startBox->Text));
-				 int newK = (int)(Convert::ToInt32(endBox->Text));
-				 float newWeight = (float)(Convert::ToDouble(weightBox->Text));
+				 int newN;
+				 int newK;
+				 float newWeight;
+				 try {
+					 newN = (int)(Convert::ToInt32(startBox->Text));
+					 newK = (int)(Convert::ToInt32(endBox->Text));
+					 newWeight = (float)(Convert::ToDouble(weightBox->Text));
+				 }
+				 catch(...) {
+					 System::String^ message = "Error!\nInvalid parametrs for edge!";
+					 System::String^ caption = "Error";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 return;
+				 }
 
 				 fstream input;
 				 input.open("tree.txt", fstream::in | fstream::out);
