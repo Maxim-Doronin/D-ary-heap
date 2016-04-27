@@ -1,47 +1,47 @@
 #include "priority-queue.h"
 
-PriorityQueue::PriorityQueue(int d)
+PriorityQueueHeap::PriorityQueueHeap(int d)
 {
 	heap = new DAryHeap(d);
 }
 
-PriorityQueue::PriorityQueue(const PriorityQueue &queue)
+PriorityQueueHeap::PriorityQueueHeap(const PriorityQueueHeap &queue)
 {
 	this->heap = new DAryHeap(*(queue.heap));
 }
 
-PriorityQueue::PriorityQueue(Data **keys, int num, int d)
+PriorityQueueHeap::PriorityQueueHeap(Data **keys, int num, int d)
 {
 	heap = new DAryHeap(d);
 	heap->addSet(keys, num);
 }
 
-PriorityQueue::~PriorityQueue()
+PriorityQueueHeap::~PriorityQueueHeap()
 {
 	delete heap;
 }
 
-void PriorityQueue::push(Data *&key)
+void PriorityQueueHeap::push(Data *&key)
 {
 	heap->add(key);
 }
 
-Data* PriorityQueue::pop()
+Data* PriorityQueueHeap::pop()
 {
 	return heap->erase(0);
 }
 
-void PriorityQueue::refresh()
+void PriorityQueueHeap::refresh()
 {
 	heap->spudding();
 }
 
-int PriorityQueue::isFull()
+int PriorityQueueHeap::isFull()
 {
 	return heap->isFull();
 }
 
-int PriorityQueue::isEmpty()
+int PriorityQueueHeap::isEmpty()
 {
 	return heap->isEmpty();
 }

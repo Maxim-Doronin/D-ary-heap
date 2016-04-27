@@ -22,7 +22,7 @@ void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 	}
 	dist[s]->priorities = 0;
 
-	PriorityQueue *queue = new PriorityQueue(dist, n, 4);
+	PriorityQueueHeap *queue = new PriorityQueueHeap(dist, n, 4);
 
 	Edge** edges = graph->getEdgeSet();
 	while (!queue->isEmpty())

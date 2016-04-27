@@ -21,7 +21,7 @@ Graph* Kruskal::kruskal(Graph *&graph, int &isConnected)
 	for (int i = 0; i < m; i++)
 		data[i] = new DataEdge(graph->getEdgeSet()[i]);
 
-	PriorityQueue *queue = new PriorityQueue(data, m, 4);
+	PriorityQueueHeap *queue = new PriorityQueueHeap(data, m, 4);
 	
 	int treeEdgeSize = 0;
 	while ((treeEdgeSize < n-1)&&(!queue->isEmpty()))

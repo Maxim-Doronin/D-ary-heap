@@ -13,34 +13,34 @@ Data** createData()
 
 TEST(PRIORITY_QUEUE, can_create_empty_queue)
 {
-	ASSERT_NO_THROW(PriorityQueue *q = new PriorityQueue());
+	ASSERT_NO_THROW(PriorityQueueHeap *q = new PriorityQueueHeap());
 }
 
 TEST(PRIORITY_QUEUE, can_create_empty_queue_with_fixed_d)
 {
-	ASSERT_NO_THROW(PriorityQueue *q = new PriorityQueue(6));
+	ASSERT_NO_THROW(PriorityQueueHeap *q = new PriorityQueueHeap(6));
 }
 
 TEST(PRIORITY_QUEUE, can_create_copied_queue)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
-	ASSERT_NO_THROW(PriorityQueue *nq = new PriorityQueue (*q));
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
+	ASSERT_NO_THROW(PriorityQueueHeap *nq = new PriorityQueueHeap (*q));
 }
 
 TEST(PRIORITY_QUEUE, copied_queue_is_equal_to_sourse_one)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
-	PriorityQueue *nq = new PriorityQueue (*q);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
+	PriorityQueueHeap *nq = new PriorityQueueHeap (*q);
 	EXPECT_EQ(q->pop()->priorities, nq->pop()->priorities);
 }
 
 TEST(PRIORITY_QUEUE, copied_queue_has_its_own_memory)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
-	PriorityQueue *nq = new PriorityQueue (*q);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
+	PriorityQueueHeap *nq = new PriorityQueueHeap (*q);
 	nq->pop();
 	EXPECT_NE(q->pop()->priorities, nq->pop()->priorities);
 }
@@ -48,12 +48,12 @@ TEST(PRIORITY_QUEUE, copied_queue_has_its_own_memory)
 TEST(PRIORITY_QUEUE, can_create_queue_from_data_array)
 {
 	Data **data = createData();
-	ASSERT_NO_THROW(PriorityQueue *q = new PriorityQueue(data, 10));
+	ASSERT_NO_THROW(PriorityQueueHeap *q = new PriorityQueueHeap(data, 10));
 }
 
 TEST(PRIORITY_QUEUE, can_push_new_element)
 {
-	PriorityQueue *q = new PriorityQueue();
+	PriorityQueueHeap *q = new PriorityQueueHeap();
 	Data *key = new Data;
 	key->priorities = 2;
 	ASSERT_NO_THROW(q->push(key));
@@ -62,13 +62,13 @@ TEST(PRIORITY_QUEUE, can_push_new_element)
 TEST(PRIORITY_QUEUE, can_pop_element)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
 	ASSERT_NO_THROW(q->pop());
 }
 
 TEST(PRIORITY_QUEUE, poped_element_is_equal_to_pushed_one)
 {
-	PriorityQueue *q = new PriorityQueue();
+	PriorityQueueHeap *q = new PriorityQueueHeap();
 	Data *key = new Data;
 	key->priorities = 2;
 	q->push(key);
@@ -79,14 +79,14 @@ TEST(PRIORITY_QUEUE, poped_element_is_equal_to_pushed_one)
 TEST(PRIORITY_QUEUE, queue_created_by_array_is_priority)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
 	EXPECT_EQ(q->pop()->priorities, 1);
 }
 
 TEST(PRIORITY_QUEUE, pushed_element_doesnt_crash_priority)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
 	Data *key = new Data;
 	key->priorities = 1.5;
 	q->push(key);
@@ -96,13 +96,13 @@ TEST(PRIORITY_QUEUE, pushed_element_doesnt_crash_priority)
 
 TEST(PRIORITY_QUEUE, isEmpty_when_queue_is_empty)
 {
-	PriorityQueue *q = new PriorityQueue();
+	PriorityQueueHeap *q = new PriorityQueueHeap();
 	ASSERT_TRUE(q->isEmpty());
 }
 
 TEST(PRIORITY_QUEUE, isEmpty_when_queue_is_not_empty)
 {
-	PriorityQueue *q = new PriorityQueue();
+	PriorityQueueHeap *q = new PriorityQueueHeap();
 	Data* key = new Data();
 	key->priorities = 1;
 	q->push(key);
@@ -111,7 +111,7 @@ TEST(PRIORITY_QUEUE, isEmpty_when_queue_is_not_empty)
 
 TEST(PRIORITY_QUEUE, isEmpty_after_pop)
 {
-	PriorityQueue *q = new PriorityQueue();
+	PriorityQueueHeap *q = new PriorityQueueHeap();
 	Data* key = new Data();
 	key->priorities = 1;
 	q->push(key);
@@ -126,20 +126,20 @@ TEST(PRIORITY_QUEUE, isFull_when_queue_is_full)
 		data[i] = new Data;
 		data[i]->priorities = maxSize - i;
 	}
-	PriorityQueue *q = new PriorityQueue(data, maxSize);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, maxSize);
 	ASSERT_TRUE(q->isFull());
 }
 
 TEST(PRIORITY_QUEUE, isFull_when_queue_is_not_full)
 {
 	Data **data = createData();
-	PriorityQueue *q = new PriorityQueue(data, 10);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, 10);
 	ASSERT_FALSE(q->isFull());
 }
 
 TEST(PRIORITY_QUEUE, throws_when_try_pop_from_empty_queue)
 {
-	PriorityQueue *q = new PriorityQueue();
+	PriorityQueueHeap *q = new PriorityQueueHeap();
 	ASSERT_ANY_THROW(q->pop());
 }
 
@@ -150,7 +150,7 @@ TEST(PRIORITY_QUEUE, throws_when_try_push_to_full_queue)
 		data[i] = new Data;
 		data[i]->priorities = maxSize - i;
 	}
-	PriorityQueue *q = new PriorityQueue(data, maxSize);
+	PriorityQueueHeap *q = new PriorityQueueHeap(data, maxSize);
 	Data* key = new Data();
 	key->priorities = 1;
 	ASSERT_ANY_THROW(q->push(key));
