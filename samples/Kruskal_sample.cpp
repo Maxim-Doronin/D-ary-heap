@@ -54,8 +54,9 @@ int main(int argc, char **argv)
 	graph->printList();
 	cout << endl;
 	Graph *tree;
+	int isConnected;
 	try {
-		tree = Kruskal::kruskal(graph);
+		tree = Kruskal::kruskal(graph, isConnected);
 	}
 	catch (...) {
 		return -2;
@@ -67,7 +68,8 @@ int main(int argc, char **argv)
 	output.precision(2);
 
 	output << n << ' ' << m << endl;			//печатаю количество вершин и ребер
-	
+	output << isConnected << endl;
+
 	m = graph->getRealSize();
 	Edge* edge;
 	for (int j = 0; j < m; j++) {
