@@ -6,7 +6,7 @@ DataEdge::DataEdge(Edge *edge)
 	priorities = edge->weight;
 }
 
-Graph* Kruskal::kruskal(Graph *&graph)
+Graph* Kruskal::kruskal(Graph *&graph, int &isConnected)
 {
 	int n = graph->getVerticesNum();
 	if (n == 0) throw "Kruskal: Graph has no vertices!";
@@ -39,6 +39,11 @@ Graph* Kruskal::kruskal(Graph *&graph)
 			treeEdgeSize++;
 		}
 	}
+
+	if (set->getSetSize(0) == n)
+		isConnected = 1;
+	else
+		isConnected = 0;
 
 	for (int i = 0; i < m; i++)
 		delete data[i];
