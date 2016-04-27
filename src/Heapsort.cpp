@@ -5,21 +5,27 @@ DataInt::DataInt(int elem)
 	this->priorities = float(elem);
 }
 
-void Heapsort::heapsort(int *&arr, int n, int d = 4)
+void Heapsort::heapsort(float *&arr, int n, int d)
 {
+	if (n == 0)
+		return;
+	if (n < 0)
+		throw "Heapsort: invalid n!";
 	Data** data = new Data*[n];
-	for (int i = 0; i < n; i++)
-		data[i] = new DataInt(arr[i]);
+	for (int i = 0; i < n; i++) {
+		data[i] = new Data;
+		data[i]->priorities = arr[i];
+	}
 	DAryHeap* heap = new DAryHeap(d);
 	heap->addSet(data, n);
 
 	for (int i = n-1; i > 0; --i)
 	{
 		heap->transposition(0, i);
-		arr[i] = (int)heap->erase()->priorities;
+		arr[i] = heap->erase()->priorities;
 		heap->immersion(0);	
 	}
-	arr[0] = (int)heap->erase()->priorities;
+	arr[0] = heap->erase()->priorities;
 	delete heap;
 	for (int i = 0; i < n; i++)
 		delete data[i];
