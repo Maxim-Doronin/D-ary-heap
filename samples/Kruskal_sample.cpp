@@ -65,6 +65,7 @@ int main(int argc, char **argv)
 
 	remove("tree.txt");
 	ofstream output("tree.txt");
+	output.setf(output.fixed, output.floatfield);
 	output.precision(2);
 
 	output << n << ' ' << m << endl;			//печатаю количество вершин и ребер
