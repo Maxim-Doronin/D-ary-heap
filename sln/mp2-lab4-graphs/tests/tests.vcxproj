@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\..\test\test_D-ary-heap.cpp" />
     <ClCompile Include="..\..\..\test\test_Dijkstra.cpp" />
     <ClCompile Include="..\..\..\test\test_graph.cpp" />
+    <ClCompile Include="..\..\..\test\test_heapsort.cpp" />
     <ClCompile Include="..\..\..\test\test_Kruskal.cpp" />
     <ClCompile Include="..\..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\..\test\test_priority-queue.cpp" />
