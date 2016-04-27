@@ -438,12 +438,12 @@ namespace graphdrawing {
 		static System::String^ startText = "0";
 
 		Graph ^g;
-		Graph ^t;
+		static bool randomCorrect = true;
+		static bool isGraphConnected = true;
 
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 				 startDijBox->Text = "0";
 				 g = gcnew Graph("graph");
-				 t = gcnew Graph("tree");
 			 }
 	
 	private: System::Void gViewer1_Load(System::Object^  sender, System::EventArgs^  e) {
@@ -459,6 +459,10 @@ namespace graphdrawing {
 				 vertices = n;
 				 edges = m;
 				 
+				 int isConnected;
+				 input >> isConnected;
+				 isGraphConnected = isConnected;
+				 				 
 				 delete gViewer1->Graph;
 				 g = gcnew Graph("graph");
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
@@ -492,6 +496,8 @@ namespace graphdrawing {
 				 int n = 0, m = 0;
 				 input >> n;
 				 input >> m;
+				 int isConnected;
+				 input >> isConnected;
 
 				 graph << n << ' ' << m;
 
@@ -588,6 +594,7 @@ namespace graphdrawing {
 	private: System::Void random_Click(System::Object^  sender, System::EventArgs^  e) {
 				 nextKruskal->Enabled = true;
 				 treeKruskal->Enabled = true;
+				 randomCorrect = true;
 				 vertices = (unsigned int)verticesUpDown->Value;
 				 edges = (unsigned int)edgesUpDown->Value;
 				 try {
@@ -600,15 +607,20 @@ namespace graphdrawing {
 					 System::String^ message = "Error!\nInvalid ranges!";
 					 System::String^ caption = "Error";
 					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+					 randomCorrect = false;
 					 return;
 				 }
 
 				 System::String^ pathToExec1 = "Kruskal_sample.exe";
-				 if (createProcRandom(pathToExec1))
+				 if (createProcRandom(pathToExec1)) {
+					 randomCorrect = false;
 					 return;
+				 }
 				 System::String^ pathToExec2 = "Dijkstra_sample.exe";
-				 if (createProcRandom(pathToExec2))
+				 if (createProcRandom(pathToExec2)) {
+					 randomCorrect = false;
 					 return;
+				 }
 				 graphUpd();
 			 };
 	
@@ -644,6 +656,8 @@ namespace graphdrawing {
 				 int n = 0, m = 0;
 				 input >> n;
 				 input >> m;
+				 int isConnected;
+				 input >> isConnected;
 				 
 				 if ((newN >= n)||(newK >= n))
 					 n = max(newN + 1, newK + 1);
@@ -685,7 +699,15 @@ namespace graphdrawing {
 					 catch(...) {
 						 return;
 					 }
+				 if (!randomCorrect)
+					 return;
+
 				 ResetClick(sender, e);
+				 if (isGraphConnected == false)	{
+					 System::String^ message = "Warning!\nThis graph is not connected!";
+					 System::String^ caption = "Warning";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+				 }
 				 Graph ^g = gViewer1->Graph;
 				 for (int i = 0; i < vertices - 1; i++)
 					 nextKruskal_Click(sender, e);
@@ -701,6 +723,8 @@ namespace graphdrawing {
 				 input >> m;
 				 vertices = n;
 				 edges = m;
+				 int isConnected;
+				 input >> isConnected;
 				 
 				 if (!gViewer1->Graph)
 					 try {
@@ -709,6 +733,9 @@ namespace graphdrawing {
 					 catch(...) {
 						 return;
 					 }
+				if (!randomCorrect)
+					 return;
+
 				 Graph ^g = gViewer1->Graph;
 				 g->GraphAttr->EdgeAttr->ArrowHeadAtTarget = Microsoft::Glee::Drawing::ArrowStyle::None;
 
@@ -739,24 +766,15 @@ namespace graphdrawing {
 				 }
 				 nextKruskal->Enabled = false;
 				 treeKruskal->Enabled = false;
+				 if (isGraphConnected == false)	{
+					 System::String^ message = "Warning!\nThis graph is not connected!";
+					 System::String^ caption = "Warning";
+					 MessageBox::Show(message, caption, MessageBoxButtons::OK, MessageBoxIcon::Question);
+				 }
 				 gViewer1->Graph = g;
 				 input.close(); 
 			 }
 
-	private: System::Void ResetClick(System::Object^  sender, System::EventArgs^  e) {
-				 nextKruskal->Enabled = true;
-				 treeKruskal->Enabled = true;
-				 graphUpd();
-			 }
-
-	private: System::Void CleanClick(System::Object^  sender, System::EventArgs^  e) {
-				 nextKruskal->Enabled = true;
-				 treeKruskal->Enabled = true;
-				 delete gViewer1->Graph;
-				 Graph ^g = gcnew Graph("graph");
-				 gViewer1->Graph = g;
-			 }
-	
 	private: System::Void treeDijkstra_Click(System::Object^  sender, System::EventArgs^  e) {
 				 if (!gViewer1->Graph)
 					 try {
@@ -765,6 +783,9 @@ namespace graphdrawing {
 					 catch(...) {
 						 return;
 					 }
+				 
+				 if (!randomCorrect)
+					 return;
 				 ResetClick(sender, e);
 				 
 				 createFile();
@@ -821,6 +842,21 @@ namespace graphdrawing {
 				 gViewer1->Graph = g;
 				 input.close(); 
 			 }
+
+	private: System::Void ResetClick(System::Object^  sender, System::EventArgs^  e) {
+				 nextKruskal->Enabled = true;
+				 treeKruskal->Enabled = true;
+				 graphUpd();
+			 }
+
+	private: System::Void CleanClick(System::Object^  sender, System::EventArgs^  e) {
+				 nextKruskal->Enabled = true;
+				 treeKruskal->Enabled = true;
+				 delete gViewer1->Graph;
+				 Graph ^g = gcnew Graph("graph");
+				 gViewer1->Graph = g;
+			 }
+		
 };
 }
 
