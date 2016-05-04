@@ -1,26 +1,29 @@
 #include "binary-search-trees.h"
 
-int BinarySearchTree::depth(Node* node)
+int AVLTrees::depth(Node* node)
 {
 	if (!node)
-		return 0;
+		return -1;
 	int l = depth(node->left);
 	int r = depth(node->right);
-	return r > l ? r : l;
+	return r > l ? r+1 : l+1;
 }
 
-int BinarySearchTree::balanceDetection(Node *&node)
+int AVLTrees::balanceDetection(Node *&node)
 {
-	if (depth(node->left) > depth(node->right))
+	int leftDepth = depth(node->left);
+	int rightDepth = depth(node->right);
+	/*if (leftDepth > rightDepth)
 		node->balance = -1;
-	else if (depth(node->left) < depth(node->right))
+	else if (leftDepth < rightDepth)
 		node->balance = 1;
 	else 
-		node->balance = 0;
-	return 0;
+		node->balance = 0; */
+	node->balance = leftDepth - rightDepth;
+	return node->balance;
 }
 
-void BinarySearchTree::insertSingleRightTurn(Node *&node)
+void AVLTrees::insertSingleRightTurn(Node *&node)
 {
 	Node *A  = node;
 	Node *B  = A->left;
@@ -34,12 +37,13 @@ void BinarySearchTree::insertSingleRightTurn(Node *&node)
 	A->parent = B;
 	t2->parent = A;
 
-	A->balance = 0;
-	B->balance = 0;
+	balanceDetection(A);
+	balanceDetection(B);
+
 	node = B;
 }
 
-void BinarySearchTree::insertSingleLeftTurn(Node *&node)
+void AVLTrees::insertSingleLeftTurn(Node *&node)
 {
 	Node *A  = node;
 	Node *B  = A->right;
@@ -53,10 +57,13 @@ void BinarySearchTree::insertSingleLeftTurn(Node *&node)
 	A->parent = B;
 	t2->parent = A;
 
+	balanceDetection(A);
+	balanceDetection(B);
+
 	node = B;
 }
 
-void BinarySearchTree::insertDoubleRightTurn(Node *&node)
+void AVLTrees::insertDoubleRightTurn(Node *&node)
 {
 	Node *A  = node;
 	Node *B  = A->left;
@@ -76,10 +83,14 @@ void BinarySearchTree::insertDoubleRightTurn(Node *&node)
 	t2->parent = B;
 	t3->parent = A;
 
+	balanceDetection(A);
+	balanceDetection(B);
+	balanceDetection(C);
+
 	node = C;
 }
 
-void BinarySearchTree::insertDoubleLeftTurn(Node *&node)
+void AVLTrees::insertDoubleLeftTurn(Node *&node)
 {
 	Node *A  = node;
 	Node *B  = A->right;
@@ -98,6 +109,10 @@ void BinarySearchTree::insertDoubleLeftTurn(Node *&node)
 	A->right = t2;
 	t2->parent = A;
 	t3->parent = B;
+
+	balanceDetection(A);
+	balanceDetection(B);
+	balanceDetection(C);
 
 	node = C;
 }

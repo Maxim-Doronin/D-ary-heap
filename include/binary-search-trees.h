@@ -10,11 +10,11 @@ public:
 };
 
 class BinarySearchTree {
-private:
+protected:
 	Node* root;
 public:
 	BinarySearchTree();
-	~BinarySearchTree();
+	virtual ~BinarySearchTree();
 
 	Node* searchMin(Node *node = 0);
 	Node* searchMax(Node *node = 0);
@@ -22,9 +22,19 @@ public:
 	Node* searchNext(Node *node);
 	Node* search(float key);
 
-	void insert(Node *node);
-	void remove(float key);
-	Node* pull(float key);
+	virtual void insert(Node *&node);
+	virtual void remove(float key);
+	virtual Node* pull(float key);
+};
+
+class AVLTrees : public BinarySearchTree {
+public:
+	AVLTrees();
+	virtual ~AVLTrees();
+
+	virtual void insert(Node *&node);
+	virtual void remove(float key);
+	virtual Node* pull(float key);
 
 private:
 	int balanceDetection(Node *&node);
@@ -33,4 +43,12 @@ private:
 	void insertSingleLeftTurn(Node *&node);
 	void insertDoubleRightTurn(Node *&node);
 	void insertDoubleLeftTurn(Node *&node);
+
+	void removeSingleRightTurn(Node *&node);
+	void removeSingleLeftTurn(Node *&node);
+	void removeDoubleRightTurn(Node *&node);
+	void removeDoubleLeftTurn(Node *&node);
+
+	void recursiveIns(Node *&localRoot, Node *&node);
+	void recursiveRem(Node *&localRoot, float key); 
 };
