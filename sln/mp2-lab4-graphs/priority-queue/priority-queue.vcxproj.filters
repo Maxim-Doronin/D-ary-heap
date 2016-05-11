@@ -16,7 +16,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\priority-queue.cpp">
+    <ClCompile Include="..\..\..\src\priority-queue-heap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\priority-queue-tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -127,7 +127,7 @@ namespace graphdrawing {
 			this->gViewer1->ForwardEnabled = false;
 			this->gViewer1->Graph = nullptr;
 			this->gViewer1->Location = System::Drawing::Point(151, 10);
-			this->gViewer1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->gViewer1->Margin = System::Windows::Forms::Padding(2);
 			this->gViewer1->MouseHitDistance = 0.05;
 			this->gViewer1->Name = L"gViewer1";
 			this->gViewer1->NavigationVisible = true;
@@ -177,7 +177,7 @@ namespace graphdrawing {
 			// random
 			// 
 			this->random->Location = System::Drawing::Point(9, 96);
-			this->random->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->random->Margin = System::Windows::Forms::Padding(2);
 			this->random->Name = L"random";
 			this->random->Size = System::Drawing::Size(129, 32);
 			this->random->TabIndex = 8;
@@ -188,7 +188,7 @@ namespace graphdrawing {
 			// minBox
 			// 
 			this->minBox->Location = System::Drawing::Point(9, 73);
-			this->minBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->minBox->Margin = System::Windows::Forms::Padding(2);
 			this->minBox->Name = L"minBox";
 			this->minBox->Size = System::Drawing::Size(53, 20);
 			this->minBox->TabIndex = 9;
@@ -196,7 +196,7 @@ namespace graphdrawing {
 			// maxBox
 			// 
 			this->maxBox->Location = System::Drawing::Point(86, 73);
-			this->maxBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->maxBox->Margin = System::Windows::Forms::Padding(2);
 			this->maxBox->Name = L"maxBox";
 			this->maxBox->Size = System::Drawing::Size(53, 20);
 			this->maxBox->TabIndex = 10;
@@ -252,7 +252,7 @@ namespace graphdrawing {
 			// startBox
 			// 
 			this->startBox->Location = System::Drawing::Point(9, 172);
-			this->startBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->startBox->Margin = System::Windows::Forms::Padding(2);
 			this->startBox->Name = L"startBox";
 			this->startBox->Size = System::Drawing::Size(36, 20);
 			this->startBox->TabIndex = 15;
@@ -260,7 +260,7 @@ namespace graphdrawing {
 			// weightBox
 			// 
 			this->weightBox->Location = System::Drawing::Point(103, 172);
-			this->weightBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->weightBox->Margin = System::Windows::Forms::Padding(2);
 			this->weightBox->Name = L"weightBox";
 			this->weightBox->Size = System::Drawing::Size(36, 20);
 			this->weightBox->TabIndex = 16;
@@ -268,7 +268,7 @@ namespace graphdrawing {
 			// endBox
 			// 
 			this->endBox->Location = System::Drawing::Point(56, 172);
-			this->endBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->endBox->Margin = System::Windows::Forms::Padding(2);
 			this->endBox->Name = L"endBox";
 			this->endBox->Size = System::Drawing::Size(36, 20);
 			this->endBox->TabIndex = 17;
@@ -276,7 +276,7 @@ namespace graphdrawing {
 			// addEdge
 			// 
 			this->addEdge->Location = System::Drawing::Point(9, 195);
-			this->addEdge->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->addEdge->Margin = System::Windows::Forms::Padding(2);
 			this->addEdge->Name = L"addEdge";
 			this->addEdge->Size = System::Drawing::Size(129, 32);
 			this->addEdge->TabIndex = 18;
@@ -299,7 +299,7 @@ namespace graphdrawing {
 			// treeDijkstra
 			// 
 			this->treeDijkstra->Location = System::Drawing::Point(78, 275);
-			this->treeDijkstra->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->treeDijkstra->Margin = System::Windows::Forms::Padding(2);
 			this->treeDijkstra->Name = L"treeDijkstra";
 			this->treeDijkstra->Size = System::Drawing::Size(60, 49);
 			this->treeDijkstra->TabIndex = 21;
@@ -322,7 +322,7 @@ namespace graphdrawing {
 			// treeKruskal
 			// 
 			this->treeKruskal->Location = System::Drawing::Point(78, 358);
-			this->treeKruskal->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->treeKruskal->Margin = System::Windows::Forms::Padding(2);
 			this->treeKruskal->Name = L"treeKruskal";
 			this->treeKruskal->Size = System::Drawing::Size(60, 49);
 			this->treeKruskal->TabIndex = 24;
@@ -333,7 +333,7 @@ namespace graphdrawing {
 			// nextKruskal
 			// 
 			this->nextKruskal->Location = System::Drawing::Point(9, 358);
-			this->nextKruskal->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->nextKruskal->Margin = System::Windows::Forms::Padding(2);
 			this->nextKruskal->Name = L"nextKruskal";
 			this->nextKruskal->Size = System::Drawing::Size(60, 49);
 			this->nextKruskal->TabIndex = 23;
@@ -344,7 +344,7 @@ namespace graphdrawing {
 			// cleanBtm
 			// 
 			this->cleanBtm->Location = System::Drawing::Point(9, 483);
-			this->cleanBtm->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->cleanBtm->Margin = System::Windows::Forms::Padding(2);
 			this->cleanBtm->Name = L"cleanBtm";
 			this->cleanBtm->Size = System::Drawing::Size(129, 32);
 			this->cleanBtm->TabIndex = 25;
@@ -355,7 +355,8 @@ namespace graphdrawing {
 			// verticesUpDown
 			// 
 			this->verticesUpDown->Location = System::Drawing::Point(9, 31);
-			this->verticesUpDown->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->verticesUpDown->Margin = System::Windows::Forms::Padding(2);
+			this->verticesUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1000, 0, 0, 0});
 			this->verticesUpDown->Name = L"verticesUpDown";
 			this->verticesUpDown->Size = System::Drawing::Size(52, 20);
 			this->verticesUpDown->TabIndex = 28;
@@ -363,7 +364,8 @@ namespace graphdrawing {
 			// edgesUpDown
 			// 
 			this->edgesUpDown->Location = System::Drawing::Point(86, 31);
-			this->edgesUpDown->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->edgesUpDown->Margin = System::Windows::Forms::Padding(2);
+			this->edgesUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1000, 0, 0, 0});
 			this->edgesUpDown->Name = L"edgesUpDown";
 			this->edgesUpDown->Size = System::Drawing::Size(52, 20);
 			this->edgesUpDown->TabIndex = 29;
@@ -371,7 +373,7 @@ namespace graphdrawing {
 			// resetBtm
 			// 
 			this->resetBtm->Location = System::Drawing::Point(9, 446);
-			this->resetBtm->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->resetBtm->Margin = System::Windows::Forms::Padding(2);
 			this->resetBtm->Name = L"resetBtm";
 			this->resetBtm->Size = System::Drawing::Size(129, 32);
 			this->resetBtm->TabIndex = 30;
@@ -382,7 +384,7 @@ namespace graphdrawing {
 			// startDijBox
 			// 
 			this->startDijBox->Location = System::Drawing::Point(22, 298);
-			this->startDijBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->startDijBox->Margin = System::Windows::Forms::Padding(2);
 			this->startDijBox->Name = L"startDijBox";
 			this->startDijBox->Size = System::Drawing::Size(36, 20);
 			this->startDijBox->TabIndex = 32;
@@ -430,7 +432,7 @@ namespace graphdrawing {
 			this->Controls->Add(this->edgeLbl);
 			this->Controls->Add(this->verticesLbl);
 			this->Controls->Add(this->gViewer1);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Form1";
 			this->Text = L"Graphs";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);

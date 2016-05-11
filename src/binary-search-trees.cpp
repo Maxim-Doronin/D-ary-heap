@@ -1,5 +1,15 @@
 #include "binary-search-trees.h"
 
+/*Node* Node::getLeft()
+{
+	return left;
+}
+
+Node* Node::getLeft()
+{
+	return left;
+}*/
+
 BinarySearchTree::BinarySearchTree()
 {
 	root = 0;
@@ -133,87 +143,7 @@ void BinarySearchTree::remove(float key)
 	delete pull(key);
 }
 
-void AVLTrees::insert(Node *&node)
+int BinarySearchTree::isEmpty() const 
 {
-	node->balance = 0;
-	if (!root) 
-	{
-		root = node;
-		return;
-	}
-	recursiveIns(root, node);
-}
-
-void AVLTrees::recursiveIns(Node *&localRoot, Node *&node)
-{
-	if (node->key < localRoot->key) {
-		if (!localRoot->left) {
-			localRoot->left = node;
-			node->parent = localRoot;
-		}
-		else
-			recursiveIns(localRoot->left, node);
-	}
-	else {
-		if (!localRoot->right) {
-			localRoot->right = node;
-			node->parent = localRoot;
-		}
-		else
-			recursiveIns(localRoot->right, node);
-	}
-	if (balanceDetection(localRoot) == 2)
-		if (depth(localRoot->left) > depth(localRoot->right))
-			insertSingleRightTurn(localRoot);
-		else
-			insertDoubleRightTurn(localRoot);
-	if (balanceDetection(localRoot) == -2)
-		if (depth(localRoot->right) > depth(localRoot->left))
-			insertSingleLeftTurn(localRoot);
-		else
-			insertDoubleLeftTurn(localRoot);
-}
-
-void AVLTrees::remove(float key) 
-{
-	recursiveRem(root, key);
-}
-
-void AVLTrees::recursiveRem(Node *&localRoot, float key)
-{
-	if (!localRoot)
-		return;
-	if (key > localRoot->key)
-		recursiveRem(localRoot->right, key);
-	if (key < localRoot->key)
-		recursiveRem(localRoot->left, key);
-	if (key == localRoot->key) {
-		if (!localRoot->left && !localRoot->right) {
-			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = 0;
-			if (localRoot->parent->right == localRoot)
-				localRoot->parent->right = 0;
-			delete localRoot;
-		}
-		if (localRoot->left && !localRoot->right) {
-			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = localRoot->left;
-			if (localRoot->parent->right == localRoot)
-				localRoot->parent->right = localRoot->left;
-			localRoot->left->parent = localRoot->parent;
-			delete localRoot;
-		}
-		if (!localRoot->left && localRoot->right) {
-			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = localRoot->right;
-			if (localRoot->parent->right == localRoot)
-				localRoot->parent->right = localRoot->right;
-			localRoot->right->parent = localRoot->parent;
-			delete localRoot;
-		}
-		if (localRoot->left && localRoot->right) {
-			Node *tmp = searchMin(localRoot->right);
-
-
-	}
+	return root ? 1 : 0;
 }

@@ -6,7 +6,7 @@ public:
 	Node* left;
 	Node* right;
 	Node* parent;
-	char balance;
+	void* data;
 };
 
 class BinarySearchTree {
@@ -25,30 +25,6 @@ public:
 	virtual void insert(Node *&node);
 	virtual void remove(float key);
 	virtual Node* pull(float key);
-};
 
-class AVLTrees : public BinarySearchTree {
-public:
-	AVLTrees();
-	virtual ~AVLTrees();
-
-	virtual void insert(Node *&node);
-	virtual void remove(float key);
-	virtual Node* pull(float key);
-
-private:
-	int balanceDetection(Node *&node);
-	int depth(Node *node);
-	void insertSingleRightTurn(Node *&node);
-	void insertSingleLeftTurn(Node *&node);
-	void insertDoubleRightTurn(Node *&node);
-	void insertDoubleLeftTurn(Node *&node);
-
-	void removeSingleRightTurn(Node *&node);
-	void removeSingleLeftTurn(Node *&node);
-	void removeDoubleRightTurn(Node *&node);
-	void removeDoubleLeftTurn(Node *&node);
-
-	void recursiveIns(Node *&localRoot, Node *&node);
-	void recursiveRem(Node *&localRoot, float key); 
+	int isEmpty() const;
 };

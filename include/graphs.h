@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#define maxVerticesSize 40
+#define maxVerticesSize 1000
 
 class Edge {
 public: 

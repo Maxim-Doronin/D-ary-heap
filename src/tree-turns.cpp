@@ -1,41 +1,41 @@
-#include "binary-search-trees.h"
+#include "AVL-Trees.h"
 
-int AVLTrees::depth(Node* node)
+int AVLTree::depth(AVLNode* node)
 {
 	if (!node)
 		return -1;
-	int l = depth(node->left);
-	int r = depth(node->right);
+	int l = depth((AVLNode*)node->left);
+	int r = depth((AVLNode*)node->right);
 	return r > l ? r+1 : l+1;
 }
 
-int AVLTrees::balanceDetection(Node *&node)
+int AVLTree::balanceDetection(AVLNode *node)
 {
-	int leftDepth = depth(node->left);
-	int rightDepth = depth(node->right);
+	int leftDepth = depth((AVLNode*)node->left);
+	int rightDepth = depth((AVLNode*)node->right);
 	/*if (leftDepth > rightDepth)
 		node->balance = -1;
 	else if (leftDepth < rightDepth)
 		node->balance = 1;
 	else 
 		node->balance = 0; */
-	node->balance = leftDepth - rightDepth;
-	return node->balance;
+	node->setBalance(leftDepth - rightDepth);
+	return node->getBalance();
 }
 
-void AVLTrees::insertSingleRightTurn(Node *&node)
+void AVLTree::insertSingleRightTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->left;
-	Node *t1 = B->left;
-	Node *t2 = B->right;
-	Node *t3 = A->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->left;
+	AVLNode *t1 = (AVLNode*)B->left;
+	AVLNode *t2 = (AVLNode*)B->right;
+	AVLNode *t3 = (AVLNode*)A->right;
 
 	A->left  = t2;
 	B->right = A;
 	B->parent = A->parent;
 	A->parent = B;
-	t2->parent = A;
+	if(t2) t2->parent = A;
 
 	balanceDetection(A);
 	balanceDetection(B);
@@ -43,19 +43,19 @@ void AVLTrees::insertSingleRightTurn(Node *&node)
 	node = B;
 }
 
-void AVLTrees::insertSingleLeftTurn(Node *&node)
+void AVLTree::insertSingleLeftTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->right;
-	Node *t1 = A->left;
-	Node *t2 = B->left;
-	Node *t3 = B->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->right;
+	AVLNode *t1 = (AVLNode*)A->left;
+	AVLNode *t2 = (AVLNode*)B->left;
+	AVLNode *t3 = (AVLNode*)B->right;
 
 	A->right = t2;
 	B->left = A;
 	B->parent = A->parent;
 	A->parent = B;
-	t2->parent = A;
+	if(t2) t2->parent = A;
 
 	balanceDetection(A);
 	balanceDetection(B);
@@ -63,15 +63,15 @@ void AVLTrees::insertSingleLeftTurn(Node *&node)
 	node = B;
 }
 
-void AVLTrees::insertDoubleRightTurn(Node *&node)
+void AVLTree::insertDoubleRightTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->left;
-	Node *C  = B->right;
-	Node *t1 = B->left;
-	Node *t2 = C->left;
-	Node *t3 = C->right;
-	Node *t4 = A->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->left;
+	AVLNode *C  = (AVLNode*)B->right;
+	AVLNode *t1 = (AVLNode*)B->left;
+	AVLNode *t2 = (AVLNode*)C->left;
+	AVLNode *t3 = (AVLNode*)C->right;
+	AVLNode *t4 = (AVLNode*)A->right;
 
 	C->right = A;
 	C->left  = B;
@@ -80,8 +80,8 @@ void AVLTrees::insertDoubleRightTurn(Node *&node)
 	B->parent = C;
 	B->right = t2;
 	A->left = t3;
-	t2->parent = B;
-	t3->parent = A;
+	if(t2) t2->parent = B;
+	if(t3) t3->parent = A;
 
 	balanceDetection(A);
 	balanceDetection(B);
@@ -90,15 +90,15 @@ void AVLTrees::insertDoubleRightTurn(Node *&node)
 	node = C;
 }
 
-void AVLTrees::insertDoubleLeftTurn(Node *&node)
+void AVLTree::insertDoubleLeftTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->right;
-	Node *C  = B->left;
-	Node *t1 = A->left;
-	Node *t2 = C->left;
-	Node *t3 = C->right;
-	Node *t4 = B->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->right;
+	AVLNode *C  = (AVLNode*)B->left;
+	AVLNode *t1 = (AVLNode*)A->left;
+	AVLNode *t2 = (AVLNode*)C->left;
+	AVLNode *t3 = (AVLNode*)C->right;
+	AVLNode *t4 = (AVLNode*)B->right;
 
 	C->left = A;
 	C->right  = B;
@@ -107,8 +107,8 @@ void AVLTrees::insertDoubleLeftTurn(Node *&node)
 	B->parent = C;
 	B->left = t3;
 	A->right = t2;
-	t2->parent = A;
-	t3->parent = B;
+	if(t2) t2->parent = A;
+	if(t3) t3->parent = B;
 
 	balanceDetection(A);
 	balanceDetection(B);
