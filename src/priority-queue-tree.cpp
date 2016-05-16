@@ -11,9 +11,6 @@ PriorityQueueTree::PriorityQueueTree(Data **keys, int num)
 	for (int i = 0; i < num; i++)
 	{
 		AVLNode *node = new AVLNode;
-		node->parent = 0;
-		node->left = 0;
-		node->right = 0;
 		node->key = keys[i]->priorities;
 		node->data = keys[i];
 		tree->insert(node);
@@ -28,9 +25,6 @@ PriorityQueueTree::~PriorityQueueTree()
 void PriorityQueueTree::push(Data *&key)
 {
 	AVLNode *node = new AVLNode;
-	node->parent = 0;
-	node->left = 0;
-	node->right = 0;
 	node->key = key->priorities;
 	node->data = key;
 	tree->insert(node);
@@ -39,7 +33,7 @@ void PriorityQueueTree::push(Data *&key)
 Data* PriorityQueueTree::pop()
 {
 	Node *tmp = tree->searchMin();
-	tree->remove(tmp->key);
+	tree->pull(tmp);
 	return (Data*)tmp->data;
 }
 
@@ -50,6 +44,14 @@ void PriorityQueueTree::refresh()
 
 int PriorityQueueTree::isFull()
 {
+	AVLNode *tmp;
+	try {
+		tmp = new AVLNode;
+	}
+	catch(...) {
+		return 1;
+	}
+	delete tmp;
 	return 0;
 }
 

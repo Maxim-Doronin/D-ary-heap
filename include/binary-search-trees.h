@@ -12,6 +12,7 @@ public:
 class BinarySearchTree {
 protected:
 	Node* root;
+	void recursiveDel(Node *node);
 public:
 	BinarySearchTree();
 	virtual ~BinarySearchTree();

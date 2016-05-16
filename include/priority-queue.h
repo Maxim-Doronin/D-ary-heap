@@ -2,6 +2,11 @@
 #include "d-ary-heap.h"
 #include "AVL-Trees.h"
 
+enum QueueID {
+	HEAP = 0,
+	AVLTREE = 1
+};
+
 class PriorityQueue {
 public:
 	PriorityQueue(){};
@@ -45,4 +50,19 @@ public:
 
 	virtual int isFull();
 	virtual int isEmpty();
+};
+
+class QueueFactory {
+public:
+	static PriorityQueue* createQueue(QueueID qid)
+	{
+		PriorityQueue *queue;
+		switch (qid)
+		{
+		case 0: queue = new PriorityQueueHeap(); break;
+		case 1: queue = new PriorityQueueTree(); break;
+		}
+		return queue;
+	}
+
 };

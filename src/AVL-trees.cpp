@@ -16,6 +16,9 @@ AVLTree::AVLTree() : BinarySearchTree()
 
 void AVLTree::insert(AVLNode *&node)
 {
+	node->parent = 0;
+	node->left = 0;
+	node->right = 0;
 	node->setBalance(0);
 	if (!root) 
 	{
@@ -43,91 +46,92 @@ void AVLTree::recursiveIns(AVLNode *&localRoot, AVLNode *&node)
 		else
 			recursiveIns((AVLNode*&)localRoot->right, node);
 	}
-	if (balanceDetection(localRoot) == 2)
-		if (depth((AVLNode*)localRoot->left->left) > depth((AVLNode*)localRoot->left->right))
-			insertSingleRightTurn(localRoot);
-		else
-			insertDoubleRightTurn(localRoot);
-	if (balanceDetection(localRoot) == -2)
-		if (depth((AVLNode*)localRoot->right->right) > depth((AVLNode*)localRoot->right->left))
-			insertSingleLeftTurn(localRoot);
-		else
-			insertDoubleLeftTurn(localRoot);
+	
+	decisionOnBalancing(localRoot);
 }
 
 void AVLTree::remove(float key) 
 {
-	recursiveRem((AVLNode*&)root, key);
+	delete recursiveRem((AVLNode*&)root, key);
 }
 
-void AVLTree::recursiveRem(AVLNode *&localRoot, float key)
+void AVLTree::remove(Node* node)
 {
+	delete recursiveRem((AVLNode*&)root, node->key);
+}
+
+Node* AVLTree::pull(float key)
+{
+	return recursiveRem((AVLNode*&)root, key);
+}
+
+Node* AVLTree::pull(Node* node)
+{
+	return recursiveRem((AVLNode*&)root, node->key);
+}
+
+Node* AVLTree::recursiveRem(AVLNode *&localRoot, float key)
+{
+	Node *result;
 	if (!localRoot)
-		return;
+		return 0;
 	if (key < localRoot->key)
-		recursiveRem((AVLNode*&)localRoot->left, key);
-	if (key > localRoot->key)
-		recursiveRem((AVLNode*&)localRoot->right, key);
-	if (key == localRoot->key) {
+		result = recursiveRem((AVLNode*&)localRoot->left, key);
+	else if (key > localRoot->key)
+		result = recursiveRem((AVLNode*&)localRoot->right, key);
+	else {
 		if (!localRoot->left && !localRoot->right) {
 			if (localRoot->parent->left == localRoot)
 				localRoot->parent->left = 0;
 			else
 				localRoot->parent->right = 0;
-			delete localRoot;
+			return localRoot;
 		}
-		if (localRoot->left && !localRoot->right) {
+		else if (localRoot->left && !localRoot->right) {
+			Node* son = localRoot->left;
+			Node* killed = localRoot;
+			son->parent = localRoot->parent;
 			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = localRoot->left;
+				localRoot->parent->left = son;
 			else
-				localRoot->parent->right = localRoot->left;
-			localRoot->left->parent = localRoot->parent;
-			delete localRoot;
+				localRoot->parent->right = son;
+			return killed;
 		}
-		if (!localRoot->left && localRoot->right) {
+		else if (!localRoot->left && localRoot->right) {
+			Node* son = localRoot->right;
+			Node* killed = localRoot;
+			son->parent = localRoot->parent;
 			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = localRoot->right;
+				localRoot->parent->left = son;
 			else
-				localRoot->parent->right = localRoot->right;
-			localRoot->right->parent = localRoot->parent;
-			delete localRoot;
+				localRoot->parent->right = son;
+			return killed;
 		}
-		if (localRoot->left && localRoot->right) {
+		else {
 			Node *next = searchNext(localRoot);
 			AVLNode *tmp = (AVLNode*)next->parent;
-			next->right->parent = next->parent;
+			if (next->right)
+				next->right->parent = tmp;
 			if (next->parent->left == next)
-				next->parent->left = next->right;
+				tmp->left = next->right;
 			else
-				next->parent->right = next->right;
+				tmp->right = next->right;
 			next->parent = localRoot->parent;
 			next->left = localRoot->left;
 			next->right = localRoot->right;
-			delete localRoot;
+			if (next->left)
+				next->left->parent = next;
+			if (next->right)
+				next->right->parent = next;
 
-			while (tmp != next) {
-				if (balanceDetection(tmp) == 2)
-					if (depth((AVLNode*)tmp->left->left) > depth((AVLNode*)tmp->left->right))
-						insertSingleRightTurn(tmp);
-					else
-						insertDoubleRightTurn(tmp);
-				if (balanceDetection(tmp) == -2)
-					if (depth((AVLNode*)tmp->right->right) > depth((AVLNode*)tmp->right->left))
-						insertSingleLeftTurn(tmp);
-					else
-						insertDoubleLeftTurn(tmp);
+			while ((tmp != next) && (tmp)) {
+				decisionOnBalancing(tmp);
 				tmp = (AVLNode*)tmp->parent;
 			}
+			return localRoot;
 		}
 	}
-	if (balanceDetection(localRoot) == 2)
-		if (depth((AVLNode*)localRoot->left->left) > depth((AVLNode*)localRoot->left->right))
-			insertSingleRightTurn(localRoot);
-		else
-			insertDoubleRightTurn(localRoot);
-	if (balanceDetection(localRoot) == -2)
-		if (depth((AVLNode*)localRoot->right->right) > depth((AVLNode*)localRoot->right->left))
-			insertSingleLeftTurn(localRoot);
-		else
-			insertDoubleLeftTurn(localRoot);
+	
+	decisionOnBalancing(localRoot);
+	return result;
 }

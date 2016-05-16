@@ -1,15 +1,5 @@
 #include "binary-search-trees.h"
 
-/*Node* Node::getLeft()
-{
-	return left;
-}
-
-Node* Node::getLeft()
-{
-	return left;
-}*/
-
 BinarySearchTree::BinarySearchTree()
 {
 	root = 0;
@@ -17,7 +7,16 @@ BinarySearchTree::BinarySearchTree()
 
 BinarySearchTree::~BinarySearchTree()
 {
-	//DELETE TREE!
+	recursiveDel(root);
+}
+
+void BinarySearchTree::recursiveDel(Node *node)
+{
+	if(!node)
+		return;
+	recursiveDel(node->left);
+	recursiveDel(node->right);
+	delete node;
 }
 
 Node* BinarySearchTree::searchMin(Node *node)
@@ -53,7 +52,7 @@ Node* BinarySearchTree::searchPrev(Node *node)
 	if (!node)
 		return 0;
 	if(node->left)
-		return searchMax(node);
+		return searchMax(node->left);
 
 	Node *tmp = node;
 	while((tmp->parent) && (tmp == tmp->parent->left))
@@ -66,7 +65,7 @@ Node* BinarySearchTree::searchNext(Node *node)
 	if (!node)
 		return 0;
 	if(node->right)
-		return searchMin(node);
+		return searchMin(node->right);
 
 	Node *tmp = node;
 	while((tmp->parent) && (tmp == tmp->parent->right))
@@ -145,5 +144,8 @@ void BinarySearchTree::remove(float key)
 
 int BinarySearchTree::isEmpty() const 
 {
-	return root ? 1 : 0;
+	if (root) 
+		return 0;
+	else 
+		return 1;
 }

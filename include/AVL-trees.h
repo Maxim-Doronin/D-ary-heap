@@ -16,20 +16,19 @@ public:
 
 	virtual void insert(AVLNode *&node);
 	virtual void remove(float key);
+	virtual void remove(Node* node);
+	virtual Node* pull(float key);
+	virtual Node* pull(Node* node);
 
 private:
 	int balanceDetection(AVLNode *node);
 	int depth(AVLNode *node);
-	void insertSingleRightTurn(AVLNode *&node);
-	void insertSingleLeftTurn(AVLNode *&node);
-	void insertDoubleRightTurn(AVLNode *&node);
-	void insertDoubleLeftTurn(AVLNode *&node);
-
-	void removeSingleRightTurn(AVLNode *&node);
-	void removeSingleLeftTurn(AVLNode *&node);
-	void removeDoubleRightTurn(AVLNode *&node);
-	void removeDoubleLeftTurn(AVLNode *&node);
+	void decisionOnBalancing(AVLNode *&node);
+	void singleRightTurn(AVLNode *&node);
+	void singleLeftTurn(AVLNode *&node);
+	void doubleRightTurn(AVLNode *&node);
+	void doubleLeftTurn(AVLNode *&node);
 
 	void recursiveIns(AVLNode *&localRoot, AVLNode *&node);
-	void recursiveRem(AVLNode *&localRoot, float key); 
+	Node* recursiveRem(AVLNode *&localRoot, float key); 
 };

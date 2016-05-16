@@ -6,24 +6,34 @@ int AVLTree::depth(AVLNode* node)
 		return -1;
 	int l = depth((AVLNode*)node->left);
 	int r = depth((AVLNode*)node->right);
+	node->setBalance(l - r);
 	return r > l ? r+1 : l+1;
 }
 
 int AVLTree::balanceDetection(AVLNode *node)
 {
-	int leftDepth = depth((AVLNode*)node->left);
-	int rightDepth = depth((AVLNode*)node->right);
-	/*if (leftDepth > rightDepth)
-		node->balance = -1;
-	else if (leftDepth < rightDepth)
-		node->balance = 1;
-	else 
-		node->balance = 0; */
-	node->setBalance(leftDepth - rightDepth);
+	depth(node);
 	return node->getBalance();
 }
 
-void AVLTree::insertSingleRightTurn(AVLNode *&node)
+void AVLTree::decisionOnBalancing(AVLNode *&node)
+{
+	if (!node)
+		return;
+	char balance = balanceDetection(node);
+	if (balance == 2)
+		if (((AVLNode*)node->left)->getBalance() > 0)
+			singleRightTurn(node);
+		else
+			doubleRightTurn(node);
+	if (balance == -2)
+		if (((AVLNode*)node->right)->getBalance() < 0)
+			singleLeftTurn(node);
+		else
+			doubleLeftTurn(node);
+}
+
+void AVLTree::singleRightTurn(AVLNode *&node)
 {
 	AVLNode *A  = node;
 	AVLNode *B  = (AVLNode*)A->left;
@@ -43,7 +53,7 @@ void AVLTree::insertSingleRightTurn(AVLNode *&node)
 	node = B;
 }
 
-void AVLTree::insertSingleLeftTurn(AVLNode *&node)
+void AVLTree::singleLeftTurn(AVLNode *&node)
 {
 	AVLNode *A  = node;
 	AVLNode *B  = (AVLNode*)A->right;
@@ -63,7 +73,7 @@ void AVLTree::insertSingleLeftTurn(AVLNode *&node)
 	node = B;
 }
 
-void AVLTree::insertDoubleRightTurn(AVLNode *&node)
+void AVLTree::doubleRightTurn(AVLNode *&node)
 {
 	AVLNode *A  = node;
 	AVLNode *B  = (AVLNode*)A->left;
@@ -90,7 +100,7 @@ void AVLTree::insertDoubleRightTurn(AVLNode *&node)
 	node = C;
 }
 
-void AVLTree::insertDoubleLeftTurn(AVLNode *&node)
+void AVLTree::doubleLeftTurn(AVLNode *&node)
 {
 	AVLNode *A  = node;
 	AVLNode *B  = (AVLNode*)A->right;

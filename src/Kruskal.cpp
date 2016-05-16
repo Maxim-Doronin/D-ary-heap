@@ -17,12 +17,13 @@ Graph* Kruskal::kruskal(Graph *&graph, int &isConnected)
 	for (int i = 0; i < n; i++)
 		set->singleton(i);
 	
+	PriorityQueue *queue = QueueFactory::createQueue(static_cast<QueueID>(1));
 	Data **data = new Data*[m];
-	for (int i = 0; i < m; i++)
+	for (int i = 0; i < m; i++) {
 		data[i] = new DataEdge(graph->getEdgeSet()[i]);
-
-	//PriorityQueueHeap *queue = new PriorityQueueHeap(data, m);
-	PriorityQueueTree *queue = new PriorityQueueTree(data, m);
+		queue->push(data[i]);
+	}
+	
 	int treeEdgeSize = 0;
 	while ((treeEdgeSize < n-1)&&(!queue->isEmpty()))
 	{
