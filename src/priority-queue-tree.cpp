@@ -37,11 +37,6 @@ Data* PriorityQueueTree::pop()
 	return (Data*)tmp->data;
 }
 
-void PriorityQueueTree::refresh()
-{
-
-}
-
 int PriorityQueueTree::isFull()
 {
 	AVLNode *tmp;

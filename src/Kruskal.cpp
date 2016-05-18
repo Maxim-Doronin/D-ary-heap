@@ -6,7 +6,7 @@ DataEdge::DataEdge(Edge *edge)
 	priorities = edge->weight;
 }
 
-Graph* Kruskal::kruskal(Graph *&graph, int &isConnected)
+Graph* Kruskal::kruskal(Graph *&graph, int &isConnected, int fid)
 {
 	int n = graph->getVerticesNum();
 	if (n == 0) throw "Kruskal: Graph has no vertices!";
@@ -17,7 +17,7 @@ Graph* Kruskal::kruskal(Graph *&graph, int &isConnected)
 	for (int i = 0; i < n; i++)
 		set->singleton(i);
 	
-	PriorityQueue *queue = QueueFactory::createQueue(static_cast<QueueID>(1));
+	PriorityQueue *queue = QueueFactory::createQueue(static_cast<QueueID>(fid));
 	Data **data = new Data*[m];
 	for (int i = 0; i < m; i++) {
 		data[i] = new DataEdge(graph->getEdgeSet()[i]);

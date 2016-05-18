@@ -46,7 +46,7 @@ public:
 
 	virtual void push(Data *&key);
 	virtual Data* pop();
-	virtual void refresh();
+	virtual void refresh(){};
 
 	virtual int isFull();
 	virtual int isEmpty();

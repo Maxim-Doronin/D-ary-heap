@@ -10,12 +10,14 @@ int main(int argc, char **argv)
 	Graph *graph;
 	int n;
 	int m;
-	if (argc == 5)	{				//граф рандомный	
+	int fid;
+	if (argc == 6)	{				//граф рандомный	
 		try {
 			n = atoi(argv[1]);
 			m = atoi(argv[2]);
 			int minRange = atoi(argv[3]);
 			int maxRange = atoi(argv[4]);
+			fid = atoi(argv[5]);
 
 			graph = new Graph(n, m);
 			graph->generateGraph(minRange, maxRange);
@@ -34,6 +36,7 @@ int main(int argc, char **argv)
 		try { 
 			input >> n;
 			input >> m;
+			input >> fid;
 			graph = new Graph(n);
 			int N, K;
 			float weight;
@@ -56,7 +59,7 @@ int main(int argc, char **argv)
 	Graph *tree;
 	int isConnected;
 	try {
-		tree = Kruskal::kruskal(graph, isConnected);
+		tree = Kruskal::kruskal(graph, isConnected, fid);
 	}
 	catch (...) {
 		return -2;

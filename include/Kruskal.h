@@ -12,5 +12,5 @@ public:
 
 class Kruskal {
 public:
-	static Graph* kruskal(Graph *&graph, int &isConnected);
+	static Graph* kruskal(Graph *&graph, int &isConnected, int fid);
 };

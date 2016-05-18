@@ -81,30 +81,39 @@ Node* AVLTree::recursiveRem(AVLNode *&localRoot, float key)
 		result = recursiveRem((AVLNode*&)localRoot->right, key);
 	else {
 		if (!localRoot->left && !localRoot->right) {
-			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = 0;
-			else
-				localRoot->parent->right = 0;
+			if (localRoot->parent)
+				if (localRoot->parent->left == localRoot)
+					localRoot->parent->left = 0;
+				else
+					localRoot->parent->right = 0;
+			else 
+				root = 0;
 			return localRoot;
 		}
 		else if (localRoot->left && !localRoot->right) {
 			Node* son = localRoot->left;
 			Node* killed = localRoot;
 			son->parent = localRoot->parent;
-			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = son;
+			if (localRoot->parent)
+				if (localRoot->parent->left == localRoot)
+					localRoot->parent->left = son;
+				else
+					localRoot->parent->right = son;
 			else
-				localRoot->parent->right = son;
+				root = son;
 			return killed;
 		}
 		else if (!localRoot->left && localRoot->right) {
 			Node* son = localRoot->right;
 			Node* killed = localRoot;
 			son->parent = localRoot->parent;
-			if (localRoot->parent->left == localRoot)
-				localRoot->parent->left = son;
+			if (localRoot->parent)
+				if (localRoot->parent->left == localRoot)
+					localRoot->parent->left = son;
+				else
+					localRoot->parent->right = son;
 			else
-				localRoot->parent->right = son;
+				root = son;
 			return killed;
 		}
 		else {
