@@ -118,7 +118,7 @@ Node* AVLTree::recursiveRem(AVLNode *&localRoot, float key)
 		}
 		else {
 			Node *next = searchNext(localRoot);
-			AVLNode *tmp = (AVLNode*)next->parent;
+			/*AVLNode *tmp = (AVLNode*)next->parent;
 			if (next->right)
 				next->right->parent = tmp;
 			if (next->parent->left == next)
@@ -136,7 +136,20 @@ Node* AVLTree::recursiveRem(AVLNode *&localRoot, float key)
 			while ((tmp != next) && (tmp)) {
 				decisionOnBalancing(tmp);
 				tmp = (AVLNode*)tmp->parent;
-			}
+			}*/
+			pull(next);
+			next->left = localRoot->left;
+			if (next->left)
+				next->left->parent = next;
+			next->right = localRoot->right;
+			if (next->right)
+				next->right->parent = next;
+			next->parent = localRoot->parent;
+			if (localRoot->parent)
+				if (localRoot->parent->left == localRoot)
+					localRoot->parent->left = next;
+				else
+					localRoot->parent->right = next;
 			return localRoot;
 		}
 	}
