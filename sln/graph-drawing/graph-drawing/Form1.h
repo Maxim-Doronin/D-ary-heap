@@ -72,6 +72,7 @@ namespace graphdrawing {
 	private: System::Windows::Forms::Label^  startDijLbl;
 	private: System::Windows::Forms::Label^  QueueID;
 	private: System::Windows::Forms::TextBox^  queueIDBox;
+	private: System::Windows::Forms::Button^  queueOk;
 
 	protected: 
 
@@ -116,6 +117,7 @@ namespace graphdrawing {
 			this->startDijLbl = (gcnew System::Windows::Forms::Label());
 			this->QueueID = (gcnew System::Windows::Forms::Label());
 			this->queueIDBox = (gcnew System::Windows::Forms::TextBox());
+			this->queueOk = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->verticesUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->edgesUpDown))->BeginInit();
 			this->SuspendLayout();
@@ -130,14 +132,14 @@ namespace graphdrawing {
 			this->gViewer1->BackwardEnabled = false;
 			this->gViewer1->ForwardEnabled = false;
 			this->gViewer1->Graph = nullptr;
-			this->gViewer1->Location = System::Drawing::Point(151, 10);
-			this->gViewer1->Margin = System::Windows::Forms::Padding(2);
+			this->gViewer1->Location = System::Drawing::Point(201, 12);
+			this->gViewer1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->gViewer1->MouseHitDistance = 0.05;
 			this->gViewer1->Name = L"gViewer1";
 			this->gViewer1->NavigationVisible = true;
 			this->gViewer1->PanButtonPressed = false;
 			this->gViewer1->SaveButtonVisible = true;
-			this->gViewer1->Size = System::Drawing::Size(595, 526);
+			this->gViewer1->Size = System::Drawing::Size(793, 647);
 			this->gViewer1->TabIndex = 0;
 			this->gViewer1->ZoomF = 1;
 			this->gViewer1->ZoomFraction = 0.5;
@@ -149,10 +151,9 @@ namespace graphdrawing {
 			this->verticesLbl->AutoSize = true;
 			this->verticesLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->verticesLbl->Location = System::Drawing::Point(7, 9);
-			this->verticesLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->verticesLbl->Location = System::Drawing::Point(9, 11);
 			this->verticesLbl->Name = L"verticesLbl";
-			this->verticesLbl->Size = System::Drawing::Size(45, 13);
+			this->verticesLbl->Size = System::Drawing::Size(59, 17);
 			this->verticesLbl->TabIndex = 2;
 			this->verticesLbl->Text = L"Vertices";
 			// 
@@ -161,29 +162,27 @@ namespace graphdrawing {
 			this->edgeLbl->AutoSize = true;
 			this->edgeLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->edgeLbl->Location = System::Drawing::Point(84, 9);
-			this->edgeLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->edgeLbl->Location = System::Drawing::Point(112, 11);
 			this->edgeLbl->Name = L"edgeLbl";
-			this->edgeLbl->Size = System::Drawing::Size(37, 13);
+			this->edgeLbl->Size = System::Drawing::Size(48, 17);
 			this->edgeLbl->TabIndex = 3;
 			this->edgeLbl->Text = L"Edges";
 			// 
 			// weightRangesLbl
 			// 
 			this->weightRangesLbl->AutoSize = true;
-			this->weightRangesLbl->Location = System::Drawing::Point(38, 80);
-			this->weightRangesLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->weightRangesLbl->Location = System::Drawing::Point(51, 98);
 			this->weightRangesLbl->Name = L"weightRangesLbl";
-			this->weightRangesLbl->Size = System::Drawing::Size(76, 13);
+			this->weightRangesLbl->Size = System::Drawing::Size(95, 16);
 			this->weightRangesLbl->TabIndex = 7;
 			this->weightRangesLbl->Text = L"Weight ranges";
 			// 
 			// random
 			// 
-			this->random->Location = System::Drawing::Point(9, 118);
-			this->random->Margin = System::Windows::Forms::Padding(2);
+			this->random->Location = System::Drawing::Point(12, 145);
+			this->random->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->random->Name = L"random";
-			this->random->Size = System::Drawing::Size(129, 32);
+			this->random->Size = System::Drawing::Size(172, 39);
 			this->random->TabIndex = 8;
 			this->random->Text = L"Random!";
 			this->random->UseVisualStyleBackColor = true;
@@ -191,18 +190,18 @@ namespace graphdrawing {
 			// 
 			// minBox
 			// 
-			this->minBox->Location = System::Drawing::Point(9, 95);
-			this->minBox->Margin = System::Windows::Forms::Padding(2);
+			this->minBox->Location = System::Drawing::Point(12, 117);
+			this->minBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->minBox->Name = L"minBox";
-			this->minBox->Size = System::Drawing::Size(53, 20);
+			this->minBox->Size = System::Drawing::Size(69, 22);
 			this->minBox->TabIndex = 9;
 			// 
 			// maxBox
 			// 
-			this->maxBox->Location = System::Drawing::Point(86, 95);
-			this->maxBox->Margin = System::Windows::Forms::Padding(2);
+			this->maxBox->Location = System::Drawing::Point(115, 117);
+			this->maxBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->maxBox->Name = L"maxBox";
-			this->maxBox->Size = System::Drawing::Size(53, 20);
+			this->maxBox->Size = System::Drawing::Size(69, 22);
 			this->maxBox->TabIndex = 10;
 			// 
 			// setEdgeLbl
@@ -210,10 +209,9 @@ namespace graphdrawing {
 			this->setEdgeLbl->AutoSize = true;
 			this->setEdgeLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->setEdgeLbl->Location = System::Drawing::Point(7, 164);
-			this->setEdgeLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->setEdgeLbl->Location = System::Drawing::Point(9, 202);
 			this->setEdgeLbl->Name = L"setEdgeLbl";
-			this->setEdgeLbl->Size = System::Drawing::Size(53, 13);
+			this->setEdgeLbl->Size = System::Drawing::Size(69, 17);
 			this->setEdgeLbl->TabIndex = 11;
 			this->setEdgeLbl->Text = L"Set edge:";
 			// 
@@ -222,10 +220,9 @@ namespace graphdrawing {
 			this->startLbl->AutoSize = true;
 			this->startLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->startLbl->Location = System::Drawing::Point(7, 178);
-			this->startLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->startLbl->Location = System::Drawing::Point(9, 219);
 			this->startLbl->Name = L"startLbl";
-			this->startLbl->Size = System::Drawing::Size(29, 13);
+			this->startLbl->Size = System::Drawing::Size(38, 17);
 			this->startLbl->TabIndex = 12;
 			this->startLbl->Text = L"Start";
 			// 
@@ -234,10 +231,9 @@ namespace graphdrawing {
 			this->endLbl->AutoSize = true;
 			this->endLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->endLbl->Location = System::Drawing::Point(53, 178);
-			this->endLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->endLbl->Location = System::Drawing::Point(71, 219);
 			this->endLbl->Name = L"endLbl";
-			this->endLbl->Size = System::Drawing::Size(26, 13);
+			this->endLbl->Size = System::Drawing::Size(33, 17);
 			this->endLbl->TabIndex = 13;
 			this->endLbl->Text = L"End";
 			// 
@@ -246,43 +242,42 @@ namespace graphdrawing {
 			this->weightLbl->AutoSize = true;
 			this->weightLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->weightLbl->Location = System::Drawing::Point(100, 178);
-			this->weightLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->weightLbl->Location = System::Drawing::Point(133, 219);
 			this->weightLbl->Name = L"weightLbl";
-			this->weightLbl->Size = System::Drawing::Size(41, 13);
+			this->weightLbl->Size = System::Drawing::Size(52, 17);
 			this->weightLbl->TabIndex = 14;
 			this->weightLbl->Text = L"Weight";
 			// 
 			// startBox
 			// 
-			this->startBox->Location = System::Drawing::Point(9, 194);
-			this->startBox->Margin = System::Windows::Forms::Padding(2);
+			this->startBox->Location = System::Drawing::Point(12, 239);
+			this->startBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->startBox->Name = L"startBox";
-			this->startBox->Size = System::Drawing::Size(36, 20);
+			this->startBox->Size = System::Drawing::Size(47, 22);
 			this->startBox->TabIndex = 15;
 			// 
 			// weightBox
 			// 
-			this->weightBox->Location = System::Drawing::Point(103, 194);
-			this->weightBox->Margin = System::Windows::Forms::Padding(2);
+			this->weightBox->Location = System::Drawing::Point(137, 239);
+			this->weightBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->weightBox->Name = L"weightBox";
-			this->weightBox->Size = System::Drawing::Size(36, 20);
+			this->weightBox->Size = System::Drawing::Size(47, 22);
 			this->weightBox->TabIndex = 16;
 			// 
 			// endBox
 			// 
-			this->endBox->Location = System::Drawing::Point(56, 194);
-			this->endBox->Margin = System::Windows::Forms::Padding(2);
+			this->endBox->Location = System::Drawing::Point(75, 239);
+			this->endBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->endBox->Name = L"endBox";
-			this->endBox->Size = System::Drawing::Size(36, 20);
+			this->endBox->Size = System::Drawing::Size(47, 22);
 			this->endBox->TabIndex = 17;
 			// 
 			// addEdge
 			// 
-			this->addEdge->Location = System::Drawing::Point(9, 217);
-			this->addEdge->Margin = System::Windows::Forms::Padding(2);
+			this->addEdge->Location = System::Drawing::Point(12, 267);
+			this->addEdge->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->addEdge->Name = L"addEdge";
-			this->addEdge->Size = System::Drawing::Size(129, 32);
+			this->addEdge->Size = System::Drawing::Size(172, 39);
 			this->addEdge->TabIndex = 18;
 			this->addEdge->Text = L"Add";
 			this->addEdge->UseVisualStyleBackColor = true;
@@ -293,19 +288,18 @@ namespace graphdrawing {
 			this->DijkstraLbl->AutoSize = true;
 			this->DijkstraLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->DijkstraLbl->Location = System::Drawing::Point(7, 282);
-			this->DijkstraLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->DijkstraLbl->Location = System::Drawing::Point(9, 347);
 			this->DijkstraLbl->Name = L"DijkstraLbl";
-			this->DijkstraLbl->Size = System::Drawing::Size(94, 13);
+			this->DijkstraLbl->Size = System::Drawing::Size(127, 17);
 			this->DijkstraLbl->TabIndex = 19;
 			this->DijkstraLbl->Text = L"Dijkstra\'s algorithm";
 			// 
 			// treeDijkstra
 			// 
-			this->treeDijkstra->Location = System::Drawing::Point(78, 297);
-			this->treeDijkstra->Margin = System::Windows::Forms::Padding(2);
+			this->treeDijkstra->Location = System::Drawing::Point(104, 366);
+			this->treeDijkstra->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->treeDijkstra->Name = L"treeDijkstra";
-			this->treeDijkstra->Size = System::Drawing::Size(60, 49);
+			this->treeDijkstra->Size = System::Drawing::Size(80, 60);
 			this->treeDijkstra->TabIndex = 21;
 			this->treeDijkstra->Text = L"Spanning tree";
 			this->treeDijkstra->UseVisualStyleBackColor = true;
@@ -316,19 +310,18 @@ namespace graphdrawing {
 			this->KruskalLbl->AutoSize = true;
 			this->KruskalLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->KruskalLbl->Location = System::Drawing::Point(7, 364);
-			this->KruskalLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->KruskalLbl->Location = System::Drawing::Point(9, 448);
 			this->KruskalLbl->Name = L"KruskalLbl";
-			this->KruskalLbl->Size = System::Drawing::Size(94, 13);
+			this->KruskalLbl->Size = System::Drawing::Size(127, 17);
 			this->KruskalLbl->TabIndex = 22;
 			this->KruskalLbl->Text = L"Kruskal\'s algorithm";
 			// 
 			// treeKruskal
 			// 
-			this->treeKruskal->Location = System::Drawing::Point(78, 380);
-			this->treeKruskal->Margin = System::Windows::Forms::Padding(2);
+			this->treeKruskal->Location = System::Drawing::Point(104, 468);
+			this->treeKruskal->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->treeKruskal->Name = L"treeKruskal";
-			this->treeKruskal->Size = System::Drawing::Size(60, 49);
+			this->treeKruskal->Size = System::Drawing::Size(80, 60);
 			this->treeKruskal->TabIndex = 24;
 			this->treeKruskal->Text = L"Spanning tree";
 			this->treeKruskal->UseVisualStyleBackColor = true;
@@ -336,10 +329,10 @@ namespace graphdrawing {
 			// 
 			// nextKruskal
 			// 
-			this->nextKruskal->Location = System::Drawing::Point(9, 380);
-			this->nextKruskal->Margin = System::Windows::Forms::Padding(2);
+			this->nextKruskal->Location = System::Drawing::Point(12, 468);
+			this->nextKruskal->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->nextKruskal->Name = L"nextKruskal";
-			this->nextKruskal->Size = System::Drawing::Size(60, 49);
+			this->nextKruskal->Size = System::Drawing::Size(80, 60);
 			this->nextKruskal->TabIndex = 23;
 			this->nextKruskal->Text = L"Next \r\nstep";
 			this->nextKruskal->UseVisualStyleBackColor = true;
@@ -347,10 +340,10 @@ namespace graphdrawing {
 			// 
 			// cleanBtm
 			// 
-			this->cleanBtm->Location = System::Drawing::Point(9, 505);
-			this->cleanBtm->Margin = System::Windows::Forms::Padding(2);
+			this->cleanBtm->Location = System::Drawing::Point(12, 622);
+			this->cleanBtm->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->cleanBtm->Name = L"cleanBtm";
-			this->cleanBtm->Size = System::Drawing::Size(129, 32);
+			this->cleanBtm->Size = System::Drawing::Size(172, 39);
 			this->cleanBtm->TabIndex = 25;
 			this->cleanBtm->Text = L"Clean";
 			this->cleanBtm->UseVisualStyleBackColor = true;
@@ -358,28 +351,28 @@ namespace graphdrawing {
 			// 
 			// verticesUpDown
 			// 
-			this->verticesUpDown->Location = System::Drawing::Point(9, 25);
-			this->verticesUpDown->Margin = System::Windows::Forms::Padding(2);
+			this->verticesUpDown->Location = System::Drawing::Point(12, 31);
+			this->verticesUpDown->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->verticesUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1000, 0, 0, 0});
 			this->verticesUpDown->Name = L"verticesUpDown";
-			this->verticesUpDown->Size = System::Drawing::Size(52, 20);
+			this->verticesUpDown->Size = System::Drawing::Size(69, 22);
 			this->verticesUpDown->TabIndex = 28;
 			// 
 			// edgesUpDown
 			// 
-			this->edgesUpDown->Location = System::Drawing::Point(86, 25);
-			this->edgesUpDown->Margin = System::Windows::Forms::Padding(2);
+			this->edgesUpDown->Location = System::Drawing::Point(115, 31);
+			this->edgesUpDown->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->edgesUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1000, 0, 0, 0});
 			this->edgesUpDown->Name = L"edgesUpDown";
-			this->edgesUpDown->Size = System::Drawing::Size(52, 20);
+			this->edgesUpDown->Size = System::Drawing::Size(69, 22);
 			this->edgesUpDown->TabIndex = 29;
 			// 
 			// resetBtm
 			// 
-			this->resetBtm->Location = System::Drawing::Point(9, 468);
-			this->resetBtm->Margin = System::Windows::Forms::Padding(2);
+			this->resetBtm->Location = System::Drawing::Point(12, 576);
+			this->resetBtm->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->resetBtm->Name = L"resetBtm";
-			this->resetBtm->Size = System::Drawing::Size(129, 32);
+			this->resetBtm->Size = System::Drawing::Size(172, 39);
 			this->resetBtm->TabIndex = 30;
 			this->resetBtm->Text = L"Reset";
 			this->resetBtm->UseVisualStyleBackColor = true;
@@ -387,10 +380,10 @@ namespace graphdrawing {
 			// 
 			// startDijBox
 			// 
-			this->startDijBox->Location = System::Drawing::Point(22, 320);
-			this->startDijBox->Margin = System::Windows::Forms::Padding(2);
+			this->startDijBox->Location = System::Drawing::Point(29, 394);
+			this->startDijBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->startDijBox->Name = L"startDijBox";
-			this->startDijBox->Size = System::Drawing::Size(36, 20);
+			this->startDijBox->Size = System::Drawing::Size(47, 22);
 			this->startDijBox->TabIndex = 32;
 			// 
 			// startDijLbl
@@ -398,34 +391,47 @@ namespace graphdrawing {
 			this->startDijLbl->AutoSize = true;
 			this->startDijLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(204)));
-			this->startDijLbl->Location = System::Drawing::Point(26, 303);
-			this->startDijLbl->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->startDijLbl->Location = System::Drawing::Point(35, 373);
 			this->startDijLbl->Name = L"startDijLbl";
-			this->startDijLbl->Size = System::Drawing::Size(29, 13);
+			this->startDijLbl->Size = System::Drawing::Size(38, 17);
 			this->startDijLbl->TabIndex = 31;
 			this->startDijLbl->Text = L"Start";
 			// 
 			// QueueID
 			// 
 			this->QueueID->AutoSize = true;
-			this->QueueID->Location = System::Drawing::Point(19, 54);
+			this->QueueID->Location = System::Drawing::Point(61, 56);
+			this->QueueID->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->QueueID->Name = L"QueueID";
-			this->QueueID->Size = System::Drawing::Size(50, 13);
+			this->QueueID->Size = System::Drawing::Size(61, 16);
 			this->QueueID->TabIndex = 33;
 			this->QueueID->Text = L"QueueID";
 			// 
 			// queueIDBox
 			// 
-			this->queueIDBox->Location = System::Drawing::Point(78, 51);
+			this->queueIDBox->Location = System::Drawing::Point(12, 75);
+			this->queueIDBox->Margin = System::Windows::Forms::Padding(4);
 			this->queueIDBox->Name = L"queueIDBox";
-			this->queueIDBox->Size = System::Drawing::Size(51, 20);
+			this->queueIDBox->Size = System::Drawing::Size(67, 22);
 			this->queueIDBox->TabIndex = 34;
+			this->queueIDBox->Text = L"0";
+			// 
+			// queueOk
+			// 
+			this->queueOk->Location = System::Drawing::Point(115, 71);
+			this->queueOk->Name = L"queueOk";
+			this->queueOk->Size = System::Drawing::Size(69, 30);
+			this->queueOk->TabIndex = 35;
+			this->queueOk->Text = L"Apply";
+			this->queueOk->UseVisualStyleBackColor = true;
+			this->queueOk->Click += gcnew System::EventHandler(this, &Form1::queueOk_Click);
 			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(754, 545);
+			this->ClientSize = System::Drawing::Size(1005, 671);
+			this->Controls->Add(this->queueOk);
 			this->Controls->Add(this->queueIDBox);
 			this->Controls->Add(this->QueueID);
 			this->Controls->Add(this->startDijBox);
@@ -454,7 +460,7 @@ namespace graphdrawing {
 			this->Controls->Add(this->edgeLbl);
 			this->Controls->Add(this->verticesLbl);
 			this->Controls->Add(this->gViewer1);
-			this->Margin = System::Windows::Forms::Padding(2);
+			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"Form1";
 			this->Text = L"Graphs";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
@@ -906,6 +912,13 @@ namespace graphdrawing {
 				 gViewer1->Graph = g;
 			 }
 		
+	private: System::Void queueOk_Click(System::Object^  sender, System::EventArgs^  e) {
+				 createFile();
+				 System::String^ sourseGraph = "graph.txt";
+			 	 System::String^ pathToExec1 = "Kruskal_sample.exe";
+				 if (createProcFile(pathToExec1, sourseGraph))
+					 return;
+			 }
 };
 }
 

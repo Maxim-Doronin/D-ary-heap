@@ -18,7 +18,8 @@ int main(int argc, char **argv)
 			int minRange = atoi(argv[3]);
 			int maxRange = atoi(argv[4]);
 			fid = atoi(argv[5]);
-
+			if (fid > 2 || fid < 0)
+				return -3;
 			graph = new Graph(n, m);
 			graph->generateGraph(minRange, maxRange);
 		}
@@ -37,6 +38,8 @@ int main(int argc, char **argv)
 			input >> n;
 			input >> m;
 			input >> fid;
+			if (fid > 2 || fid < 0)
+				return -3;
 			graph = new Graph(n);
 			int N, K;
 			float weight;
