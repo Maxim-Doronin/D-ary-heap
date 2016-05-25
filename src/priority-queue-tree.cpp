@@ -33,8 +33,8 @@ void PriorityQueueTree::push(Data *&key)
 Data* PriorityQueueTree::pop()
 {
 	Node *tmp = tree->searchMin();
-	tree->pull(tmp);
-	return (Data*)tmp->data;
+	Node *returned = tree->pull(tmp);
+	return (Data*)returned->data;
 }
 
 int PriorityQueueTree::isFull()
