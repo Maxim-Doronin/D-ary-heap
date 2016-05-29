@@ -23,6 +23,9 @@ public:
 	virtual int insert(float key, void* data) = 0;
 	virtual int remove(float key) = 0;
 	virtual TabRecord* pull(float key) = 0;
+
+	virtual TabRecord* searchMin() = 0;
+	virtual TabRecord* searchMax() = 0;
 	
 	int isEmpty() const;
 	int isFull() const;
@@ -46,6 +49,12 @@ public:
 	virtual int insert(float key, void* data);
 	virtual int remove(float key);
 	virtual TabRecord* pull(float key);
+
+	virtual TabRecord* searchMin();
+	virtual TabRecord* searchMax();
+
+	virtual float getKey() const;
+	virtual void* getData() const;
 };
 
 class SortTable : public ScanTable {
@@ -57,4 +66,7 @@ public:
 	virtual int insert(float key, void* data);
 	virtual int remove(float key);
 	virtual TabRecord* pull(float key);
+
+	virtual TabRecord* searchMin();
+	virtual TabRecord* searchMax();
 };

@@ -75,3 +75,17 @@ TabRecord* SortTable::pull(float key)
 	count--;
 	return result;
 }
+
+TabRecord* SortTable::searchMin()
+{
+	if (isEmpty())
+		return 0;
+	return records[0];
+}
+
+TabRecord* SortTable::searchMin()
+{
+	if (isEmpty())
+		return 0;
+	return records[count - 1];
+}

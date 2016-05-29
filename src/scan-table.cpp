@@ -48,3 +48,35 @@ TabRecord* ScanTable::pull(float key)
 	count--;
 	return result;
 }
+
+TabRecord* ScanTable::searchMin()
+{
+	if (isEmpty())
+		return 0;
+	TabRecord* min = records[0];
+	for (int i = 0; i < count; i++)
+		if (records[i]->getKey() < min->getKey())
+			min = records[i];
+	return min;
+}
+
+TabRecord* ScanTable::searchMax()
+{
+	if (isEmpty())
+		return 0;
+	TabRecord* max = records[0];
+	for (int i = 0; i < count; i++)
+		if (records[i]->getKey() > max->getKey())
+			max = records[i];
+	return max;
+}
+
+float ScanTable::getKey() const
+{
+	return records[currentPosition]->getKey();
+}
+
+void* ScanTable::getData() const
+{
+	return records[currentPosition]->getData();
+}
