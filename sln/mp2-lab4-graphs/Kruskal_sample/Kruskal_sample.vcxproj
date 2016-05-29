@@ -56,7 +56,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d-ary-heap.lib;graph.lib;priority-queue.lib;separated-set.lib;Kruskal.lib;binary-search-tree.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>table.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,7 +76,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>../Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d-ary-heap.lib;graph.lib;priority-queue.lib;separated-set.lib;Kruskal.lib;binary-search-tree.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>table.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -97,6 +97,9 @@
     </ProjectReference>
     <ProjectReference Include="..\separated-set\separated-set.vcxproj">
       <Project>{aa86a993-665a-4fdb-9db6-c87d26755cff}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\table\table.vcxproj">
+      <Project>{8320bae2-19d1-42e5-830d-a6322d2f1f7a}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

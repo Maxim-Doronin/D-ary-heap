@@ -22,5 +22,8 @@
     <ClCompile Include="..\..\..\src\priority-queue-tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\priority-queue-table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

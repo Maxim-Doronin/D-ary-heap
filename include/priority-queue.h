@@ -84,5 +84,4 @@ public:
 		}
 		return queue;
 	}
-
 };

@@ -24,7 +24,8 @@ void PriorityQueueSortTable::push(Data *&key)
 Data* PriorityQueueSortTable::pop()
 {
 	TabRecord* min = table->searchMin();
-	table->pull(min->getKey());
+	TabRecord* result = table->pull(min->getKey());
+	return (Data*)result->getData();
 }
 
 int PriorityQueueSortTable::isFull()

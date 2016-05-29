@@ -1,6 +1,4 @@
 #include "table.h"
-#include <algorithm>
-#include <vector>
 
 SortTable::SortTable(int size) : ScanTable(size)
 {
@@ -83,7 +81,7 @@ TabRecord* SortTable::searchMin()
 	return records[0];
 }
 
-TabRecord* SortTable::searchMin()
+TabRecord* SortTable::searchMax()
 {
 	if (isEmpty())
 		return 0;
