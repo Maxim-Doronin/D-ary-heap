@@ -17,9 +17,12 @@ protected:
 	int currentPosition;
 public:
 	Table(int size);
+	virtual ~Table(){};
+
 	virtual TabRecord* search(float key) = 0;
 	virtual int insert(float key, void* data) = 0;
 	virtual int remove(float key) = 0;
+	virtual TabRecord* pull(float key) = 0;
 	
 	int isEmpty() const;
 	int isFull() const;
@@ -37,16 +40,21 @@ protected:
 	TabRecord** records;
 public:
 	ScanTable(int size);
+	virtual ~ScanTable();
+
+	virtual TabRecord* search(float key);
+	virtual int insert(float key, void* data);
+	virtual int remove(float key);
+	virtual TabRecord* pull(float key);
 };
 
 class SortTable : public ScanTable {
 public:
 	SortTable(int size);
-	SortTable(const ScanTable &st);
-protected:
-	void sort();
-public:
+	virtual ~SortTable(){};
+
 	virtual TabRecord* search(float key);
 	virtual int insert(float key, void* data);
 	virtual int remove(float key);
+	virtual TabRecord* pull(float key);
 };
