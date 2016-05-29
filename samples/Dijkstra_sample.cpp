@@ -11,13 +11,15 @@ int main(int argc, char **argv)
 	int n;
 	int m;
 	int s;
-	if (argc == 6)	{				//граф рандомный	
+	int fid;
+	if (argc == 7)	{				//граф рандомный	
 		try {
 			n = atoi(argv[1]);
 			m = atoi(argv[2]);
 			int minRange = atoi(argv[3]);
 			int maxRange = atoi(argv[4]);
-			s = atoi(argv[5]);
+			fid = atoi(argv[5]);
+			s = atoi(argv[6]);
 			graph = new Graph(n, m);
 			graph->generateGraph(minRange, maxRange);
 		}
@@ -35,6 +37,7 @@ int main(int argc, char **argv)
 		try {
 			input >> n;
 			input >> m;
+			input >> fid;
 			s = atoi(argv[2]);
 			graph = new Graph(n);
 			int N, K;

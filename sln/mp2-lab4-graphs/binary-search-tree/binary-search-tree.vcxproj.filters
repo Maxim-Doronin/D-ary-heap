@@ -14,12 +14,18 @@
     <ClInclude Include="..\..\..\include\binary-search-trees.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\AVL-trees.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\binary-search-trees.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\tree-turns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\AVL-trees.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

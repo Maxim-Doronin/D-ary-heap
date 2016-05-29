@@ -1,70 +1,93 @@
-#include "binary-search-trees.h"
+#include "AVL-Trees.h"
 
-int BinarySearchTree::depth(Node* node)
+int AVLTree::depth(AVLNode* node)
 {
 	if (!node)
-		return 0;
-	int l = depth(node->left);
-	int r = depth(node->right);
-	return r > l ? r : l;
+		return -1;
+	int l = depth((AVLNode*)node->left);
+	int r = depth((AVLNode*)node->right);
+	node->setBalance(l - r);
+	return r > l ? r+1 : l+1;
 }
 
-int BinarySearchTree::balanceDetection(Node *&node)
+int AVLTree::balanceDetection(AVLNode *node, int &dep)
 {
-	if (depth(node->left) > depth(node->right))
-		node->balance = -1;
-	else if (depth(node->left) < depth(node->right))
-		node->balance = 1;
-	else 
-		node->balance = 0;
-	return 0;
+	dep = depth(node);
+	return node->getBalance();
 }
 
-void BinarySearchTree::insertSingleRightTurn(Node *&node)
+int AVLTree::decisionOnBalancing(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->left;
-	Node *t1 = B->left;
-	Node *t2 = B->right;
-	Node *t3 = A->right;
+	if (!node)
+		return -1;
+	int dep;
+	char balance = balanceDetection(node, dep);
+	if (balance == 2)
+		if (((AVLNode*)node->left)->getBalance() > 0)
+			singleRightTurn(node);
+		else
+			doubleRightTurn(node);
+	if (balance == -2)
+		if (((AVLNode*)node->right)->getBalance() < 0)
+			singleLeftTurn(node);
+		else
+			doubleLeftTurn(node);
+	return dep;
+}
+
+int AVLTree::singleRightTurn(AVLNode *&node)
+{
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->left;
+	AVLNode *t1 = (AVLNode*)B->left;
+	AVLNode *t2 = (AVLNode*)B->right;
+	AVLNode *t3 = (AVLNode*)A->right;
 
 	A->left  = t2;
 	B->right = A;
 	B->parent = A->parent;
 	A->parent = B;
-	t2->parent = A;
+	if(t2) t2->parent = A;
 
-	A->balance = 0;
-	B->balance = 0;
+	int depA, depB;
+	balanceDetection(A, depA);
+	balanceDetection(B, depB);
+
 	node = B;
+	return depB;
 }
 
-void BinarySearchTree::insertSingleLeftTurn(Node *&node)
+int AVLTree::singleLeftTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->right;
-	Node *t1 = A->left;
-	Node *t2 = B->left;
-	Node *t3 = B->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->right;
+	AVLNode *t1 = (AVLNode*)A->left;
+	AVLNode *t2 = (AVLNode*)B->left;
+	AVLNode *t3 = (AVLNode*)B->right;
 
 	A->right = t2;
 	B->left = A;
 	B->parent = A->parent;
 	A->parent = B;
-	t2->parent = A;
+	if(t2) t2->parent = A;
+
+	int depA, depB;
+	balanceDetection(A, depA);
+	balanceDetection(B, depB);
 
 	node = B;
+	return depB;
 }
 
-void BinarySearchTree::insertDoubleRightTurn(Node *&node)
+int AVLTree::doubleRightTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->left;
-	Node *C  = B->right;
-	Node *t1 = B->left;
-	Node *t2 = C->left;
-	Node *t3 = C->right;
-	Node *t4 = A->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->left;
+	AVLNode *C  = (AVLNode*)B->right;
+	AVLNode *t1 = (AVLNode*)B->left;
+	AVLNode *t2 = (AVLNode*)C->left;
+	AVLNode *t3 = (AVLNode*)C->right;
+	AVLNode *t4 = (AVLNode*)A->right;
 
 	C->right = A;
 	C->left  = B;
@@ -73,21 +96,27 @@ void BinarySearchTree::insertDoubleRightTurn(Node *&node)
 	B->parent = C;
 	B->right = t2;
 	A->left = t3;
-	t2->parent = B;
-	t3->parent = A;
+	if(t2) t2->parent = B;
+	if(t3) t3->parent = A;
+
+	int depA, depB, depC;
+	balanceDetection(A, depA);
+	balanceDetection(B, depB);
+	balanceDetection(C, depC);
 
 	node = C;
+	return depC;
 }
 
-void BinarySearchTree::insertDoubleLeftTurn(Node *&node)
+int AVLTree::doubleLeftTurn(AVLNode *&node)
 {
-	Node *A  = node;
-	Node *B  = A->right;
-	Node *C  = B->left;
-	Node *t1 = A->left;
-	Node *t2 = C->left;
-	Node *t3 = C->right;
-	Node *t4 = B->right;
+	AVLNode *A  = node;
+	AVLNode *B  = (AVLNode*)A->right;
+	AVLNode *C  = (AVLNode*)B->left;
+	AVLNode *t1 = (AVLNode*)A->left;
+	AVLNode *t2 = (AVLNode*)C->left;
+	AVLNode *t3 = (AVLNode*)C->right;
+	AVLNode *t4 = (AVLNode*)B->right;
 
 	C->left = A;
 	C->right  = B;
@@ -96,8 +125,14 @@ void BinarySearchTree::insertDoubleLeftTurn(Node *&node)
 	B->parent = C;
 	B->left = t3;
 	A->right = t2;
-	t2->parent = A;
-	t3->parent = B;
+	if(t2) t2->parent = A;
+	if(t3) t3->parent = B;
+
+	int depA, depB, depC;
+	balanceDetection(A, depA);
+	balanceDetection(B, depB);
+	balanceDetection(C, depC);
 
 	node = C;
+	return depC;
 }

@@ -6,15 +6,16 @@ public:
 	Node* left;
 	Node* right;
 	Node* parent;
-	char balance;
+	void* data;
 };
 
 class BinarySearchTree {
-private:
+protected:
 	Node* root;
+	void recursiveDel(Node *node);
 public:
 	BinarySearchTree();
-	~BinarySearchTree();
+	virtual ~BinarySearchTree();
 
 	Node* searchMin(Node *node = 0);
 	Node* searchMax(Node *node = 0);
@@ -22,15 +23,9 @@ public:
 	Node* searchNext(Node *node);
 	Node* search(float key);
 
-	void insert(Node *node);
-	void remove(float key);
-	Node* pull(float key);
+	virtual void insert(Node *&node);
+	virtual void remove(float key);
+	virtual Node* pull(float key);
 
-private:
-	int balanceDetection(Node *&node);
-	int depth(Node *node);
-	void insertSingleRightTurn(Node *&node);
-	void insertSingleLeftTurn(Node *&node);
-	void insertDoubleRightTurn(Node *&node);
-	void insertDoubleLeftTurn(Node *&node);
+	int isEmpty() const;
 };

@@ -8,5 +8,5 @@ public:
 
 class Heapsort {
 public:
-	static void heapsort(int *&arr, int n, int d);
+	static void heapsort(float *&arr, int n, int d = 4);
 };

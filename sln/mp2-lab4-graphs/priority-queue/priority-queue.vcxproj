@@ -74,7 +74,9 @@
     <ClInclude Include="..\..\..\include\priority-queue.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\priority-queue.cpp" />
+    <ClCompile Include="..\..\..\src\priority-queue-heap.cpp" />
+    <ClCompile Include="..\..\..\src\priority-queue-table.cpp" />
+    <ClCompile Include="..\..\..\src\priority-queue-tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\d-ary-heap\d-ary-heap.vcxproj">

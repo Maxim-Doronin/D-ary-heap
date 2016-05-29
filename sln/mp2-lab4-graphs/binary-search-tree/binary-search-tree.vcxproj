@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\AVL-trees.h" />
     <ClInclude Include="..\..\..\include\binary-search-trees.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\AVL-trees.cpp" />
     <ClCompile Include="..\..\..\src\binary-search-trees.cpp" />
     <ClCompile Include="..\..\..\src\tree-turns.cpp" />
   </ItemGroup>

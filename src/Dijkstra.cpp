@@ -16,14 +16,16 @@ void Dijkstra::dijkstra(Graph *&graph, int s, float *&distance, int *&up)
 	Data** dist = new Data*[n];
 	up = new int[n];
 
+	PriorityQueue *queue = QueueFactory::createQueue(static_cast<QueueID>(0));
+
 	for (int i = 0; i < n; i++){
 		up[i] = i;
 		dist[i] = new DataFloat(i, FLT_MAX);
+		if (i == s)
+			dist[s]->priorities = 0;
+		queue->push(dist[i]);
 	}
-	dist[s]->priorities = 0;
-
-	PriorityQueue *queue = new PriorityQueue(dist, n, 4);
-
+	
 	Edge** edges = graph->getEdgeSet();
 	while (!queue->isEmpty())
 	{

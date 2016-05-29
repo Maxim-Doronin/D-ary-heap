@@ -13,7 +13,8 @@ TEST(KRUSKAL, algorithm_is_correct1)
 	g->addEdge(4, 5, 7);
 
 	bool flag = false;
-	Graph *tree = Kruskal::kruskal(g);
+	int isConnected;
+	Graph *tree = Kruskal::kruskal(g, isConnected, 0);
 	Edge** edges = tree->getEdgeSet();
 	if ((edges[0]->N == 1) && (edges[0]->K == 5) &&
 		(edges[1]->N == 3) && (edges[1]->K == 4) &&
@@ -38,7 +39,8 @@ TEST(KRUSKAL, algorithm_is_correct2)
 	g->addEdge(5, 3, 2);
 	
 	bool flag = true;
-	Graph *tree = Kruskal::kruskal(g);
+	int isConnected;
+	Graph *tree = Kruskal::kruskal(g, isConnected, 1);
 	Edge** edges = tree->getEdgeSet();
 	for (int i = 0; i < tree->getRealSize(); i++)
 		if (edges[i]->weight == 2)
@@ -66,7 +68,8 @@ TEST(KRUSKAL, algorithm_is_correct3)
 	g->addEdge(5, 6, 27);
 
 	int weightCount = 0;
-	Graph *tree = Kruskal::kruskal(g);
+	int isConnected;
+	Graph *tree = Kruskal::kruskal(g, isConnected, 0);
 	Edge** edges = tree->getEdgeSet();
 	for (int i = 0; i < tree->getRealSize(); i++)
 		weightCount += edges[i]->weight;
@@ -79,13 +82,15 @@ TEST(KRUSKAL, algorithm_is_correct3)
 TEST(KRUSKAL, throws_when_graph_has_no_vertices)
 {
 	Graph *g = new Graph(0);
-	ASSERT_ANY_THROW(Kruskal::kruskal(g));
+	int isConnected;
+	ASSERT_ANY_THROW(Kruskal::kruskal(g, isConnected, 1));
 }
 
 TEST(KRUSKAL, can_do_algorithm_when_there_is_no_edges)
 {
 	Graph *g = new Graph(5);
-	Graph *tree = Kruskal::kruskal(g);
+	int isConnected;
+	Graph *tree = Kruskal::kruskal(g, isConnected, 0);
 	EXPECT_EQ(tree->getRealSize(), 0);
 }
 
@@ -95,7 +100,8 @@ TEST(KRUSKAL, algorithm_doesnt_change_sourse_tree)
 	g->addEdge(1, 2, 10);
 	g->addEdge(2, 4, 80);
 	g->addEdge(1, 3, -10);
-	Graph *tree = Kruskal::kruskal(g);
+	int isConnected;
+	Graph *tree = Kruskal::kruskal(g, isConnected, 1);
 	EXPECT_EQ(tree->getRealSize(), 3);
 }
 	

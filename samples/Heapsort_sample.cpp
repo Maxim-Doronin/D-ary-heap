@@ -8,11 +8,17 @@ int main(int argc, char **argv)
 {
 	if (argc != 4) 
 		return 1;
-	int n = atoi(argv[1]);
-	int minRange = atoi(argv[2]);
-	int maxRange = atoi(argv[3]);
+	int n, minRange, maxRange;
+	try {
+		n = atoi(argv[1]);
+		minRange = atoi(argv[2]);
+		maxRange = atoi(argv[3]);
+	}
+	catch(...) {
+		return -1;
+	}
 
-	int *arr = new int[n];
+	float *arr = new float[n];
 	srand(time(NULL));
 	for (int i = 0; i < n; i++)
 		arr[i] = rand() % (maxRange - minRange) + minRange;
