@@ -1,10 +1,12 @@
 #pragma once
 #include "d-ary-heap.h"
 #include "AVL-Trees.h"
+#include "table.h"
 
 enum QueueID {
 	HEAP = 0,
-	AVLTREE = 1
+	AVLTREE = 1,
+	SORTTABLE = 2
 };
 
 class PriorityQueue {
@@ -52,6 +54,23 @@ public:
 	virtual int isEmpty();
 };
 
+class PriorityQueueSortTable : public PriorityQueue {
+protected: 
+	SortTable* table;
+public:
+	PriorityQueueSortTable();
+	PriorityQueueSortTable(int size);
+	~PriorityQueueSortTable();
+	
+	virtual void push(Data *&key);
+	virtual Data* pop();
+	virtual void refresh(){};
+
+	virtual int isFull();
+	virtual int isEmpty();
+
+};
+
 class QueueFactory {
 public:
 	static PriorityQueue* createQueue(QueueID qid)
@@ -61,8 +80,8 @@ public:
 		{
 		case 0: queue = new PriorityQueueHeap(); break;
 		case 1: queue = new PriorityQueueTree(); break;
+		case 2: queue = new PriorityQueueSortTable(); break;
 		}
 		return queue;
 	}
-
 };
