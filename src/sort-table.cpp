@@ -1,5 +1,6 @@
 #include "table.h"
-
+#include <iostream>
+using namespace std;
 SortTable::SortTable(int size) : ScanTable(size)
 {
 }
@@ -16,9 +17,9 @@ TabRecord* SortTable::search(float key)
 			return records[middle];
 		}
 		else if (records[middle]->getKey() > key)
-			end = middle;
+			end = middle - 1;
 		else
-			start = middle;
+			start = middle + 1;
 	}
 	return 0;
 }
@@ -38,7 +39,7 @@ int SortTable::insert(float key, void* data)
 		}
 		else if (records[middle]->getKey() > key){
 			end = middle - 1;
-			currentPosition = end;
+			currentPosition = middle;
 		}
 		else {
 			start = middle + 1;
@@ -47,9 +48,11 @@ int SortTable::insert(float key, void* data)
 	}
 	for (int i = count; i > currentPosition; i--)
 		records[i] = records[i-1];
-	delete records[currentPosition];
 	records[currentPosition] = new TabRecord(key, data);
 	count++;
+	for (int i = 0; i < count; i++)
+		cout << records[i]->getKey() << ' ';
+	cout << endl;
 	return 0;
 }
 

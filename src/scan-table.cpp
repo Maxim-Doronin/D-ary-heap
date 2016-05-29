@@ -3,6 +3,8 @@
 ScanTable::ScanTable(int size) : Table(size)
 {
 	records = new TabRecord*[size];
+	for (int i = 0; i < size; i++)
+		records[i] = 0;
 }
 
 ScanTable::~ScanTable()
