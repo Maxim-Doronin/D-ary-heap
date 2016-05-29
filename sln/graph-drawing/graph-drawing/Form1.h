@@ -73,6 +73,8 @@ namespace graphdrawing {
 	private: System::Windows::Forms::Label^  QueueID;
 	private: System::Windows::Forms::TextBox^  queueIDBox;
 	private: System::Windows::Forms::Button^  queueOk;
+	private: System::Windows::Forms::ToolTip^  queues;
+	private: System::ComponentModel::IContainer^  components;
 
 	protected: 
 
@@ -80,7 +82,7 @@ namespace graphdrawing {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -89,6 +91,7 @@ namespace graphdrawing {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->gViewer1 = (gcnew Microsoft::Glee::GraphViewerGdi::GViewer());
 			this->verticesLbl = (gcnew System::Windows::Forms::Label());
 			this->edgeLbl = (gcnew System::Windows::Forms::Label());
@@ -118,6 +121,7 @@ namespace graphdrawing {
 			this->QueueID = (gcnew System::Windows::Forms::Label());
 			this->queueIDBox = (gcnew System::Windows::Forms::TextBox());
 			this->queueOk = (gcnew System::Windows::Forms::Button());
+			this->queues = (gcnew System::Windows::Forms::ToolTip(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->verticesUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->edgesUpDown))->BeginInit();
 			this->SuspendLayout();
@@ -415,6 +419,7 @@ namespace graphdrawing {
 			this->queueIDBox->Size = System::Drawing::Size(67, 22);
 			this->queueIDBox->TabIndex = 34;
 			this->queueIDBox->Text = L"0";
+			this->queueIDBox->MouseHover += gcnew System::EventHandler(this, &Form1::queueIDBox_MouseHover);
 			// 
 			// queueOk
 			// 
@@ -919,6 +924,9 @@ namespace graphdrawing {
 				 if (createProcFile(pathToExec1, sourseGraph))
 					 return;
 			 }
+	private: System::Void queueIDBox_MouseHover(System::Object^  sender, System::EventArgs^  e) {
+				 queues->SetToolTip(this->queueIDBox, "0 - D-ary-heap\n1 - AVL-tree\n2 - Sort-table\n*available to Kruscal*");
+		 }
 };
 }
 
