@@ -119,7 +119,7 @@ Node* AVLTree::recursiveRem(AVLNode *&localRoot, float key)
 		}
 		else {
 			Node *next = searchNext(localRoot);
-			pull(next);
+			recursiveRem((AVLNode*&)localRoot->right, next->key);
 			Node *killed = localRoot;
 			next->left = localRoot->left;
 			if (next->left)
